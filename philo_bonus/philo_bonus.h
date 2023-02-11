@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <pthread.h>
-# include <signals.h>
+# include <signal.h>
 # include <sys/time.h>
 # include <semaphore.h>
 
