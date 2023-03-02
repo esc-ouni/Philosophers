@@ -14,5 +14,7 @@
 
 int	main()
 {
+	tec:w!
+	
 	return (0);
 }
