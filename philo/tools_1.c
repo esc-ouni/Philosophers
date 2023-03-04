@@ -50,7 +50,7 @@ int	ft_atoi(char *str)
 	while ((str[i] == 45 || str[i] == 43))
 	{
 		if (str[i] == 45)
-			s *= -1;
+			ft_exit_with_error();
 		i++;
 		if ((str[i] < 48 || str[i] > 57))
 			ft_exit_with_error();

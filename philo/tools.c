@@ -17,6 +17,10 @@ t_data  ft_parse(t_data data, int argc, char **argv)
     (void)argv;
     if (argc < 5 || argc > 6)
         ft_exit_with_error();
+    data.n_of_philos = ft_atoi(argv[1]);
+    data.t_to_die = ft_atoi(argv[2]);
+    data.t_to_eat = ft_atoi(argv[3]);
+    data.t_to_sleep = ft_atoi(argv[4]);
     if (argc == 5)
         data.n_of_meals = -1;
     else
