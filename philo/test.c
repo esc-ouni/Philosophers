@@ -15,15 +15,13 @@ void	*NULL2()
 {
 	printf("thread dos\n");
 	printf("bye dos\n\n");
-	pthread_join(thread, NULL);
     return (0);
 }
 
 void	*NULL3()
 {
-	printf("hread trs\n");
+	printf("thread trs\n");
 	printf("bye trs\n\n");
-	pthread_join(thread1, NULL);
     return (0);
 }
 
@@ -34,6 +32,8 @@ int	main()
 	pthread_create(&thread1, NULL, (void *)NULL2, NULL);
 	pthread_create(&thread2, NULL, (void *)NULL3, NULL);
 
+	pthread_join(thread, NULL);
+	pthread_join(thread1, NULL);
 	pthread_join(thread2, NULL);
 
 	// pthread_exit(NULL);
