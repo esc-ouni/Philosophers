@@ -11,3 +11,63 @@
 /* ************************************************************************** */
 
 #include "philo.h"
+
+char	*check(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[0] == 45 || str[0] == 43 || str[0] == 48)
+		i++;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			ft_exit_with_error();
+		i++;
+	}
+	return (str);
+}
+
+long long	check_l(long long nb, int s)
+{
+	if (nb > 2147483647 && s == 1)
+		ft_exit_with_error();
+	else if (nb > 2147483648 && s == -1)
+		ft_exit_with_error();
+	return (nb);
+}
+
+int	ft_atoi(char *str)
+{
+	int				i;
+	long long		r;
+	int				s;
+
+	s = 1;
+	r = 0;
+	i = 0;
+	str = check(str);
+	while ((str[i] == 45 || str[i] == 43))
+	{
+		if (str[i] == 45)
+			s *= -1;
+		i++;
+		if ((str[i] < 48 || str[i] > 57))
+			ft_exit_with_error();
+	}
+	while (str[i] >= 48 && str[i] <= 57)
+	{
+		r = r * 10 + (str[i] - 48);
+		r = check_l(r, s);
+		i++;
+	}
+	return (r * s);
+}
+
+int	ft_isdigit(int c)
+{
+	if (c <= 57 && c >= 48)
+		return (1);
+	else
+		return (0);
+}

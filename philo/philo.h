@@ -32,6 +32,8 @@ typedef struct s_data
 }   t_data;
 
 t_data  ft_parse(t_data data, int argc, char **args);
+int     ft_atoi(char *str);
+int     ft_isdigit(int c);
 void    ft_exit();
 void    ft_exit_with_error();
 

@@ -20,7 +20,7 @@ t_data  ft_parse(t_data data, int argc, char **argv)
     if (argc == 5)
         data.n_of_meals = -1;
     else
-        data.n_of_meals = atoi(argv[5]);
+        data.n_of_meals = ft_atoi(argv[5]);
     printf("okay n of meals %d\n", data.n_of_meals);
     exit(0);
     return (data);
