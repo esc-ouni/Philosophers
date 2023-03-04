@@ -25,6 +25,10 @@ t_data  ft_parse(t_data data, int argc, char **argv)
         data.n_of_meals = -1;
     else
         data.n_of_meals = ft_atoi(argv[5]);
+    printf("okay data.n_of_philos %d\n", data.n_of_philos);
+    printf("okay data.t_to_die %d\n", data.t_to_die);
+    printf("okay data.t_to_eat %d\n", data.t_to_eat);
+    printf("okay data.t_to_sleep %d\n", data.t_to_sleep);
     printf("okay n of meals %d\n", data.n_of_meals);
     exit(0);
     return (data);

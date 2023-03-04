@@ -22,6 +22,8 @@
 # include <sys/time.h>
 # include <semaphore.h>
 
+
+
 typedef struct s_data
 {
     int n_of_philos;
