@@ -13,6 +13,7 @@
 #ifndef PHILO_H
 # define PHILO_H
 
+
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
@@ -20,5 +21,19 @@
 # include <signal.h>
 # include <sys/time.h>
 # include <semaphore.h>
+
+typedef struct s_data
+{
+    int n_of_philos;
+    int t_to_die;
+    int t_to_eat;
+    int t_to_sleep;
+    int n_of_meals;
+}   t_data;
+
+t_data  ft_parse(t_data data, int argc, char **args);
+void    ft_exit();
+void    ft_exit_with_error();
+
 
 #endif
