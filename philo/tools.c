@@ -25,12 +25,6 @@ t_data  ft_parse(t_data data, int argc, char **argv)
         data.n_of_meals = -1;
     else
         data.n_of_meals = ft_atoi(argv[5]);
-    printf("okay data.n_of_philos %d\n", data.n_of_philos);
-    printf("okay data.t_to_die %d\n", data.t_to_die);
-    printf("okay data.t_to_eat %d\n", data.t_to_eat);
-    printf("okay data.t_to_sleep %d\n", data.t_to_sleep);
-    printf("okay n of meals %d\n", data.n_of_meals);
-    exit(0);
     return (data);
 }
 
@@ -41,6 +35,9 @@ void    ft_exit()
 
 void    ft_exit_with_error()
 {
-    printf("errorrn\n");
+    printf("==Hint=====================\n");
+    printf("Program need at least 4 arguments specefied like this:\n");
+    printf("Number_of_philos Time_to_die time_to_eat Time_to_sleep ");
+    printf("Number_of_meals(opptional)\n");
     exit(1);
 }
