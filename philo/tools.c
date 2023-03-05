@@ -12,20 +12,20 @@
 
 #include "philo.h"
 
-t_data  ft_parse(t_data data, int argc, char **argv)
+t_params ft_parse(t_params params, int argc, char **argv)
 {
     (void)argv;
     if (argc < 5 || argc > 6)
         ft_exit_with_error();
-    data.n_of_philos = ft_atoi(argv[1]);
-    data.t_to_die = ft_atoi(argv[2]);
-    data.t_to_eat = ft_atoi(argv[3]);
-    data.t_to_sleep = ft_atoi(argv[4]);
+    params.n_of_philos = ft_atoi(argv[1]);
+    params.t_to_die = ft_atoi(argv[2]);
+    params.t_to_eat = ft_atoi(argv[3]);
+    params.t_to_sleep = ft_atoi(argv[4]);
     if (argc == 5)
-        data.n_of_meals = -1;
+        params.n_of_meals = -1;
     else
-        data.n_of_meals = ft_atoi(argv[5]);
-    return (data);
+        params.n_of_meals = ft_atoi(argv[5]);
+    return (params);
 }
 
 void    ft_exit()
@@ -35,7 +35,7 @@ void    ft_exit()
 
 void    ft_exit_with_error()
 {
-    printf("==Hint=====================\n");
+    printf("==HINT=====================\n");
     printf("Program need at least 4 arguments specefied like this:\n");
     printf("Number_of_philos Time_to_die time_to_eat Time_to_sleep ");
     printf("Number_of_meals(opptional)\n");

@@ -14,9 +14,9 @@
 
 int	main(int argc, char *argv[])
 {
-	t_data	data;
+	t_params	params;
 
-	data.n_of_philos = 0;
-	data = ft_parse(data, argc, argv);
+	params.n_of_philos = 0;
+	params = ft_parse(params, argc, argv);
 	return (0);
 }

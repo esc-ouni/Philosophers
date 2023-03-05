@@ -24,21 +24,22 @@
 
 typedef struct s_list
 {
-	pthread_t       thread;
+	pthread_t       philosopher;
+    int             philo_id;
 	struct s_list	*next;
 	struct s_list	*previous;
 }				t_list;
 
-typedef struct s_data
+typedef struct s_params
 {
     int n_of_philos;
     int t_to_die;
     int t_to_eat;
     int t_to_sleep;
     int n_of_meals;
-}   t_data;
+}   t_params;
 
-t_data  ft_parse(t_data data, int argc, char **args);
+t_params  ft_parse(t_params params, int argc, char **args);
 int     ft_atoi(char *str);
 int     ft_isdigit(int c);
 void    ft_exit();
