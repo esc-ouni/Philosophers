@@ -47,6 +47,7 @@ typedef struct s_params
     int n_of_meals;
 }   t_params;
 
+void    create_philos(int n_of_philos);
 t_list  philosopher_state(t_list *node);
 void    tracker(t_list *node);
 t_params  ft_parse(t_params params, int argc, char **args);

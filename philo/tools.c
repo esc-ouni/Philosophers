@@ -42,6 +42,23 @@ void    ft_exit_with_error()
     exit(1);
 }
 
+void    state(void *arg)
+{
+
+}
+
+void    create_philos(int n_of_philos)
+{
+    pthread_t ph[n_of_philos + 1];
+    int i;
+
+    i = 0;
+    while (i <= n_of_philos)
+    {
+        pthread_create(ph[i], NULL, (void *)state, NULL);
+    }
+}
+
 void    tracker(t_list *node)
 {
     char s1[9] = "eating";

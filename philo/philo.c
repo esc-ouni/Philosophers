@@ -18,5 +18,6 @@ int	main(int argc, char *argv[])
 
 	params.n_of_philos = 0;
 	params = ft_parse(params, argc, argv);
+	create_philos(params.n_of_philos);
 	return (0);
 }
