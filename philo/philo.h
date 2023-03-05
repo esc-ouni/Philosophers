@@ -13,6 +13,10 @@
 #ifndef PHILO_H
 # define PHILO_H
 
+# define EATING 1
+# define SLEEPING 2 
+# define THINKIG 3
+# define DEATH 4
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -26,6 +30,10 @@ typedef struct s_list
 {
 	pthread_t       philosopher;
     int             philo_id;
+    int             fork;
+    int             time_life;
+    int             old_state;
+    int             actual_state;
 	struct s_list	*next;
 	struct s_list	*previous;
 }				t_list;
@@ -39,6 +47,8 @@ typedef struct s_params
     int n_of_meals;
 }   t_params;
 
+t_list  philosopher_state(t_list *node);
+void    tracker(t_list *node);
 t_params  ft_parse(t_params params, int argc, char **args);
 int     ft_atoi(char *str);
 int     ft_isdigit(int c);

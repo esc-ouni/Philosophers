@@ -41,3 +41,32 @@ void    ft_exit_with_error()
     printf("Number_of_meals(opptional)\n");
     exit(1);
 }
+
+void    tracker(t_list *node)
+{
+    char s1[9] = "eating";
+    char s2[9] = "thinking";
+    char s3[9] = "sleeping";
+    char s4[5] = "died";
+
+    if (node->actual_state == 4)
+    {
+        printf("philosopher %d is %s\n", node->philo_id ,s4);
+        exit(0);
+    }
+    if (node->old_state != node->actual_state && node->actual_state > 0)
+    {
+        if (node->actual_state == EATING)
+            printf("philosopher %d is %s\n", node->philo_id ,s1);
+        else if (node->actual_state == SLEEPING)
+            printf("philosopher %d is %s\n", node->philo_id ,s3);
+        else if (node->actual_state == THINKIG)
+            printf("philosopher %d is %s\n", node->philo_id ,s2);
+    }
+}
+
+// t_list  philosopher_state(t_list *node)
+// {
+//     if 
+//     return (node);
+// }
