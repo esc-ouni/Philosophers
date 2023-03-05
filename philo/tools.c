@@ -59,8 +59,9 @@ void    state(void *arg)
 
 void    create_philos(int n_of_philos)
 {
-    pthread_t ph[n_of_philos + 1];
+    pthread_t *ph;
     int i;
+    ph = (pthread_t *)malloc(sizeof(pthread_t) * (n_of_philos + 1));
 
     i = 0;
     while (i <= n_of_philos)
