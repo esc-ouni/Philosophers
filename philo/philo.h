@@ -22,7 +22,12 @@
 # include <sys/time.h>
 # include <semaphore.h>
 
-
+typedef struct s_list
+{
+	pthread_t       thread;
+	struct s_list	*next;
+	struct s_list	*previous;
+}				t_list;
 
 typedef struct s_data
 {
