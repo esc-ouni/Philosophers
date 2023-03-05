@@ -22,7 +22,9 @@ HR     = philo.h
 
 MND    = philo.c
 
-TLS    = tools.c \
+TLS    = lists.c \
+		lists2.c \
+		tools.c \
 		tools_1.c
 
 OBJ_M  = $(MND:%.c=%.o)

@@ -28,6 +28,16 @@ t_params ft_parse(t_params params, int argc, char **argv)
     return (params);
 }
 
+void	*h_malloc(t_data data, size_t s, void *p)
+{
+	p = malloc(s);
+	if (!p)
+	{
+		ft_exit_with_error();
+	}
+	return (p);
+}
+
 void    ft_exit()
 {
     exit(0);
