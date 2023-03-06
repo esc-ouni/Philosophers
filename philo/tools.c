@@ -12,7 +12,15 @@
 
 #include "philo.h"
 
-int p = 1;
+int k = 1;
+
+time_t	p;
+time_t	p1;
+struct timezone tzp;
+struct timeval tp;
+
+gettimeofday(&tp, &tzp);
+p = tp.tv_sec;
 
 t_params ft_parse(t_params params, int argc, char **argv)
 {
@@ -59,9 +67,12 @@ void    ft_exit_with_error()
 void    state(void *arg)
 {
     (void)arg;
+
+    gettimeofday(&tp, &tzp);
+    p1 = tp.tv_sec - p;
     // t_list *n = (t_list *)arg;
-    printf("%dms philosopher %d is there\n", p);
-    p++;
+    printf("%lums philosopher %d is there\n",p1,  k);
+    k++;
 }
 
 void    create_philos(int n_of_philos)
