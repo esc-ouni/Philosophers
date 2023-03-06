@@ -54,10 +54,11 @@ void    ft_exit_with_error()
     exit(1);
 }
 
-// void    state(void *arg)
-// {
-
-// }
+void    state(void *arg)
+{
+    t_list *n = (t_list *)arg;
+    printf("philosopher %d is there\n", n->philo_id);
+}
 
 void    create_philos(int n_of_philos)
 {
@@ -68,8 +69,9 @@ void    create_philos(int n_of_philos)
     i = 0;
     while (i <= n_of_philos)
     {
-        pthread_create(&ph[i], NULL, (void *)tracker, NULL);
-        // ft_lstadd_back(t_list **lst, t_list *new);
+        pthread_create(&ph[i], NULL, (void *)state, NULL);
+
+        i++;
     }
 }
 

@@ -63,6 +63,9 @@ int     ft_atoi(char *str);
 int     ft_isdigit(int c);
 void    ft_exit();
 void    ft_exit_with_error();
-
+t_list	*ft_lstnew(t_data data);
+t_list	*ft_lstlast(t_list *lst);
+void	ft_lstclear(t_list **lst);
+void	ft_lstadd_back(t_data data, t_list **lst, t_list *new);
 
 #endif
