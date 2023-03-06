@@ -26,17 +26,23 @@
 # include <sys/time.h>
 # include <semaphore.h>
 
+
 typedef struct s_list
 {
 	pthread_t       philosopher;
     int             philo_id;
     int             fork;
     int             time_life;
-    int             old_state;
     int             actual_state;
+    int             old_state;
 	struct s_list	*next;
 	struct s_list	*previous;
 }				t_list;
+
+typedef struct s_data
+{
+    t_list  *head;
+}   t_data;
 
 typedef struct s_params
 {
@@ -49,7 +55,8 @@ typedef struct s_params
 
 void    create_philos(int n_of_philos);
 t_list  philosopher_state(t_list *node);
-void	*h_malloc(size_t s, void *p);
+// void	*h_malloc(size_t s, void *p);
+void	*h_malloc(t_data data, size_t s, void *p);
 void    tracker(t_list *node);
 t_params  ft_parse(t_params params, int argc, char **args);
 int     ft_atoi(char *str);

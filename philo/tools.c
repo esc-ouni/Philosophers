@@ -28,7 +28,7 @@ t_params ft_parse(t_params params, int argc, char **argv)
     return (params);
 }
 
-void	*h_malloc(size_t s, void *p)
+void	*h_malloc(t_data data, size_t s, void *p)
 {
 	p = malloc(s);
 	if (!p)
@@ -66,9 +66,8 @@ void    create_philos(int n_of_philos)
     i = 0;
     while (i <= n_of_philos)
     {
-        ft_lstadd_back(t_list **lst, t_list *new);
         pthread_create(ph[i], NULL, (void *)state, NULL);
-        ft_lstnew();
+        ft_lstadd_back(t_list **lst, t_list *new);
     }
 }
 
