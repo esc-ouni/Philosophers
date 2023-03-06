@@ -60,7 +60,7 @@ void    state(void *arg)
 {
     (void)arg;
     // t_list *n = (t_list *)arg;
-    printf("philosopher %d is there\n", p);
+    printf("%dms philosopher %d is there\n", p);
     p++;
 }
 
