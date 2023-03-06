@@ -12,6 +12,8 @@
 
 #include "philo.h"
 
+int p = 1;
+
 t_params ft_parse(t_params params, int argc, char **argv)
 {
     (void)argv;
@@ -56,21 +58,23 @@ void    ft_exit_with_error()
 
 void    state(void *arg)
 {
-    t_list *n = (t_list *)arg;
-    printf("philosopher %d is there\n", n->philo_id);
+    (void)arg;
+    // t_list *n = (t_list *)arg;
+    printf("philosopher %d is there\n", p);
+    p++;
 }
 
 void    create_philos(int n_of_philos)
 {
-    pthread_t *ph;
+    pthread_t ph[10000];
     int i;
 
-    ph = (pthread_t *)malloc(sizeof(pthread_t) * (n_of_philos + 1));
+    // ph = (pthread_t *)malloc(sizeof(pthread_t) * (n_of_philos + 1));
     i = 0;
-    while (i <= n_of_philos)
+    while (i < n_of_philos)
     {
         pthread_create(&ph[i], NULL, (void *)state, NULL);
-
+        pthread_join(ph[i], NULL);
         i++;
     }
 }
