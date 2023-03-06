@@ -10,20 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "philo.h"
 
-int	ft_lstsize(t_list *lst)
-{
-	size_t	i;
+// int	ft_lstsize(t_list *lst)
+// {
+// 	size_t	i;
 
-	i = 0;
-	while (lst)
-	{
-		lst = lst->next;
-		i++;
-	}
-	return (i);
-}
+// 	i = 0;
+// 	while (lst)
+// 	{
+// 		lst = lst->next;
+// 		i++;
+// 	}
+// 	return (i);
+// }
 
 t_list	*ft_lstnew(t_data data, int content)
 {
@@ -52,12 +52,4 @@ t_list	*ft_lstlast(t_list *lst)
 		lst = lst->next;
 	}
 	return (node);
-}
-
-void	ft_lstadd_front(t_list **lst, t_list *new)
-{
-	if (lst == NULL || new == NULL)
-		return ;
-	new->next = *lst;
-	*lst = new;
 }
