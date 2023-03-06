@@ -12,20 +12,7 @@
 
 #include "philo.h"
 
-// int	ft_lstsize(t_list *lst)
-// {
-// 	size_t	i;
-
-// 	i = 0;
-// 	while (lst)
-// 	{
-// 		lst = lst->next;
-// 		i++;
-// 	}
-// 	return (i);
-// }
-
-t_list	*ft_lstnew(t_data data, int content)
+t_list	*ft_lstnew(t_data data)
 {
 	t_list	*new_node;
 
@@ -33,8 +20,8 @@ t_list	*ft_lstnew(t_data data, int content)
 	new_node = (t_list *)h_malloc(data, sizeof(t_list), new_node);
 	if (new_node)
 	{
-		new_node->content = content;
 		new_node->next = NULL;
+		new_node->previous = NULL;
 	}
 	return (new_node);
 }
@@ -52,4 +39,42 @@ t_list	*ft_lstlast(t_list *lst)
 		lst = lst->next;
 	}
 	return (node);
+}
+
+void	ft_lstadd_back(t_data data, t_list **lst, t_list *new)
+{
+	t_list	*o_last;
+
+	if (new == NULL)
+	{
+		new = ft_lstnew(data);
+		return ;
+	}
+	if (*lst == NULL)
+	{
+		*lst = new;
+		new->next = NULL;
+		return ;
+	}
+	o_last = ft_lstlast(*lst);
+	o_last->next = new;
+	new->next = NULL;
+	new->previous = o_last;
+}
+
+void	ft_lstclear(t_list **lst)
+{
+	t_list	*node;
+	t_list	*n_node;
+
+	if (!lst)
+		return ;
+	node = *lst;
+	while (node)
+	{
+		n_node = node->next;
+		free(node);
+		node = n_node;
+	}
+	*lst = NULL;
 }
