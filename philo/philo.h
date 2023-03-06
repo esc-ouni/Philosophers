@@ -31,12 +31,11 @@ typedef struct s_list
 {
 	pthread_t       philosopher;
     int             philo_id;
-    int             fork;
+    int             lef_fork;
     int             time_life;
     int             actual_state;
     int             old_state;
 	struct s_list	*next;
-	struct s_list	*previous;
 }				t_list;
 
 typedef struct s_data
