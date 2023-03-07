@@ -15,10 +15,11 @@
 int	main(int argc, char *argv[])
 {
 	t_params	params;
-	// t_data	data;
+	t_data	data;
 
+	data.head = NULL;
 	params.n_of_philos = 0;
-	params = ft_parse(params, argc, argv);
-	create_philos(params.n_of_philos);
+	params = ft_parse(data, params, argc, argv);
+	create_philos(data, params.n_of_philos);
 	return (0);
 }

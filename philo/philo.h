@@ -52,15 +52,14 @@ typedef struct s_params
     int n_of_meals;
 }   t_params;
 
-void    create_philos(int n_of_philos);
+t_data   create_philos(t_data data, int n_of_philos);
 t_list  philosopher_state(t_list *node);
 void	*h_malloc(t_data data, size_t s, void *p);
 void    tracker(t_list *node);
-t_params  ft_parse(t_params params, int argc, char **args);
-int     ft_atoi(char *str);
+t_params ft_parse(t_data data, t_params params, int argc, char **argv);
+int     ft_atoi(t_data data, char *str);
 int     ft_isdigit(int c);
-void    ft_exit();
-void    ft_exit_with_error();
+void    ft_exit_with_error(t_data data);
 t_list	*ft_lstnew(t_data data);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstclear(t_list **lst);

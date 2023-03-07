@@ -19,22 +19,22 @@ int k = 1;
 // struct timezone tzp;
 // struct timeval tp;
 
-gettimeofday(&tp, &tzp);
-p = tp.tv_sec;
+// gettimeofday(&tp, &tzp);
+// p = tp.tv_sec;
 
-t_params ft_parse(t_params params, int argc, char **argv)
+t_params ft_parse(t_data data, t_params params, int argc, char **argv)
 {
     (void)argv;
     if (argc < 5 || argc > 6)
-        ft_exit_with_error();
-    params.n_of_philos = ft_atoi(argv[1]);
-    params.t_to_die = ft_atoi(argv[2]);
-    params.t_to_eat = ft_atoi(argv[3]);
-    params.t_to_sleep = ft_atoi(argv[4]);
+        ft_exit_with_error(data);
+    params.n_of_philos = ft_atoi(data, argv[1]);
+    params.t_to_die = ft_atoi(data, argv[2]);
+    params.t_to_eat = ft_atoi(data, argv[3]);
+    params.t_to_sleep = ft_atoi(data, argv[4]);
     if (argc == 5)
         params.n_of_meals = -1;
     else
-        params.n_of_meals = ft_atoi(argv[5]);
+        params.n_of_meals = ft_atoi(data, argv[5]);
     return (params);
 }
 
@@ -64,7 +64,7 @@ void    state(void *arg)
     // gettimeofday(&tp, &tzp);
     // p1 = tp.tv_sec - p;
     // t_list *n = (t_list *)arg;
-    printf("%lums philosopher %d is there\n",  k);
+    printf("ms philosopher %d is there\n",  k);
     k++;
 }
 
@@ -73,14 +73,20 @@ t_data   create_philos(t_data data, int n_of_philos)
     pthread_t *ph;
     int i;
 
-    ph = (pthread_t *)h_malloc(data, sizeof(pthread_t) * (n_of_philos + 1));
+    ph = NULL;
+    ph = (pthread_t *)h_malloc(data, sizeof(pthread_t) * (n_of_philos + 1), ph);
     i = 0;
+    if (!data.head)
+    {
+        data.head = ft_lstnew(data);
+    }
     while (i < n_of_philos)
     {
         pthread_create(&ph[i], NULL, (void *)state, NULL);
         pthread_join(ph[i], NULL);
         i++;
     }
+    return (data);
 }
 
 void    tracker(t_list *node)
@@ -119,7 +125,7 @@ void	*h_malloc(t_data data, size_t s, void *p)
 	p = malloc(s);
 	if (!p)
 	{
-		ft_exit_with_error();
+		ft_exit_with_error(data);
 	}
 	return (p);
 }
