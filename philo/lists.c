@@ -22,7 +22,6 @@ t_list	*ft_lstnew(t_data data)
 	if (new_node)
 	{
 		new_node->next = NULL;
-		new_node->previous = NULL;
 	}
 	return (new_node);
 }
@@ -60,7 +59,6 @@ void	ft_lstadd_back(t_data data, t_list **lst, t_list *new)
 	o_last = ft_lstlast(*lst);
 	o_last->next = new;
 	new->next = NULL;
-	new->previous = o_last;
 }
 
 void	ft_lstclear(t_list **lst)

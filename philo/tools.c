@@ -38,25 +38,18 @@ t_params ft_parse(t_params params, int argc, char **argv)
     return (params);
 }
 
-void	*h_malloc(t_data data, size_t s, void *p)
-{
-    (void)data;
-
-	p = malloc(s);
-	if (!p)
-	{
-		ft_exit_with_error();
-	}
-	return (p);
-}
 
 void    ft_exit()
 {
+    if (data.head)
+        ft_lstclear(&data.head);
     exit(0);
 }
 
-void    ft_exit_with_error()
+void    ft_exit_with_error(t_data data)
 {
+    if (data.head)
+        ft_lstclear(&data.head);
     printf("==HINT=====================\n");
     printf("Program need at least 4 arguments specefied like this:\n");
     printf("Number_of_philos Time_to_die time_to_eat Time_to_sleep ");
@@ -118,3 +111,15 @@ void    tracker(t_list *node)
 //     if 
 //     return (node);
 // }
+
+void	*h_malloc(t_data data, size_t s, void *p)
+{
+    (void)data;
+
+	p = malloc(s);
+	if (!p)
+	{
+		ft_exit_with_error();
+	}
+	return (p);
+}

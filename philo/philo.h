@@ -54,7 +54,6 @@ typedef struct s_params
 
 void    create_philos(int n_of_philos);
 t_list  philosopher_state(t_list *node);
-// void	*h_malloc(size_t s, void *p);
 void	*h_malloc(t_data data, size_t s, void *p);
 void    tracker(t_list *node);
 t_params  ft_parse(t_params params, int argc, char **args);
