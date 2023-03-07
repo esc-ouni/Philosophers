@@ -96,6 +96,7 @@ t_data   create_philos(t_data data, int n_of_philos)
         n = n->next;
         i++;
     }
+    free(ph);
     return (data);
 }
 
