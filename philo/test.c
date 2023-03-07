@@ -31,7 +31,7 @@
 // 		printf(" ##%d\n\n", p);
 // 		sleep(1);
 // 	}
-// 	// pthread_exit(NULL);
+	// pthread_exit(NULL);
 // 	// while (1)
 // 	// {
 // 	// 	printf("hello\n");
