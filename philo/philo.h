@@ -14,7 +14,7 @@
 # define PHILO_H
 
 # define EATING 1
-# define SLEEPING 2 
+# define SLEEPING 2
 # define THINKIG 3
 # define DEATH 4
 
