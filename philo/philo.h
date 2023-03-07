@@ -18,6 +18,7 @@
 # define THINKIG 3
 # define DEATH 4
 
+# include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
@@ -53,7 +54,7 @@ typedef struct s_params
 }   t_params;
 
 t_data   create_philos(t_data data, int n_of_philos);
-t_list  philosopher_state(t_list *node);
+// t_list  philosopher_state(t_list *node);
 void	*h_malloc(t_data data, size_t s, void *p);
 void    tracker(t_list *node);
 t_params ft_parse(t_data data, t_params params, int argc, char **argv);

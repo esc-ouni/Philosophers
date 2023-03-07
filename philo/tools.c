@@ -12,16 +12,6 @@
 
 #include "philo.h"
 
-int k = 1;
-
-// time_t	p;
-// time_t	p1;
-// struct timezone tzp;
-// struct timeval tp;
-
-// gettimeofday(&tp, &tzp);
-// p = tp.tv_sec;
-
 t_params ft_parse(t_data data, t_params params, int argc, char **argv)
 {
     (void)argv;
@@ -59,20 +49,28 @@ void    ft_exit_with_error(t_data data)
 
 void    state(void *arg)
 {
-    int n = *(int *)arg;
+    struct timeval    tp;
+    struct timezone    tzp;
+    suseconds_t n = *(suseconds_t *)arg;
+    suseconds_t              t;
 
-    // gettimeofday(&tp, &tzp);
-    // p1 = tp.tv_sec - p;
-    // t_list *n = (t_list *)arg;
-    printf("ms philosopher %d is there\n", n);
+    gettimeofday(&tp, &tzp);
+    t = (tp.tv_usec - n) / 1000;
+    printf("%dms philosopher created\n", t);
+    usleep(3000);
 }
 
 t_data   create_philos(t_data data, int n_of_philos)
 {
+    struct timeval    tp;
+    struct timezone    tzp;
+    suseconds_t         t;
     pthread_t *ph;
     t_list  *n;
     int i;
 
+    gettimeofday(&tp, &tzp);
+    t = tp.tv_usec / 1000;
     ph = NULL;
     ph = (pthread_t *)h_malloc(data, sizeof(pthread_t) * (n_of_philos + 1), ph);
     i = 0;
@@ -80,7 +78,7 @@ t_data   create_philos(t_data data, int n_of_philos)
     {
         data.head = ft_lstnew(data);
         data.head->philo_id = i + 1;
-        pthread_create(&ph[i], NULL, (void *)state, &data.head->philo_id);
+        pthread_create(&ph[i], NULL, (void *)state, &t);
         pthread_join(ph[i], NULL);
         data.head->philosopher = ph[i];
     }
@@ -90,7 +88,7 @@ t_data   create_philos(t_data data, int n_of_philos)
         ft_lstadd_back(data, &data.head, ft_lstnew(data));
         n = data.head->next;
         n->philo_id = i + 1;
-        pthread_create(&ph[i], NULL, (void *)state, &n->philo_id);
+        pthread_create(&ph[i], NULL, (void *)state, &t);
         pthread_join(ph[i], NULL);
         n->philosopher = ph[i];
         n = n->next;
