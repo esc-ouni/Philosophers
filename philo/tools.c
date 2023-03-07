@@ -59,18 +59,18 @@ void    ft_exit_with_error(t_data data)
 
 void    state(void *arg)
 {
-    (void)arg;
+    int n = *(int *)arg;
 
     // gettimeofday(&tp, &tzp);
     // p1 = tp.tv_sec - p;
     // t_list *n = (t_list *)arg;
-    printf("ms philosopher %d is there\n",  k);
-    k++;
+    printf("ms philosopher %d is there\n", n);
 }
 
 t_data   create_philos(t_data data, int n_of_philos)
 {
     pthread_t *ph;
+    t_list  *n;
     int i;
 
     ph = NULL;
@@ -79,11 +79,21 @@ t_data   create_philos(t_data data, int n_of_philos)
     if (!data.head)
     {
         data.head = ft_lstnew(data);
+        data.head->philo_id = i + 1;
+        pthread_create(&ph[i], NULL, (void *)state, &data.head->philo_id);
+        pthread_join(ph[i], NULL);
+        data.head->philosopher = ph[i];
     }
+    i++;
     while (i < n_of_philos)
     {
-        pthread_create(&ph[i], NULL, (void *)state, NULL);
+        ft_lstadd_back(data, &data.head, ft_lstnew(data));
+        n = data.head->next;
+        n->philo_id = i + 1;
+        pthread_create(&ph[i], NULL, (void *)state, &n->philo_id);
         pthread_join(ph[i], NULL);
+        n->philosopher = ph[i];
+        n = n->next;
         i++;
     }
     return (data);
