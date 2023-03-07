@@ -51,8 +51,8 @@ void    state(void *arg)
 {
     struct timeval    tp;
     struct timezone    tzp;
-    suseconds_t n = *(suseconds_t *)arg;
     suseconds_t              t;
+    suseconds_t n = *(suseconds_t *)arg;
 
     gettimeofday(&tp, &tzp);
     t = (tp.tv_usec - n) / 1000;
