@@ -70,7 +70,7 @@ t_data   create_philos(t_data data, int n_of_philos)
     int i;
 
     gettimeofday(&tp, &tzp);
-    t = tp.tv_usec / 1000;
+    t = tp.tv_usec;
     ph = NULL;
     ph = (pthread_t *)h_malloc(data, sizeof(pthread_t) * (n_of_philos + 1), ph);
     i = 0;
