@@ -2,7 +2,7 @@
 
 	// pthread_t	thread;
 
-	int	p = 0;
+	// int	p = 0;
 
 // void	*NULL1(void *arg)
 // {
@@ -48,7 +48,6 @@ void	*NULL1(void *arg)
 		printf("hello from ##%d\n", p);
 		sleep(1);
 	}
-
 }
 
 void	*NULL2(void *arg)
@@ -59,7 +58,6 @@ void	*NULL2(void *arg)
 		printf("hello from ##%d\n", p);
 		sleep(1);
 	}
-
 }
 
 void	*NULL3(void *arg)
@@ -70,7 +68,6 @@ void	*NULL3(void *arg)
 		printf("hello from ##%d\n", p);
 		sleep(1);
 	}
-
 }
 
 // void	*NULL2(void *arg)
@@ -117,6 +114,10 @@ int	main()
 	pthread_detach(thread1);
 	pthread_detach(thread2);
 	pthread_detach(thread3);
+
+	// pthread_join(thread1, NULL);
+	// pthread_join(thread2, NULL);
+	// pthread_join(thread3, NULL);
 	//pthread_join(thread[i], NULL);
 
 	while(1);
