@@ -56,7 +56,7 @@ void    state(void *arg)
 
     gettimeofday(&tp, &tzp);
     t = (tp.tv_usec - n) / 1000;
-    printf("%dms philosopher created\n", t);
+    printf("%ldms philosopher created\n", t);
     usleep(3000);
 }
 

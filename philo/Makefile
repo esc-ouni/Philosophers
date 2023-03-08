@@ -33,7 +33,7 @@ OBJ_T  = $(TLS:%.c=%.o)
 all: $(NAME)
 
 $(NAME): $(OBJ_M) $(OBJ_T) $(HR) 
-	@$(CC) $(FLAGS) $(OBJ_T) $(OBJ_M) -o $(NAME)
+	@$(CC) -pthread $(FLAGS) $(OBJ_T) $(OBJ_M) -o $(NAME)
 	@clear && echo "==$(NAME)_compiled==========="
 
 %.o: %.c $(HR)
