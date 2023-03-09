@@ -53,6 +53,7 @@ typedef struct s_params
     int n_of_meals;
 }   t_params;
 
+size_t ft_time(size_t init_time);
 t_data   create_philos(t_data data, int n_of_philos);
 // t_list  philosopher_state(t_list *node);
 void	*h_malloc(t_data data, size_t s, void *p);

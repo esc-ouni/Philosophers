@@ -47,16 +47,23 @@ void    ft_exit_with_error(t_data data)
     exit(1);
 }
 
-void    state(void *arg)
+size_t ft_time(size_t init_time)
 {
     struct timeval    tp;
     struct timezone    tzp;
-    suseconds_t              t;
-    suseconds_t n = *(suseconds_t *)arg;
+    size_t   t;
 
     gettimeofday(&tp, &tzp);
-    t = (tp.tv_usec - n) / 1000;
-    printf("%ldms philosopher created\n", t);
+    t = (tp.tv_usec - init_time) / 1000;
+
+    return (t);
+}
+
+void    state(void *arg)
+{
+    size_t t;
+    t = ft_time(*(size_t  *)arg);
+    printf("%zums philosopher created\n", t);
     usleep(3000);
 }
 
@@ -64,13 +71,13 @@ t_data   create_philos(t_data data, int n_of_philos)
 {
     struct timeval    tp;
     struct timezone    tzp;
-    suseconds_t         t;
+    size_t        t;
     pthread_t *ph;
     t_list  *n;
     int i;
 
     gettimeofday(&tp, &tzp);
-    t = tp.tv_usec;
+    t = (size_t)tp.tv_usec;
     ph = NULL;
     ph = (pthread_t *)h_malloc(data, sizeof(pthread_t) * (n_of_philos + 1), ph);
     i = 0;
@@ -89,7 +96,8 @@ t_data   create_philos(t_data data, int n_of_philos)
         n = data.head->next;
         n->philo_id = i + 1;
         pthread_create(&ph[i], NULL, (void *)state, &t);
-        pthread_join(ph[i], NULL);
+        // pthread_detach(ph[i], NULL);
+        pthread_detach(ph[i]);
         n->philosopher = ph[i];
         n = n->next;
         i++;
