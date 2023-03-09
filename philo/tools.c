@@ -47,13 +47,16 @@ void    ft_exit_with_error(t_data data)
     exit(1);
 }
 
-size_t ft_time(size_t init_time)
+size_t ft_time()
 {
+    static size_t init_time;
     struct timeval    tp;
     struct timezone    tzp;
     size_t   t;
 
     gettimeofday(&tp, &tzp);
+    if (!init_time)
+        init_time = (size_t)tp.tv_usec;
     t = (tp.tv_usec - init_time) / 1000;
     // usleep(3000);
 
@@ -77,8 +80,7 @@ t_data   create_philos(t_data data, int n_of_philos)
     t_list  *n;
     int i;
 
-    gettimeofday(&tp, &tzp);
-    t = (size_t)tp.tv_usec;
+    t = ft_time();
     ph = NULL;
     ph = (pthread_t *)h_malloc(data, sizeof(pthread_t) * (n_of_philos + 1), ph);
     i = 0;
@@ -129,6 +131,7 @@ void    tracker(t_list *node)
     char s3[9] = "sleeping";
     char s4[5] = "died";
 
+    node = philosopher_state(node);
     if (node->actual_state == 4)
     {
         printf("philosopher %d is %s\n", node->philo_id ,s4);
@@ -145,11 +148,14 @@ void    tracker(t_list *node)
     }
 }
 
-// t_list  philosopher_state(t_list *node)
-// {
-//     if 
-//     return (node);
-// }
+t_list  *philosopher_state(t_list *node)
+{
+    if (node->actual_state == -1)
+    {
+        node->actual_state = 3;
+    }
+    return (node);
+}
 
 void	*h_malloc(t_data data, size_t s, void *p)
 {
