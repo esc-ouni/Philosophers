@@ -96,9 +96,11 @@ t_data   create_philos(t_data data, int n_of_philos)
         n = data.head->next;
         n->philo_id = i + 1;
         pthread_create(&ph[i], NULL, (void *)state, &t);
-        // pthread_detach(ph[i], NULL);
+        // pthread_join(ph[i], NULL);
         pthread_detach(ph[i]);
         n->philosopher = ph[i];
+        n->actual_state = -1;
+        // n->left_fork = (pthread_mutex_t)0;
         n = n->next;
         i++;
     }

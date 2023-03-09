@@ -32,7 +32,7 @@ typedef struct s_list
 {
 	pthread_t       philosopher;
     int             philo_id;
-    int             lef_fork;
+    pthread_mutex_t left_fork;
     int             time_life;
     int             actual_state;
     int             old_state;
