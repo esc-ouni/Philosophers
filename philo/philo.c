@@ -24,22 +24,22 @@ int	main(int argc, char *argv[])
 	params = ft_parse(data, params, argc, argv);
 	data = create_philos(data, params.n_of_philos);
 	n = data.head;
-	// while (n)
-	// {
-	// 	tracker(n);
-	// 	n = n->next;
-	// }
-
-	printf("\n\n===Sumulation======\n");
-	while(n && i < 7)
+	while (n)
 	{
-		printf("philo_id       : %d\n",n->philo_id);
-		printf("actual_state   : %d\n",n->actual_state);
-		// printf("old_state      : %d\n",n->old_state);
-		// printf("thread id      : %d\n",n->philosopher);
-		printf("next thread id : %d\n\n",n->next->philo_id);
+		tracker(n);
 		n = n->next;
-		i++;
 	}
+
+	// printf("\n\n===Sumulation======\n");
+	// while(n && i < 7)
+	// {
+	// 	printf("philo_id       : %d\n",n->philo_id);
+	// 	printf("actual_state   : %d\n",n->actual_state);
+	// 	// printf("old_state      : %d\n",n->old_state);
+	// 	// printf("thread id      : %d\n",n->philosopher);
+	// 	printf("next thread id : %d\n\n",n->next->philo_id);
+	// 	n = n->next;
+	// 	i++;
+	// }
 	return (0);
 }

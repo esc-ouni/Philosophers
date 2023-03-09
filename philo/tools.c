@@ -126,26 +126,32 @@ t_data   create_philos(t_data data, int n_of_philos)
 
 void    tracker(t_list *node)
 {
+    size_t  t;
     char s1[9] = "eating";
     char s2[9] = "thinking";
     char s3[9] = "sleeping";
     char s4[5] = "died";
 
+    t = ft_time();
     node = philosopher_state(node);
     if (node->actual_state == 4)
     {
-        printf("philosopher %d is %s\n", node->philo_id ,s4);
+        printf("%zums philosopher %d is %s\n",t ,node->philo_id ,s4);
         exit(0);
     }
-    if (node->old_state != node->actual_state && node->actual_state > 0)
+    if (node->old_state != node->actual_state)
     {
-        if (node->actual_state == EATING)
-            printf("philosopher %d is %s\n", node->philo_id ,s1);
-        else if (node->actual_state == SLEEPING)
-            printf("philosopher %d is %s\n", node->philo_id ,s3);
-        else if (node->actual_state == THINKIG)
-            printf("philosopher %d is %s\n", node->philo_id ,s2);
+        if (node->old_state != node->actual_state && node->actual_state > 0)
+        {
+            if (node->actual_state == EATING)
+                printf("%zums philosopher %d is %s\n",t ,node->philo_id ,s1);
+            else if (node->actual_state == SLEEPING)
+                printf("%zums philosopher %d is %s\n",t ,node->philo_id ,s3);
+            else if (node->actual_state == THINKIG)
+                printf("%zums philosopher %d is %s\n",t ,node->philo_id ,s2);
+        }
     }
+    node->old_state = node->actual_state;
 }
 
 t_list  *philosopher_state(t_list *node)
