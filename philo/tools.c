@@ -64,7 +64,8 @@ void    state(void *arg)
     size_t t;
     t = ft_time(*(size_t  *)arg);
     printf("%zums philosopher created\n", t);
-    usleep(3000);
+    // usleep(3000);
+    while (1);
 }
 
 t_data   create_philos(t_data data, int n_of_philos)
@@ -86,11 +87,12 @@ t_data   create_philos(t_data data, int n_of_philos)
         data.head = ft_lstnew(data);
         data.head->philo_id = i + 1;
         pthread_create(&ph[i], NULL, (void *)state, &t);
-        pthread_join(ph[i], NULL);
+        // pthread_join(ph[i], NULL);
+        pthread_detach(ph[i]);
         data.head->philosopher = ph[i];
     }
     i++;
-    while (i < n_of_philos)
+    while (i < n_of_philos - 1)
     {
         ft_lstadd_back(data, &data.head, ft_lstnew(data));
         n = data.head->next;
@@ -100,10 +102,23 @@ t_data   create_philos(t_data data, int n_of_philos)
         pthread_detach(ph[i]);
         n->philosopher = ph[i];
         n->actual_state = -1;
-        // n->left_fork = (pthread_mutex_t)0;
+        // n->left_fork = 0;
         n = n->next;
         i++;
     }
+    // if (i == n_of_philos - 1)
+    // {
+    //     ft_lstadd_back(data, &data.head, ft_lstnew(data));
+    //     n = data.head->next;
+    //     n->philo_id = i + 1;
+    //     pthread_create(&ph[i], NULL, (void *)state, &t);
+    //     // pthread_join(ph[i], NULL);
+    //     pthread_detach(ph[i]);
+    //     n->philosopher = ph[i];
+    //     n->actual_state = -1;
+    //     // n->left_fork = 0;
+    //     n->next = data.head;
+    // }
     free(ph);
     return (data);
 }
