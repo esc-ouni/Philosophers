@@ -71,7 +71,7 @@ void    state(void *arg)
     while (1);
 }
 
-t_data   create_philos(t_data data, int n_of_philos)
+t_data   create_philos(t_params params, t_data data)
 {
     struct timeval    tp;
     struct timezone    tzp;
@@ -82,7 +82,7 @@ t_data   create_philos(t_data data, int n_of_philos)
 
     t = ft_time();
     ph = NULL;
-    ph = (pthread_t *)h_malloc(data, sizeof(pthread_t) * (n_of_philos + 1), ph);
+    ph = (pthread_t *)h_malloc(data, sizeof(pthread_t) * (params.n_of_philos + 1), ph);
     i = 0;
     if (!data.head)
     {
@@ -92,10 +92,11 @@ t_data   create_philos(t_data data, int n_of_philos)
         pthread_detach(ph[i]);
         data.head->philosopher = ph[i];
         data.head->actual_state = -1;
+        data.head->time_life = params.t_to_die + params.t_to_sleep;
     }
     n = data.head->next;
     i++;
-    while (i < (n_of_philos - 1))
+    while (i < (params.n_of_philos - 1))
     {
         n = ft_lstnew(data);
         ft_lstadd_back(data, &data.head, n);
@@ -104,11 +105,12 @@ t_data   create_philos(t_data data, int n_of_philos)
         pthread_detach(ph[i]);
         n->philosopher = ph[i];
         n->actual_state = -1;
+        n->time_life = params.t_to_die + params.t_to_sleep;
         // n->left_fork = 0;
         n = n->next;
         i++;
     }
-    if (i == n_of_philos - 1)
+    if (i == params.n_of_philos - 1)
     {
         n = ft_lstnew(data);
         ft_lstadd_back(data, &data.head, n);
@@ -117,6 +119,7 @@ t_data   create_philos(t_data data, int n_of_philos)
         pthread_detach(ph[i]);
         n->philosopher = ph[i];
         n->actual_state = -1;
+        n->time_life = params.t_to_die + params.t_to_sleep;
         // n->left_fork = 0;
         n->next = data.head;
     }
@@ -124,7 +127,7 @@ t_data   create_philos(t_data data, int n_of_philos)
     return (data);
 }
 
-void    tracker(t_list *node)
+void    tracker(t_params params, t_list *node)
 {
     size_t  t;
     char s1[9] = "eating";
@@ -133,13 +136,13 @@ void    tracker(t_list *node)
     char s4[5] = "died";
 
     t = ft_time();
-    node = philosopher_state(node);
+    node = philosopher_state(params, node);
     if (node->actual_state == 4)
     {
         printf("%zums philosopher %d is %s\n",t ,node->philo_id ,s4);
         exit(0);
     }
-    if (node->old_state != node->actual_state)
+    else if (node->old_state != node->actual_state)
     {
         if (node->old_state != node->actual_state && node->actual_state > 0)
         {
@@ -150,11 +153,11 @@ void    tracker(t_list *node)
             else if (node->actual_state == THINKIG)
                 printf("%zums philosopher %d is %s\n",t ,node->philo_id ,s2);
         }
+        node->old_state = node->actual_state;
     }
-    node->old_state = node->actual_state;
 }
 
-t_list  *philosopher_state(t_list *node)
+t_list  *philosopher_state(t_params params, t_list *node)
 {
     if (node->actual_state == -1)
     {

@@ -54,10 +54,10 @@ typedef struct s_params
 }   t_params;
 
 size_t ft_time();
-t_data   create_philos(t_data data, int n_of_philos);
-t_list  *philosopher_state(t_list *node);
+t_data   create_philos(t_params params, t_data data);
+t_list  *philosopher_state(t_params params, t_list *node);
 void	*h_malloc(t_data data, size_t s, void *p);
-void    tracker(t_list *node);
+void    tracker(t_params params, t_list *node);
 t_params ft_parse(t_data data, t_params params, int argc, char **argv);
 int     ft_atoi(t_data data, char *str);
 int     ft_isdigit(int c);
