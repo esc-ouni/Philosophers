@@ -55,6 +55,7 @@ size_t ft_time(size_t init_time)
 
     gettimeofday(&tp, &tzp);
     t = (tp.tv_usec - init_time) / 1000;
+    // usleep(3000);
 
     return (t);
 }
@@ -64,7 +65,6 @@ void    state(void *arg)
     size_t t;
     t = ft_time(*(size_t  *)arg);
     printf("%zums philosopher created\n", t);
-    // usleep(3000);
     while (1);
 }
 
@@ -92,7 +92,7 @@ t_data   create_philos(t_data data, int n_of_philos)
         data.head->philosopher = ph[i];
     }
     i++;
-    while (i < n_of_philos - 1)
+    while (i < n_of_philos)
     {
         ft_lstadd_back(data, &data.head, ft_lstnew(data));
         n = data.head->next;
