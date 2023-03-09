@@ -87,9 +87,9 @@ t_data   create_philos(t_data data, int n_of_philos)
         data.head = ft_lstnew(data);
         data.head->philo_id = i + 1;
         pthread_create(&ph[i], NULL, (void *)state, &t);
-        // pthread_join(ph[i], NULL);
         pthread_detach(ph[i]);
         data.head->philosopher = ph[i];
+        data.head->actual_state = -1;
     }
     n = data.head->next;
     i++;
@@ -99,7 +99,6 @@ t_data   create_philos(t_data data, int n_of_philos)
         ft_lstadd_back(data, &data.head, n);
         n->philo_id = i + 1;
         pthread_create(&ph[i], NULL, (void *)state, &t);
-        // pthread_join(ph[i], NULL);
         pthread_detach(ph[i]);
         n->philosopher = ph[i];
         n->actual_state = -1;
@@ -113,7 +112,6 @@ t_data   create_philos(t_data data, int n_of_philos)
         ft_lstadd_back(data, &data.head, n);
         n->philo_id = i + 1;
         pthread_create(&ph[i], NULL, (void *)state, &t);
-        // pthread_join(ph[i], NULL);
         pthread_detach(ph[i]);
         n->philosopher = ph[i];
         n->actual_state = -1;
