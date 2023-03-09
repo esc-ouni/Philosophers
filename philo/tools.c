@@ -58,16 +58,15 @@ size_t ft_time()
     if (!init_time)
         init_time = (size_t)tp.tv_usec;
     t = (tp.tv_usec - init_time) / 1000;
-    // usleep(3000);
 
     return (t);
 }
 
 void    state(void *arg)
 {
-    size_t t;
-    t = ft_time(*(size_t  *)arg);
-    printf("%zums philosopher created\n", t);
+    // size_t t;
+    // t = ft_time(*(size_t  *)arg);
+    // printf("%zums philosopher created\n", t);
     while (1);
 }
 
@@ -75,12 +74,10 @@ t_data   create_philos(t_params params, t_data data)
 {
     struct timeval    tp;
     struct timezone    tzp;
-    size_t        t;
     pthread_t *ph;
     t_list  *n;
     int i;
 
-    t = ft_time();
     ph = NULL;
     ph = (pthread_t *)h_malloc(data, sizeof(pthread_t) * (params.n_of_philos + 1), ph);
     i = 0;
@@ -88,7 +85,7 @@ t_data   create_philos(t_params params, t_data data)
     {
         data.head = ft_lstnew(data);
         data.head->philo_id = i + 1;
-        pthread_create(&ph[i], NULL, (void *)state, &t);
+        pthread_create(&ph[i], NULL, (void *)state, NULL);
         pthread_detach(ph[i]);
         data.head->philosopher = ph[i];
         data.head->actual_state = -1;
@@ -101,7 +98,7 @@ t_data   create_philos(t_params params, t_data data)
         n = ft_lstnew(data);
         ft_lstadd_back(data, &data.head, n);
         n->philo_id = i + 1;
-        pthread_create(&ph[i], NULL, (void *)state, &t);
+        pthread_create(&ph[i], NULL, (void *)state, NULL);
         pthread_detach(ph[i]);
         n->philosopher = ph[i];
         n->actual_state = -1;
@@ -115,7 +112,7 @@ t_data   create_philos(t_params params, t_data data)
         n = ft_lstnew(data);
         ft_lstadd_back(data, &data.head, n);
         n->philo_id = i + 1;
-        pthread_create(&ph[i], NULL, (void *)state, &t);
+        pthread_create(&ph[i], NULL, (void *)state, NULL);
         pthread_detach(ph[i]);
         n->philosopher = ph[i];
         n->actual_state = -1;
@@ -159,9 +156,14 @@ void    tracker(t_params params, t_list *node)
 
 t_list  *philosopher_state(t_params params, t_list *node)
 {
+    size_t t;
+    t = ft_time();
+
     if (node->actual_state == -1)
     {
         node->actual_state = 3;
+        if (node->time_life < ft_time())
+            node->actual_state = 4;
     }
     return (node);
 }
