@@ -174,6 +174,10 @@ t_list  *philosopher_state(t_params params, t_list *node)
         if (node->time_life < ft_time())
             node->actual_state = 4;
     }
+    else if (node->time_thk < ft_time())
+        node->actual_state = 1;
+    else if (node->time_eat < ft_time())
+        node->actual_state = 2;
     return (node);
 }
 
