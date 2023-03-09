@@ -34,6 +34,9 @@ typedef struct s_list
     int             philo_id;
     pthread_mutex_t left_fork;
     int             time_life;
+    int             time_slp;
+    int             time_eat;
+    int             time_thk;
     int             actual_state;
     int             old_state;
 	struct s_list	*next;

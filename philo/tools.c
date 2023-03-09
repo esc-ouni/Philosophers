@@ -90,6 +90,9 @@ t_data   create_philos(t_params params, t_data data)
         data.head->philosopher = ph[i];
         data.head->actual_state = -1;
         data.head->time_life = params.t_to_die + params.t_to_sleep;
+        data.head->time_eat = params.t_to_eat;
+        data.head->time_thk = params.t_to_die;
+        data.head->time_slp = params.t_to_sleep;
     }
     n = data.head->next;
     i++;
@@ -103,6 +106,9 @@ t_data   create_philos(t_params params, t_data data)
         n->philosopher = ph[i];
         n->actual_state = -1;
         n->time_life = params.t_to_die + params.t_to_sleep;
+        n->time_eat = params.t_to_eat;
+        n->time_thk = params.t_to_die;
+        n->time_slp = params.t_to_sleep;
         // n->left_fork = 0;
         n = n->next;
         i++;
@@ -117,6 +123,9 @@ t_data   create_philos(t_params params, t_data data)
         n->philosopher = ph[i];
         n->actual_state = -1;
         n->time_life = params.t_to_die + params.t_to_sleep;
+        n->time_eat = params.t_to_eat;
+        n->time_thk = params.t_to_die;
+        n->time_slp = params.t_to_sleep;
         // n->left_fork = 0;
         n->next = data.head;
     }
