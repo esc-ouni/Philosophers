@@ -14,11 +14,13 @@
 
 int	main(int argc, char *argv[])
 {
+	time_t	p;
 	int	i	=	0;
 	t_list	*n;
 	t_params	params;
 	t_data	data;
 
+	printf("%d\n", sizeof(p));
 	data.head = NULL;
 	params.n_of_philos = 0;
 	params = ft_parse(data, params, argc, argv);

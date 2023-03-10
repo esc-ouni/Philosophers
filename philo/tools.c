@@ -56,9 +56,8 @@ size_t ft_time()
 
     gettimeofday(&tp, &tzp);
     if (!init_time)
-        init_time = (size_t)tp.tv_usec;
-    t = (tp.tv_usec - init_time) / 1000;
-
+        init_time = (size_t)tp.tv_usec + ((size_t)tp.tv_sec * 10000);
+    t = (((size_t)tp.tv_usec + (size_t)tp.tv_sec * 10000) - init_time) / 1000;
     return (t);
 }
 
