@@ -168,6 +168,8 @@ void    first_meal(t_params params, t_data data)
 
     i = 0;
     n = data.head;
+    if (n->time_life <= ft_time())
+        n->actual_state = 4;
     while (++i < params.n_of_philos && n)
     {
         if (n->philo_id % 2)
@@ -181,9 +183,9 @@ t_list  *philosopher_state(t_params params, t_list *node)
     size_t t;
     t = ft_time();
 
-    if (node->time_life < ft_time())
+    if (node->time_life <= ft_time())
             node->actual_state = 4;
-    if (node->actual_state == -1)
+    else if (node->actual_state == -1)
     {
         node->actual_state = 3;
         node->time_life = params.t_to_die + params.t_to_sleep;
