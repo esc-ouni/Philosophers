@@ -91,6 +91,7 @@ t_data   create_philos(t_params params, t_data data)
         data.head->time_eat = params.t_to_eat;
         data.head->time_thk = params.t_to_die;
         data.head->time_slp = params.t_to_sleep;
+        data.head->left_fork = 1;
     }
     n = data.head->next;
     i++;
@@ -107,7 +108,7 @@ t_data   create_philos(t_params params, t_data data)
         n->time_eat = params.t_to_eat;
         n->time_thk = params.t_to_die;
         n->time_slp = params.t_to_sleep;
-        // n->left_fork = 0;
+        n->left_fork = 1;
         n = n->next;
         i++;
     }
@@ -124,7 +125,7 @@ t_data   create_philos(t_params params, t_data data)
         n->time_eat = params.t_to_eat;
         n->time_thk = params.t_to_die;
         n->time_slp = params.t_to_sleep;
-        // n->left_fork = 0;
+        n->left_fork = 1;
         n->next = data.head;
     }
     free(ph);
@@ -133,17 +134,15 @@ t_data   create_philos(t_params params, t_data data)
 
 void    tracker(t_params params, t_list *node)
 {
-    size_t  t;
     char s1[9] = "eating";
     char s2[9] = "thinking";
     char s3[9] = "sleeping";
     char s4[5] = "died";
 
-    t = ft_time();
-    node = philosopher_state(params, node);
+    philosopher_state(params, node);
     if (node->actual_state == 4)
     {
-        printf("%zums philosopher %d is %s\n",t ,node->philo_id ,s4);
+        printf("%zums philosopher %d is %s\n",ft_time() ,node->philo_id ,s4);
         exit(0);
     }
     else if (node->old_state != node->actual_state)
@@ -151,11 +150,11 @@ void    tracker(t_params params, t_list *node)
         if (node->old_state != node->actual_state && node->actual_state > 0)
         {
             if (node->actual_state == EATING)
-                printf("%zums philosopher %d is %s\n",t ,node->philo_id ,s1);
+                printf("%zums philosopher %d is %s\n",ft_time() ,node->philo_id ,s1);
             else if (node->actual_state == SLEEPING)
-                printf("%zums philosopher %d is %s\n",t ,node->philo_id ,s3);
+                printf("%zums philosopher %d is %s\n",ft_time() ,node->philo_id ,s3);
             else if (node->actual_state == THINKIG)
-                printf("%zums philosopher %d is %s\n",t ,node->philo_id ,s2);
+                printf("%zums philosopher %d is %s\n",ft_time() ,node->philo_id ,s2);
         }
         node->old_state = node->actual_state;
     }
@@ -191,6 +190,11 @@ t_list  *philosopher_state(t_params params, t_list *node)
         node->time_life = params.t_to_die + params.t_to_sleep;
         if (node->time_life < t)
             node->actual_state = 4;
+    }
+    else if (node->left_fork && node->next->left_fork)
+    {
+        node->actual_state = 1;
+        node->time_life = params.t_to_die + params.t_to_sleep;
     }
     return (node);
 }
