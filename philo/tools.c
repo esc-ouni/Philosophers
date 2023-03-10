@@ -188,7 +188,7 @@ t_list  *philosopher_state(t_params params, t_list *node)
     {
         node->actual_state = 3;
         node->time_life = params.t_to_die + params.t_to_sleep;
-        // if (node->time_life < ft_time())
+        // if (node->time_life < t)
         //     node->actual_state = 4;
     }
     return (node);
