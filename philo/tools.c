@@ -51,10 +51,9 @@ size_t ft_time()
 {
     static size_t init_time;
     struct timeval    tp;
-    struct timezone    tzp;
     size_t   t;
 
-    gettimeofday(&tp, &tzp);
+    gettimeofday(&tp, NULL);
     if (!init_time)
         init_time = (size_t)tp.tv_usec + ((size_t)tp.tv_sec * 10000);
     t = (((size_t)tp.tv_usec + (size_t)tp.tv_sec * 10000) - init_time) / 1000;
@@ -64,7 +63,7 @@ size_t ft_time()
 void    state(void *arg)
 {
     // size_t t;
-    // t = ft_time(*(size_t  *)arg);
+    // t = ft_time();
     // printf("%zums philosopher created\n", t);
     while (1);
 }
@@ -188,8 +187,8 @@ t_list  *philosopher_state(t_params params, t_list *node)
     {
         node->actual_state = 3;
         node->time_life = params.t_to_die + params.t_to_sleep;
-        // if (node->time_life < t)
-        //     node->actual_state = 4;
+        if (node->time_life < t)
+            node->actual_state = 4;
     }
     return (node);
 }
