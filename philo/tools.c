@@ -162,21 +162,35 @@ void    tracker(t_params params, t_list *node)
     }
 }
 
+void    first_meal(t_params params, t_data data)
+{
+    int i;
+    t_list  *n;
+
+    i = 0;
+    n = data.head;
+    while (++i < params.n_of_philos && n)
+    {
+        if (n->philo_id % 2)
+            n->actual_state = 1;
+        n = n->next;
+    }
+}
+
 t_list  *philosopher_state(t_params params, t_list *node)
 {
     size_t t;
     t = ft_time();
 
+    if (node->time_life < ft_time())
+            node->actual_state = 4;
     if (node->actual_state == -1)
     {
         node->actual_state = 3;
-        if (node->time_life < ft_time())
-            node->actual_state = 4;
+        node->time_life = params.t_to_die + params.t_to_sleep;
+        // if (node->time_life < ft_time())
+        //     node->actual_state = 4;
     }
-    else if (node->time_thk < ft_time())
-        node->actual_state = 1;
-    else if (node->time_eat < ft_time())
-        node->actual_state = 2;
     return (node);
 }
 
