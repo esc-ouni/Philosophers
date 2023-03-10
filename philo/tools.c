@@ -49,7 +49,7 @@ void    ft_exit_with_error(t_data data)
 
 size_t ft_time()
 {
-    static size_t init_time;
+    static unsigned init_time;
     struct timeval    tp;
     size_t   t;
 
