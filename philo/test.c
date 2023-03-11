@@ -364,6 +364,7 @@ void *philosopher(void *arg) {
         printf("[%lldms] Philosopher %d is thinking\n", ((tv.tv_sec * 1000) + (tv.tv_usec / 1000)) - start_time, id);
 
         wait_time = rand() % MAX_WAIT_TIME;
+        printf("\n\nwait_time is %d\n\n", wait_time);
         usleep(wait_time);
 
         gettimeofday(&tv, NULL);
