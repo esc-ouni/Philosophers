@@ -55,8 +55,8 @@ time_t ft_time()
 
     gettimeofday(&tp, NULL);
     if (!init_time)
-        init_time = (time_t)tp.tv_usec + ((time_t)tp.tv_sec * 10000);
-    t = (((time_t)tp.tv_usec + (time_t)tp.tv_sec * 10000) - init_time) / 1000;
+        init_time = (time_t)(tp.tv_sec * 1000) + (time_t)(tp.tv_usec / 1000);
+    t = (((time_t)(tp.tv_usec / 1000) + (time_t)tp.tv_sec * 1000) - init_time);
     return (t);
 }
 
