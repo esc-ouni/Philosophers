@@ -30,15 +30,8 @@
 
 typedef struct s_list
 {
-	pthread_t       philosopher;
-    int             philo_id;
-    int             left_fork;
-    int             time_life;
-    int             time_slp;
-    int             time_eat;
-    int             time_thk;
-    int             actual_state;
-    int             old_state;
+    int             philosopher_id;
+    pthread_mutex_t l_fork;
 	struct s_list	*next;
 }				t_list;
 
@@ -50,26 +43,25 @@ typedef struct s_data
 typedef struct s_params
 {
     int n_of_philos;
-    int t_to_die;
+    int t_to_think;
     int t_to_eat;
     int t_to_sleep;
     int n_of_meals;
 }   t_params;
 
-time_t ft_time();
-void    first_meal(t_params params, t_data data);
-t_data   create_philo_continer(t_params params, t_data data);
-t_list  *philosopher_state(t_params params, t_list *node);
-void	*h_malloc(t_data data, size_t s, void *p);
-void    tracker(t_params params, t_list *node);
-t_params ft_parse(t_data data, t_params params, int argc, char **argv);
-int     ft_atoi(t_data data, char *str);
-int     ft_isdigit(int c);
-void    ft_exit_with_error(t_data data);
-t_list	*ft_lstnew(t_data data);
-t_list	*ft_lstlast(t_list *lst);
-void	ft_lstclear(t_list **lst);
-void	ft_lstadd_back(t_data data, t_list **lst, t_list *new);
-t_list	*search_by_id(int id, t_data data);
+time_t      ft_time();
+void        first_meal(t_params params, t_data data);
+t_data      create_philo_container(t_params params, t_data data);
+void        *philosopher_state(void *arg);
+void	    *h_malloc(t_data data, size_t s, void *p);
+t_params    ft_parse(t_data data, t_params params, int argc, char **argv);
+int         ft_atoi(t_data data, char *str);
+int         ft_isdigit(int c);
+void        ft_exit_with_error(t_data data);
+t_list	    *ft_lstnew(t_data data);
+t_list	    *ft_lstlast(t_list *lst);
+void	    ft_lstclear(t_list **lst);
+void	    ft_lstadd_back(t_data data, t_list **lst, t_list *new);
+t_list	    *search_by_id(int id, t_data data);
 
 #endif

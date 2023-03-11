@@ -87,7 +87,7 @@ t_list	*search_by_id(int id, t_data data)
 		ft_exit_with_error(data);
 	while (n)
 	{
-		if (id == n->philo_id)
+		if (id == n->philosopher_id)
 			return (n);
 		n = n->next;
 	}

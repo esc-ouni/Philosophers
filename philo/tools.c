@@ -18,7 +18,7 @@ t_params ft_parse(t_data data, t_params params, int argc, char **argv)
     if (argc < 5 || argc > 6)
         ft_exit_with_error(data);
     params.n_of_philos = ft_atoi(data, argv[1]);
-    params.t_to_die = ft_atoi(data, argv[2]);
+    params.t_to_think = ft_atoi(data, argv[2]);
     params.t_to_eat = ft_atoi(data, argv[3]);
     params.t_to_sleep = ft_atoi(data, argv[4]);
     if (argc == 5)
