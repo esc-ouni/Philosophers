@@ -14,8 +14,6 @@
 
 t_data   create_philo_container(t_params params, t_data data)
 {
-    struct timeval    tp;
-    struct timezone    tzp;
     pthread_t *ph;
     t_list  *n;
     int i;
@@ -51,6 +49,8 @@ t_data   create_philo_container(t_params params, t_data data)
 
 void    first_meal(t_params params, t_data data)
 {
+    (void)data;
+    (void)params;
     //first_meal
 }
 
@@ -61,4 +61,5 @@ void  *philosopher_state(void *arg)
     t = ft_time();
 
     id = *(int   *)arg;
+    return (NULL);
 }

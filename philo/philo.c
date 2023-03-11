@@ -14,8 +14,7 @@
 
 int	main(int argc, char *argv[])
 {
-	time_t	p;
-	int	i	=	0;
+	// int	i	=	0;
 	t_list	*n;
 	t_params	params;
 	t_data	data;
