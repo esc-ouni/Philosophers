@@ -58,7 +58,7 @@ typedef struct s_params
 
 time_t ft_time();
 void    first_meal(t_params params, t_data data);
-t_data   create_philos(t_params params, t_data data);
+t_data   create_philo_continer(t_params params, t_data data);
 t_list  *philosopher_state(t_params params, t_list *node);
 void	*h_malloc(t_data data, size_t s, void *p);
 void    tracker(t_params params, t_list *node);

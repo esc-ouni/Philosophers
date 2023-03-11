@@ -24,7 +24,7 @@ int	main(int argc, char *argv[])
     printf("===SUMULATION_STARTS===========\n");
 	params.n_of_philos = 0;
 	params = ft_parse(data, params, argc, argv);
-	data = create_philos(params, data);
+	data = create_philo_continer(params, data);
 	first_meal(params, data);
 	n = data.head;
 	while (n)
