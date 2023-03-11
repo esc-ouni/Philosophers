@@ -143,6 +143,7 @@ void    tracker(t_params params, t_list *node)
     if (node->actual_state == 4)
     {
         printf("%zums philosopher %d is %s\n",ft_time() ,node->philo_id ,s4);
+        printf("===SUMULATION_ENDS=============\n");
         exit(0);
     }
     else if (node->old_state != node->actual_state)
