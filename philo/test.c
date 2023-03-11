@@ -141,44 +141,275 @@
 //     return 0;
 // }
 
+// #include <stdio.h>
+// #include <pthread.h>
+// #include <unistd.h>
+
+// pthread_mutex_t mutex;
+
+// void* my_function(void* arg) {
+//     pthread_mutex_init(&mutex, NULL);
+//     while (1) {
+//     	pthread_mutex_lock(&mutex);
+// 		printf("the thread\n");
+// 		printf("sleep 2\n");
+//         sleep(2); // sleep for 1 second
+//         pthread_mutex_unlock(&mutex);
+//     }
+// }
+
+// void signal_unlock() {
+//     pthread_mutex_unlock(&mutex);
+// }
+
+// void signal_lock() {
+//     pthread_mutex_lock(&mutex);
+// }
+
+// int main() {
+//     pthread_t thread;
+// 	printf("===SUMULATION_START===========\n");
+// 	// pthread_mutex_lock(&mutex);
+//     pthread_create(&thread, NULL, my_function, NULL);
+// 	while (1)
+// 	{
+// 		signal_lock();
+// 		pthread_mutex_lock(&mutex);
+// 		printf("sleep 5\n");
+// 		sleep(2);
+// 		signal_unlock();
+// 	}
+// 	pthread_detach(thread);
+
+//     pthread_mutex_destroy(&mutex);
+// 	printf("===SUMULATION_ENDS===========\n");
+//     return 0;
+// }
+
+// #include <stdio.h>
+// #include <pthread.h>
+// #include <stdlib.h>
+// #include <unistd.h>
+// #include <sys/time.h>
+
+// #define NUM_PHILOSOPHERS 900
+// #define NUM_CHOPSTICKS 5
+// #define MAX_WAIT_TIME 500000
+
+// long long ft_time()
+// {
+//     static long long init_time;
+//     struct timeval    tp;
+//     long long   t;
+
+//     gettimeofday(&tp, NULL);
+//     if (!init_time)
+//         init_time = (long long)tp.tv_usec + ((long long)tp.tv_sec * 10000);
+//     t = (((long long)tp.tv_usec + (long long)tp.tv_sec * 10000) - init_time) / 1000;
+//     return (t);
+// }
+
+// pthread_mutex_t chopstick_mutex[NUM_CHOPSTICKS];
+// pthread_t philosophers[NUM_PHILOSOPHERS];
+
+// void *philosopher(void *arg) {
+//     int id = *(int *)arg;
+//     int left_chopstick = id;
+//     int right_chopstick = (id + 1) % NUM_CHOPSTICKS;
+//     int wait_time;
+
+//     while (1) {
+//         printf("%lldms Philosopher %d is thinking\n", ft_time() ,id);
+
+//         wait_time = rand() % MAX_WAIT_TIME;
+//         usleep(wait_time);
+
+//         printf("%lldms Philosopher %d is hungry\n", ft_time() ,id);
+
+//         pthread_mutex_lock(&chopstick_mutex[left_chopstick]);
+//         printf("%lldms Philosopher %d picked up chopstick %d\n", ft_time() ,id, left_chopstick);
+
+//         pthread_mutex_lock(&chopstick_mutex[right_chopstick]);
+//         printf("%lldms Philosopher %d picked up chopstick %d\n", ft_time() ,id, right_chopstick);
+
+//         printf("%lldms Philosopher %d is eating\n", ft_time() ,id);
+
+//         wait_time = rand() % MAX_WAIT_TIME;
+//         usleep(wait_time);
+
+//         pthread_mutex_unlock(&chopstick_mutex[right_chopstick]);
+//         printf("%lldms Philosopher %d put down chopstick %d\n", ft_time() ,id, right_chopstick);
+
+//         pthread_mutex_unlock(&chopstick_mutex[left_chopstick]);
+//         printf("%lldms Philosopher %d put down chopstick %d\n", ft_time() ,id, left_chopstick);
+//     }
+// }
+
+// int main() {
+//     int i, ids[NUM_PHILOSOPHERS];
+
+//     srand(time(NULL));
+
+//     for (i = 0; i < NUM_CHOPSTICKS; i++) {
+//         pthread_mutex_init(&chopstick_mutex[i], NULL);
+//     }
+
+//     for (i = 0; i < NUM_PHILOSOPHERS; i++) {
+//         ids[i] = i;
+//         pthread_create(&philosophers[i], NULL, philosopher, &ids[i]);
+//     }
+
+//     for (i = 0; i < NUM_PHILOSOPHERS; i++) {
+//         pthread_join(philosophers[i], NULL);
+//     }
+
+//     return 0;
+// }
+
+// #include <stdio.h>
+// #include <pthread.h>
+// #include <stdlib.h>
+// #include <unistd.h>
+// #include <sys/time.h>
+
+// #define NUM_PHILOSOPHERS 5
+// #define NUM_CHOPSTICKS 5
+// #define MAX_WAIT_TIME 500000
+
+// pthread_mutex_t chopstick_mutex[NUM_CHOPSTICKS];
+// pthread_t philosophers[NUM_PHILOSOPHERS];
+
+// void *philosopher(void *arg) {
+//     int id = *(int *)arg;
+//     int left_chopstick = id;
+//     int right_chopstick = (id + 1) % NUM_CHOPSTICKS;
+//     int wait_time;
+
+//     struct timeval tv;
+//     gettimeofday(&tv, NULL);
+//     long long start_time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+
+//     while (1) {
+//         printf("[%lldms] Philosopher %d is thinking\n", ((tv.tv_sec * 1000) + (tv.tv_usec / 1000)) - start_time, id);
+
+//         wait_time = rand() % MAX_WAIT_TIME;
+//         usleep(wait_time);
+
+//         printf("[%lldms] Philosopher %d is hungry\n", ((tv.tv_sec * 1000) + (tv.tv_usec / 1000)) - start_time, id);
+
+//         pthread_mutex_lock(&chopstick_mutex[left_chopstick]);
+//         printf("[%lldms] Philosopher %d picked up chopstick %d\n", ((tv.tv_sec * 1000) + (tv.tv_usec / 1000)) - start_time, id, left_chopstick);
+
+//         pthread_mutex_lock(&chopstick_mutex[right_chopstick]);
+//         printf("[%lldms] Philosopher %d picked up chopstick %d\n", ((tv.tv_sec * 1000) + (tv.tv_usec / 1000)) - start_time, id, right_chopstick);
+
+//         printf("[%lldms] Philosopher %d is eating\n", ((tv.tv_sec * 1000) + (tv.tv_usec / 1000)) - start_time, id);
+
+//         wait_time = rand() % MAX_WAIT_TIME;
+//         usleep(wait_time);
+
+//         pthread_mutex_unlock(&chopstick_mutex[right_chopstick]);
+//         printf("[%lldms] Philosopher %d put down chopstick %d\n", ((tv.tv_sec * 1000) + (tv.tv_usec / 1000)) - start_time, id, right_chopstick);
+
+//         pthread_mutex_unlock(&chopstick_mutex[left_chopstick]);
+//         printf("[%lldms] Philosopher %d put down chopstick %d\n", ((tv.tv_sec * 1000) + (tv.tv_usec / 1000)) - start_time, id, left_chopstick);
+//     }
+// }
+
+// int main() {
+//     int i, ids[NUM_PHILOSOPHERS];
+
+//     srand(time(NULL));
+
+//     for (i = 0; i < NUM_CHOPSTICKS; i++) {
+//         pthread_mutex_init(&chopstick_mutex[i], NULL);
+//     }
+
+//     for (i = 0; i < NUM_PHILOSOPHERS; i++) {
+//         ids[i] = i;
+//         pthread_create(&philosophers[i], NULL, philosopher, &ids[i]);
+//     }
+
+//     for (i = 0; i < NUM_PHILOSOPHERS; i++) {
+//         pthread_join(philosophers[i], NULL);
+//     }
+
+//     return 0;
+// }
+
 #include <stdio.h>
 #include <pthread.h>
+#include <stdlib.h>
 #include <unistd.h>
+#include <sys/time.h>
 
-pthread_mutex_t mutex;
+#define NUM_PHILOSOPHERS 5
+#define NUM_CHOPSTICKS 5
+#define MAX_WAIT_TIME 500000
 
-void* my_function(void* arg) {
+pthread_mutex_t chopstick_mutex[NUM_CHOPSTICKS];
+pthread_t philosophers[NUM_PHILOSOPHERS];
+
+void *philosopher(void *arg) {
+    int id = *(int *)arg;
+    int left_chopstick = id;
+    int right_chopstick = (id + 1) % NUM_CHOPSTICKS;
+    int wait_time;
+
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    long long start_time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+
     while (1) {
-    	pthread_mutex_lock(&mutex);
-		printf("the thread\n");
-        pthread_mutex_unlock(&mutex);
-		printf("sleep 2\n");
-        sleep(2); // sleep for 1 second
-        pthread_mutex_lock(&mutex);
-    	pthread_mutex_unlock(&mutex);
+        printf("[%lldms] Philosopher %d is thinking\n", ((tv.tv_sec * 1000) + (tv.tv_usec / 1000)) - start_time, id);
+
+        wait_time = rand() % MAX_WAIT_TIME;
+        usleep(wait_time);
+
+        gettimeofday(&tv, NULL);
+        printf("[%lldms] Philosopher %d is hungry\n", ((tv.tv_sec * 1000) + (tv.tv_usec / 1000)) - start_time, id);
+
+        pthread_mutex_lock(&chopstick_mutex[left_chopstick]);
+        gettimeofday(&tv, NULL);
+        printf("[%lldms] Philosopher %d picked up chopstick %d\n", ((tv.tv_sec * 1000) + (tv.tv_usec / 1000)) - start_time, id, left_chopstick);
+
+        pthread_mutex_lock(&chopstick_mutex[right_chopstick]);
+        gettimeofday(&tv, NULL);
+        printf("[%lldms] Philosopher %d picked up chopstick %d\n", ((tv.tv_sec * 1000) + (tv.tv_usec / 1000)) - start_time, id, right_chopstick);
+
+        gettimeofday(&tv, NULL);
+        printf("[%lldms] Philosopher %d is eating\n", ((tv.tv_sec * 1000) + (tv.tv_usec / 1000)) - start_time, id);
+
+        wait_time = rand() % MAX_WAIT_TIME;
+        usleep(wait_time);
+
+        pthread_mutex_unlock(&chopstick_mutex[right_chopstick]);
+        gettimeofday(&tv, NULL);
+        printf("[%lldms] Philosopher %d put down chopstick %d\n", ((tv.tv_sec * 1000) + (tv.tv_usec / 1000)) - start_time, id, right_chopstick);
+
+        pthread_mutex_unlock(&chopstick_mutex[left_chopstick]);
+        gettimeofday(&tv, NULL);
+        printf("[%lldms] Philosopher %d put down chopstick %d\n", ((tv.tv_sec * 1000) + (tv.tv_usec / 1000)) - start_time, id, left_chopstick);
     }
 }
 
-void signal_data_ready() {
-    pthread_mutex_unlock(&mutex);
-}
-
 int main() {
-    pthread_t thread;
-	printf("===SUMULATION_START===========\n");
-    pthread_mutex_init(&mutex, NULL);
-    // pthread_mutex_lock(&mutex);
-    pthread_create(&thread, NULL, my_function, NULL);
-    pthread_detach(thread);
+    int i, ids[NUM_PHILOSOPHERS];
 
-    // do some work
-	printf("sleep 5\n");
-    sleep(5);
+    srand(time(NULL));
 
-    signal_data_ready();
+    for (i = 0; i < NUM_CHOPSTICKS; i++) {
+        pthread_mutex_init(&chopstick_mutex[i], NULL);
+    }
 
-	while (1);
-    pthread_mutex_destroy(&mutex);
-	printf("===SUMULATION_ENDS===========\n");
+    for (i = 0; i < NUM_PHILOSOPHERS; i++) {
+        ids[i] = i;
+        pthread_create(&philosophers[i], NULL, philosopher, &ids[i]);
+    }
+
+    for (i = 0; i < NUM_PHILOSOPHERS; i++) {
+        pthread_join(philosophers[i], NULL);
+    }
+
     return 0;
 }
