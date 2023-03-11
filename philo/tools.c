@@ -183,7 +183,9 @@ t_list  *philosopher_state(t_params params, t_list *node)
     t = ft_time();
 
     if (node->time_life <= ft_time())
-            node->actual_state = 4;
+        node->actual_state = 4;
+    else if (node->old_state == 1 && node->time_life <= ft_time())
+        node->actual_state = 4;
     else if (node->actual_state == -1)
     {
         node->actual_state = 3;
