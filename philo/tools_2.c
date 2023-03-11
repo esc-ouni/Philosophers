@@ -27,8 +27,6 @@ t_data   create_philo_continer(t_params params, t_data data)
     {
         data.head = ft_lstnew(data);
         data.head->philo_id = i + 1;
-        pthread_create(&ph[i], NULL, (void *)philosopher_state, NULL);
-        pthread_detach(ph[i]);
         data.head->philosopher = ph[i];
         data.head->actual_state = -1;
         data.head->time_life = params.t_to_die + params.t_to_sleep;
@@ -44,8 +42,6 @@ t_data   create_philo_continer(t_params params, t_data data)
         n = ft_lstnew(data);
         ft_lstadd_back(data, &data.head, n);
         n->philo_id = i + 1;
-        pthread_create(&ph[i], NULL, (void *)philosopher_state, NULL);
-        pthread_detach(ph[i]);
         n->philosopher = ph[i];
         n->actual_state = -1;
         n->time_life = params.t_to_die + params.t_to_sleep;
@@ -61,8 +57,6 @@ t_data   create_philo_continer(t_params params, t_data data)
         n = ft_lstnew(data);
         ft_lstadd_back(data, &data.head, n);
         n->philo_id = i + 1;
-        pthread_create(&ph[i], NULL, (void *)philosopher_state, NULL);
-        pthread_detach(ph[i]);
         n->philosopher = ph[i];
         n->actual_state = -1;
         n->time_life = params.t_to_die + params.t_to_sleep;
@@ -134,6 +128,7 @@ t_list  *philosopher_state(t_params params, t_list *node)
     else if (node->actual_state == -1)
     {
         node->actual_state = 3;
+        usleep(800);
         node->time_life = params.t_to_die + params.t_to_sleep;
         if (node->time_life < t)
             node->actual_state = 4;

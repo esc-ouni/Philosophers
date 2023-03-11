@@ -77,3 +77,19 @@ void	ft_lstclear(t_list **lst)
 	}
 	*lst = NULL;
 }
+
+t_list	*search_by_id(int id, t_data data)
+{
+	t_list	*n;
+
+	n = data.head;
+	if (!n)
+		ft_exit_with_error(data);
+	while (n)
+	{
+		if (id == n->philo_id)
+			return (n);
+		n = n->next;
+	}
+	return (n);
+}
