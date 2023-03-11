@@ -56,7 +56,7 @@ typedef struct s_params
     int n_of_meals;
 }   t_params;
 
-size_t ft_time();
+time_t ft_time();
 void    first_meal(t_params params, t_data data);
 t_data   create_philos(t_params params, t_data data);
 t_list  *philosopher_state(t_params params, t_list *node);

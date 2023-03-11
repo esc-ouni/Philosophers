@@ -47,16 +47,16 @@ void    ft_exit_with_error(t_data data)
     exit(1);
 }
 
-size_t ft_time()
+time_t ft_time()
 {
-    static unsigned init_time;
+    static time_t init_time;
     struct timeval    tp;
-    size_t   t;
+    time_t   t;
 
     gettimeofday(&tp, NULL);
     if (!init_time)
-        init_time = (size_t)tp.tv_usec + ((size_t)tp.tv_sec * 10000);
-    t = (((size_t)tp.tv_usec + (size_t)tp.tv_sec * 10000) - init_time) / 1000;
+        init_time = (time_t)tp.tv_usec + ((time_t)tp.tv_sec * 10000);
+    t = (((time_t)tp.tv_usec + (time_t)tp.tv_sec * 10000) - init_time) / 1000;
     return (t);
 }
 
