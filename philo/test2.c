@@ -40,3 +40,48 @@ int main() {
 
     return 0;
 }
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+
+typedef struct Node {
+    int data;
+    struct Node* next;
+} Node;
+
+typedef struct ThreadData {
+    Node* node;
+    // any other data needed by the thread
+} ThreadData;
+
+void* thread_func(void* arg) {
+    ThreadData* data = (ThreadData*)arg;
+    Node* node = data->node;
+
+    // do something with the node
+
+    return NULL;
+}
+
+int main() {
+    Node* node = malloc(sizeof(Node));
+    node->data = 42;
+    node->next = NULL;
+
+    ThreadData* data = malloc(sizeof(ThreadData));
+    data->node = node;
+    // initialize any other data needed by the thread
+
+    pthread_t thread;
+    pthread_create(&thread, NULL, thread_func, (void*)data);
+
+    // do other work in the main thread
+
+    pthread_join(thread, NULL);
+
+    free(data);
+    free(node);
+
+    return 0;
+}
