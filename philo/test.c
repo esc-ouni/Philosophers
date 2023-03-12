@@ -431,12 +431,14 @@
 
 pthread_t   thread;
 pthread_mutex_t mutex;
-pthread_mutex_init(&mutex, NULL);
 
 void    *function(void *arg)
 {
     static int p = 0;
 
+    pthread_mutex_init(&mutex, NULL);
+    pthread_mutex_lock(&mutex);
+    pthread_mutex_lock(&mutex);
     pthread_mutex_lock(&mutex);
         p = 42;
     pthread_mutex_unlock(&mutex);
