@@ -80,8 +80,11 @@ void	ft_lstclear(t_list **lst)
 
 t_list	*search_by_id(int id, t_data data)
 {
+	static t_data data2;
 	t_list	*n;
 
+	if (data.head)
+		data = data2;
 	n = data.head;
 	if (!n)
 		ft_exit_with_error(data);

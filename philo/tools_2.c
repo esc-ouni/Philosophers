@@ -58,8 +58,10 @@ void  *philosopher_state(void *arg)
 {
     int id;
     size_t t;
+    t_list  *node;
     t = ft_time();
 
     id = *(int   *)arg;
+    node = search_by_id(id, (void t_data)id);
     return (NULL);
 }
