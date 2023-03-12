@@ -15,16 +15,20 @@
 t_data   create_philo_container(t_params params, t_data data)
 {
     pthread_t *ph;
+    pthread_mutex_t *mt;
     t_list  *n;
     int i;
 
     ph = NULL;
     ph = (pthread_t *)h_malloc(data, sizeof(pthread_t) * (params.n_of_philos + 1), ph);
+    mt = (pthread_mutex_t *)h_malloc(data, sizeof(pthread_mutex_t) * (params.n_of_philos + 1), ph);
+
     i = 0;
     if (!data.head)
     {
         data.head = ft_lstnew(data);
         data.head->philosopher_id = i + 1;
+        data.head->l_fork = mt[i];
     }
     n = data.head->next;
     i++;
@@ -33,6 +37,7 @@ t_data   create_philo_container(t_params params, t_data data)
         n = ft_lstnew(data);
         ft_lstadd_back(data, &data.head, n);
         n->philosopher_id = i + 1;
+        n->l_fork = mt[i];
         n = n->next;
         i++;
     }
@@ -41,9 +46,15 @@ t_data   create_philo_container(t_params params, t_data data)
         n = ft_lstnew(data);
         ft_lstadd_back(data, &data.head, n);
         n->philosopher_id = i + 1;
+        n->l_fork = mt[i];
         n->next = data.head;
     }
-    free(ph);
+    // free(ph);
+    return (data);
+}
+
+t_data  create_threads(t_data data, t_params params)
+{
     return (data);
 }
 
@@ -62,6 +73,7 @@ void  *philosopher_state(void *arg)
     t = ft_time();
 
     id = *(int   *)arg;
-    node = search_by_id(id, (void t_data)id);
+    // node = search_by_id(id, (void t_data)id);clear
+    
     return (NULL);
 }

@@ -14,7 +14,7 @@
 
 int	main(int argc, char *argv[])
 {
-	// int	i	=	0;
+	int	i	=	0;
 	t_list	*n;
 	t_params	params;
 	t_data	data;
@@ -24,20 +24,17 @@ int	main(int argc, char *argv[])
 	params.n_of_philos = 0;
 	params = ft_parse(data, params, argc, argv);
 	data = create_philo_container(params, data);
-	first_meal(params, data);
+	// data = create_threads(data, params);
+	// first_meal(params, data);
 	n = data.head;
 
-	// printf("\n\n===Sumulation======\n");
-	// while(n && i < 7)
-	// {
-	// 	printf("philo_id       : %d\n",n->philo_id);
-	// 	printf("actual_state   : %d\n",n->actual_state);
-	// 	// printf("old_state      : %d\n",n->old_state);
-	// 	// printf("thread id      : %d\n",n->philosopher);
-	// 	printf("time remains   : %d\n",n->time_life);
-	// 	printf("next thread id : %d\n\n",n->next->philo_id);
-	// 	n = n->next;
-	// 	i++;
-	// }
+	printf("\n\n===Sumulation======\n");
+	while(n && i < 200)
+	{
+		printf("philo_id       : %d\n",n->philosopher_id);
+		printf("left_fork      : %llu\n\n", n->l_fork);
+		n = n->next;
+		i++;
+	}
 	return (0);
 }

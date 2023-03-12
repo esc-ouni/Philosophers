@@ -52,6 +52,7 @@ typedef struct s_params
 time_t      ft_time();
 void        first_meal(t_params params, t_data data);
 t_data      create_philo_container(t_params params, t_data data);
+t_data      create_threads(t_data data, t_params params);
 void        *philosopher_state(void *arg);
 void	    *h_malloc(t_data data, size_t s, void *p);
 t_params    ft_parse(t_data data, t_params params, int argc, char **argv);
