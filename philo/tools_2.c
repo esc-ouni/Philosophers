@@ -28,6 +28,7 @@ t_data   create_philo_container(t_params params, t_data data)
     {
         data.head = ft_lstnew(data);
         data.head->philosopher_id = i + 1;
+        pthread_mutex_init(&mt[i], NULL);
         data.head->l_fork = mt[i];
     }
     n = data.head->next;
@@ -74,6 +75,6 @@ void  *philosopher_state(void *arg)
 
     id = *(int   *)arg;
     // node = search_by_id(id, (void t_data)id);clear
-    
+
     return (NULL);
 }

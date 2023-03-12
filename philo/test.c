@@ -429,31 +429,48 @@
 #include <unistd.h>
 #include <sys/time.h>
 
+typedef struct param
+{
+    int t1;
+    int t2;
+    int t3;
+    int t4;
+}   param;
+
 pthread_t   thread;
 pthread_mutex_t mutex;
 
 void    *function(void *arg)
 {
-    static int p = 0;
-
     pthread_mutex_init(&mutex, NULL);
+    param   *p = (param *)arg;
+
+    p->t1 = 4;
+    p->t2 = 4;
     pthread_mutex_lock(&mutex);
     pthread_mutex_lock(&mutex);
-    pthread_mutex_lock(&mutex);
-        p = 42;
+    p->t3 = 4;
+    p->t4 = 4;
     pthread_mutex_unlock(&mutex);
     return((void *)p);
 }
 
 int main()
 {
-    int res = 0;
+    param *res = malloc(sizeof(param));
+    res->t1 = 1;
+    res->t2 = 1;
+    res->t3 = 1;
+    res->t4 = 1;
 
+    printf("%d\n%d\n%d\n%d\n\n", res->t1, res->t2, res->t3, res->t4);
+
+    pthread_create(&thread, NULL, function, (void *)res);
     pthread_mutex_lock(&mutex);
-    pthread_create(&thread, NULL, function, NULL);
-    pthread_mutex_lock(&mutex);
 
-    pthread_join(thread, &res);
+    pthread_detach(thread);
+    sleep(1);
 
-    printf("%d\n", res);
+    printf("%d\n%d\n%d\n%d\n\n", res->t1, res->t2, res->t3, res->t4);
+    // printf("%d\n", res);
 }
