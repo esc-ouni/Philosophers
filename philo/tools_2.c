@@ -115,23 +115,28 @@ void  *philosopher_state(void *arg)
         check_death(node);
         
         usleep(node->time_to_think * 1000);
-        // check_death(node);
+        check_death(node);
 
         pthread_mutex_lock(&node->l_fork);
         printf("%zums philosopher %d taken a fork\n", ft_time(), node->philosopher_id);
+        check_death(node);
 
         pthread_mutex_lock(&node->next->l_fork);
         printf("%zums philosopher %d taken a fork\n", ft_time(), node->philosopher_id);
+        check_death(node);
 
         printf("%zums philosopher %d is eating\n", ft_time(), node->philosopher_id);
         node->time_to_think += ft_time();
         usleep(node->time_to_eat * 1000);
+        check_death(node);
 
         pthread_mutex_unlock(&node->l_fork);
         pthread_mutex_unlock(&node->next->l_fork);
+        check_death(node);
 
         printf("%zums philosopher %d is sleeping\n", ft_time(), node->philosopher_id);
         usleep(node->time_to_sleep * 1000);
+        check_death(node);
         
     }
     return (NULL);
