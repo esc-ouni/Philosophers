@@ -36,6 +36,7 @@ typedef struct s_list
     long long       time_to_eat;
     long long       time_to_sleep;
     long long       num_of_meals;
+    long long       time_left;
     pthread_mutex_t l_fork;
 	struct s_list	*next;
 }				t_list;

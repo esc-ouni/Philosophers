@@ -101,6 +101,7 @@ void  *philosopher_state(void *arg)
     node = (t_list  *)arg;
     // node = search_by_id(node->philosopher_id, node);
     id = node->philosopher_id;
+    node->time_left = node->time_to_think + node->time_to_sleep;
     pthread_mutex_init(&node->l_fork, NULL);
     // pthread_mutex_init(&g_mutex, NULL);
     // pthread_mutex_lock(&g_mutex);
@@ -115,7 +116,7 @@ void  *philosopher_state(void *arg)
         
         usleep(node->time_to_think * 1000);
         // check_death(node);
-        
+
         pthread_mutex_lock(&node->l_fork);
         printf("%zums philosopher %d taken a fork\n", ft_time(), node->philosopher_id);
 
@@ -123,6 +124,7 @@ void  *philosopher_state(void *arg)
         printf("%zums philosopher %d taken a fork\n", ft_time(), node->philosopher_id);
 
         printf("%zums philosopher %d is eating\n", ft_time(), node->philosopher_id);
+        node->time_to_think += ft_time();
         usleep(node->time_to_eat * 1000);
 
         pthread_mutex_unlock(&node->l_fork);
@@ -137,7 +139,7 @@ void  *philosopher_state(void *arg)
 
 void    check_death(t_list *node)
 {
-    if (node->time_to_think < ft_time())
+    if (node->time_left < ft_time())
     {
         printf("%zums philosopher %d is died\n", ft_time(), node->philosopher_id);
         printf("===SUMULATION_ENDS==============\n");
