@@ -129,7 +129,7 @@ void  *philosopher_state(void *arg)
             check_death(node);
         }
         printf("%zu %d is eating\n", ft_time(), node->philosopher_id);
-        node->time_to_think += ft_time();
+        node->time_left += ft_time();
         usleep(node->time_to_eat * 1000);
         check_death(node);
 
