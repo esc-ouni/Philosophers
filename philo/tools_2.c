@@ -93,7 +93,7 @@ void    first_meal(t_params params, t_data data)
 
 void  *philosopher_state(void *arg)
 {
-    pthread_mutex_t g_mutex;
+    // pthread_mutex_t g_mutex;
     int id;
     t_list  *node;
     ft_time();
@@ -102,14 +102,14 @@ void  *philosopher_state(void *arg)
     id = node->philosopher_id;
     node->time_left = node->time_to_think + node->time_to_sleep;
     pthread_mutex_init(&node->l_fork, NULL);
-    pthread_mutex_init(&g_mutex, NULL);
+    // pthread_mutex_init(&g_mutex, NULL);
     check_death(node);
 
     while (1)
     {
         // check_death(node);
 
-        pthread_mutex_lock(&g_mutex);
+        // pthread_mutex_lock(&g_mutex);
         printf("%zu %d is thinking\n", ft_time(), node->philosopher_id);
         check_death(node);
         
@@ -125,6 +125,19 @@ void  *philosopher_state(void *arg)
             printf("%zu %d has taken a fork\n", ft_time(), node->philosopher_id);
             check_death(node);
         }
+        if (node->philosopher_id % 2 != 0)
+        {
+            pthread_mutex_lock(&node->l_fork);
+            printf("%zu %d has taken a fork\n", ft_time(), node->philosopher_id);
+            check_death(node);
+        }
+        else
+        {
+            pthread_mutex_lock(&node->next->l_fork);
+            printf("%zu %d has taken a fork\n", ft_time(), node->philosopher_id);
+            check_death(node);
+        }
+
         printf("%zu %d is eating\n", ft_time(), node->philosopher_id);
         node->time_left += ft_time();
         usleep(node->time_to_eat * 1000);
@@ -137,8 +150,9 @@ void  *philosopher_state(void *arg)
         printf("%zu %d is sleeping\n", ft_time(), node->philosopher_id);
         usleep(node->time_to_sleep * 1000);
         check_death(node);
+        continue ;
         
-        pthread_mutex_unlock(&g_mutex);
+        // pthread_mutex_unlock(&g_mutex);
     }
     return (NULL);
 }
