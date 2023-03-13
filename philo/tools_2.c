@@ -111,21 +111,24 @@ void  *philosopher_state(void *arg)
     {
         // printf("\n\n%d\n\n", node->time_to_think);
         // check_death(node);
-        printf("%zums philosopher %d is thinking\n", ft_time(), node->philosopher_id);
+
+
+        printf("%zu %d is thinking\n", ft_time(), node->philosopher_id);
         check_death(node);
         
-        usleep(node->time_to_think * 1000);
-        check_death(node);
-
-        pthread_mutex_lock(&node->l_fork);
-        printf("%zums philosopher %d taken a fork\n", ft_time(), node->philosopher_id);
-        check_death(node);
-
-        pthread_mutex_lock(&node->next->l_fork);
-        printf("%zums philosopher %d taken a fork\n", ft_time(), node->philosopher_id);
-        check_death(node);
-
-        printf("%zums philosopher %d is eating\n", ft_time(), node->philosopher_id);
+	    if (node->philosopher_id % 2 == 0)
+        {
+            pthread_mutex_lock(&node->l_fork);
+            printf("%zu %d has taken a fork\n", ft_time(), node->philosopher_id);
+            check_death(node);
+        }
+        else
+        {
+            pthread_mutex_lock(&node->next->l_fork);
+            printf("%zu %d has taken a fork\n", ft_time(), node->philosopher_id);
+            check_death(node);
+        }
+        printf("%zu %d is eating\n", ft_time(), node->philosopher_id);
         node->time_to_think += ft_time();
         usleep(node->time_to_eat * 1000);
         check_death(node);
@@ -134,7 +137,7 @@ void  *philosopher_state(void *arg)
         pthread_mutex_unlock(&node->next->l_fork);
         check_death(node);
 
-        printf("%zums philosopher %d is sleeping\n", ft_time(), node->philosopher_id);
+        printf("%zu %d is sleeping\n", ft_time(), node->philosopher_id);
         usleep(node->time_to_sleep * 1000);
         check_death(node);
         
@@ -146,7 +149,7 @@ void    check_death(t_list *node)
 {
     if (node->time_left < ft_time())
     {
-        printf("%zums philosopher %d is died\n", ft_time(), node->philosopher_id);
+        printf("%zu %d died\n", ft_time(), node->philosopher_id);
         printf("===SUMULATION_ENDS==============\n");
         exit(0);
     }
