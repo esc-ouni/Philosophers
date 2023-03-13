@@ -20,7 +20,7 @@ int	main(int argc, char *argv[])
 	t_data	data;
 
 	data.head = NULL;
-    printf("===SUMULATION_STARTS===========\n");
+    printf("===SUMULATION_STARTS============\n");
 	params.n_of_philos = 0;
 	params = ft_parse(data, params, argc, argv);
 	data = create_philo_container(params, data);

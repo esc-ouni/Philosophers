@@ -36,7 +36,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ_M) $(OBJ_T) $(HR) 
 	@$(CC) -pthread $(FLAGS) $(OBJ_T) $(OBJ_M) -o $(NAME)
-	@clear && echo "==$(NAME)_compiled============="
+	@clear && echo "==$(NAME)_compiled=============="
 
 %.o: %.c $(HR)
 	$(CC) $(FLAGS) -c $< -o $@
@@ -44,13 +44,13 @@ $(NAME): $(OBJ_M) $(OBJ_T) $(HR)
 clean:
 	$(RM) $(OBJ_M)
 	$(RM) $(OBJ_T)
-	@clear && echo "==Object_files_deleted========="
+	@clear && echo "==Object_files_deleted=========="
 
 fclean: clean
 	$(RM) $(NAME)
-	@clear && echo "==All_created_files_deleted===="
+	@clear && echo "==All_created_files_deleted====="
 
 re: fclean all
-	@clear && echo "==Compilation_reseted=========="
+	@clear && echo "==Compilation_reseted==========="
 
 .PHONY: all clean fclean re

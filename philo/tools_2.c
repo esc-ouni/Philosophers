@@ -29,9 +29,9 @@ t_data   create_philo_container(t_params params, t_data data)
         data.head = ft_lstnew(data);
         data.head->philosopher_id = i + 1;
         data.head->l_fork = mt[i];
-        data.head->time_to_think = params.t_to_think * 1000;
-        data.head->time_to_sleep = params.t_to_sleep * 1000;
-        data.head->time_to_eat = params.t_to_eat * 1000;
+        data.head->time_to_think = params.t_to_think;
+        data.head->time_to_sleep = params.t_to_sleep;
+        data.head->time_to_eat = params.t_to_eat;
         pthread_create(&ph[i], NULL, philosopher_state, (void *)data.head);
         data.head->philosopher = ph[i];
     }
@@ -43,9 +43,9 @@ t_data   create_philo_container(t_params params, t_data data)
         ft_lstadd_back(data, &data.head, n);
         n->philosopher_id = i + 1;
         n->l_fork = mt[i];
-        n->time_to_think = params.t_to_think * 1000;
-        n->time_to_sleep = params.t_to_sleep * 1000;
-        n->time_to_eat = params.t_to_eat * 1000;
+        n->time_to_think = params.t_to_think;
+        n->time_to_sleep = params.t_to_sleep;
+        n->time_to_eat = params.t_to_eat;
         pthread_create(&ph[i], NULL, philosopher_state, (void *)n);
         n->philosopher = ph[i];
         n = n->next;
@@ -57,9 +57,9 @@ t_data   create_philo_container(t_params params, t_data data)
         ft_lstadd_back(data, &data.head, n);
         n->philosopher_id = i + 1;
         n->l_fork = mt[i];
-        n->time_to_think = params.t_to_think * 1000;
-        n->time_to_sleep = params.t_to_sleep * 1000;
-        n->time_to_eat = params.t_to_eat * 1000;
+        n->time_to_think = params.t_to_think;
+        n->time_to_sleep = params.t_to_sleep;
+        n->time_to_eat = params.t_to_eat;
         pthread_create(&ph[i], NULL, philosopher_state, (void *)n);
         n->philosopher = ph[i];
         n->next = data.head;
@@ -104,11 +104,13 @@ void  *philosopher_state(void *arg)
 
     while (1)
     {
-        // if (ft_time() < node->time_to_think)
-        // {
-        //     printf("%zums philosopher %d is died\n", ft_time(), node->philosopher_id);
-        //     ft_exit();
-        // }
+        // printf("\n\n%d\n\n", node->time_to_think);
+        if (node->time_to_think < ft_time())
+        {
+            printf("%zums philosopher %d is died\n", ft_time(), node->philosopher_id);
+            printf("===SUMULATION_ENDS==============\n");
+            ft_exit();
+        }
         printf("%zums philosopher %d is thinking\n", ft_time(), node->philosopher_id);
         usleep(node->time_to_think);
     }
