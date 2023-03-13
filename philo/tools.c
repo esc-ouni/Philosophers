@@ -31,8 +31,8 @@ t_params ft_parse(t_data data, t_params params, int argc, char **argv)
 
 void    ft_exit(t_data data)
 {
-    if (data.head)
-        ft_lstclear(&data.head);
+    // if (data.head)
+    //     ft_lstclear(&data.head);
     exit(0);
 }
 

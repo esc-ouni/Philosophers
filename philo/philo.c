@@ -24,17 +24,17 @@ int	main(int argc, char *argv[])
 	params.n_of_philos = 0;
 	params = ft_parse(data, params, argc, argv);
 	data = create_philo_container(params, data);
-	// data = create_threads(data, params);
-	// first_meal(params, data);
+	join_threads(data, params);
+	first_meal(params, data);
 	n = data.head;
 
-	printf("\n\n===Sumulation======\n");
-	while(n && i < 200)
-	{
-		printf("philo_id       : %d\n",n->philosopher_id);
-		printf("left_fork      : %llu\n\n", n->l_fork);
-		n = n->next;
-		i++;
-	}
+	// printf("\n\n===Sumulation======\n");
+	// while(n && i < 200)
+	// {
+	// 	printf("philo_id       : %d\n",n->philosopher_id);
+	// 	printf("left_fork      : %llu\n\n", n->l_fork);
+	// 	n = n->next;
+	// 	i++;
+	// }
 	return (0);
 }

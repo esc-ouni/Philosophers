@@ -442,8 +442,8 @@ pthread_mutex_t mutex;
 
 void    *function(void *arg)
 {
-    pthread_mutex_init(&mutex, NULL);
     param   *p = (param *)arg;
+    pthread_mutex_init(&mutex, NULL);
 
     p->t1 = 4;
     p->t2 = 4;

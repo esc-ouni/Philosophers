@@ -28,8 +28,11 @@ t_data   create_philo_container(t_params params, t_data data)
     {
         data.head = ft_lstnew(data);
         data.head->philosopher_id = i + 1;
-        pthread_mutex_init(&mt[i], NULL);
         data.head->l_fork = mt[i];
+        data.head->time_to_think = params.t_to_think * 1000;
+        data.head->time_to_sleep = params.t_to_sleep * 1000;
+        data.head->time_to_eat = params.t_to_eat * 1000;
+        pthread_create(&ph[i], NULL, philosopher_state, (void *)data.head);
     }
     n = data.head->next;
     i++;
@@ -39,6 +42,10 @@ t_data   create_philo_container(t_params params, t_data data)
         ft_lstadd_back(data, &data.head, n);
         n->philosopher_id = i + 1;
         n->l_fork = mt[i];
+        n->time_to_think = params.t_to_think * 1000;
+        n->time_to_sleep = params.t_to_sleep * 1000;
+        n->time_to_eat = params.t_to_eat * 1000;
+        pthread_create(&ph[i], NULL, philosopher_state, (void *)n);
         n = n->next;
         i++;
     }
@@ -48,13 +55,17 @@ t_data   create_philo_container(t_params params, t_data data)
         ft_lstadd_back(data, &data.head, n);
         n->philosopher_id = i + 1;
         n->l_fork = mt[i];
+        n->time_to_think = params.t_to_think * 1000;
+        n->time_to_sleep = params.t_to_sleep * 1000;
+        n->time_to_eat = params.t_to_eat * 1000;
+        pthread_create(&ph[i], NULL, philosopher_state, (void *)n);
         n->next = data.head;
     }
     // free(ph);
     return (data);
 }
 
-t_data  create_threads(t_data data, t_params params)
+void  join_threads(t_data data, t_params params)
 {
     return (data);
 }
@@ -69,12 +80,23 @@ void    first_meal(t_params params, t_data data)
 void  *philosopher_state(void *arg)
 {
     int id;
-    size_t t;
     t_list  *node;
-    t = ft_time();
+    // ft_time();
 
-    id = *(int   *)arg;
-    // node = search_by_id(id, (void t_data)id);clear
+    node = (t_list  *)arg;
+    // node = search_by_id(node->philosopher_id, node);
+    id = node->philosopher_id;
+    pthread_mutex_init(&node->l_fork, NULL);
 
+    while (1)
+    {
+        if (ft_time() <= node->time_to_think)
+        {
+            printf("%zums philosopher %d is died\n", ft_time(), node->philosopher_id);
+            ft_exit();
+        }
+        printf("%zums philosopher %d is thinking\n", ft_time(), node->philosopher_id);
+        usleep(node->time_to_think);
+    }
     return (NULL);
 }
