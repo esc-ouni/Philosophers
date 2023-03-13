@@ -77,7 +77,7 @@ void  join_threads(t_data data, t_params params)
     n = data.head;
     while (n && i < params.n_of_philos)
     {
-        pthread_join(&n->philosopher, NULL);
+        pthread_detach(&n->philosopher);
         n = n->next;
         i++;
     }
@@ -93,6 +93,7 @@ void    first_meal(t_params params, t_data data)
 
 void  *philosopher_state(void *arg)
 {
+    // pthread_mutex_t g_mutex;
     int id;
     t_list  *node;
     // ft_time();
@@ -101,18 +102,25 @@ void  *philosopher_state(void *arg)
     // node = search_by_id(node->philosopher_id, node);
     id = node->philosopher_id;
     pthread_mutex_init(&node->l_fork, NULL);
+    // pthread_mutex_init(&g_mutex, NULL);
+    // pthread_mutex_lock(&g_mutex);
 
     while (1)
     {
         // printf("\n\n%d\n\n", node->time_to_think);
-        if (node->time_to_think < ft_time())
-        {
-            printf("%zums philosopher %d is died\n", ft_time(), node->philosopher_id);
-            printf("===SUMULATION_ENDS==============\n");
-            ft_exit();
-        }
+        check_death(node);
         printf("%zums philosopher %d is thinking\n", ft_time(), node->philosopher_id);
-        usleep(node->time_to_think);
+        usleep(node->time_to_think * 1000);
     }
     return (NULL);
+}
+
+void    check_death(t_list *node)
+{
+    if (node->time_to_think < ft_time())
+    {
+        printf("%zums philosopher %d is died\n", ft_time(), node->philosopher_id);
+        printf("===SUMULATION_ENDS==============\n");
+        exit(0);
+    }
 }

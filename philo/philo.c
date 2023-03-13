@@ -24,16 +24,9 @@ int	main(int argc, char *argv[])
 	params.n_of_philos = 0;
 	params = ft_parse(data, params, argc, argv);
 	data = create_philo_container(params, data);
-	// join_threads(data, params);
+	join_threads(data, params);
 	// first_meal(params, data);
 	n = data.head;
-
-	while (n && i < params.n_of_philos)
-    {
-        pthread_join(&n->philosopher, NULL);
-        n = n->next;
-        i++;
-    }
 
 	// printf("\n\n===Sumulation======\n");
 	// while(n && i < 200)
