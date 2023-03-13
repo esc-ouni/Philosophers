@@ -33,6 +33,7 @@ t_data   create_philo_container(t_params params, t_data data)
         data.head->time_to_sleep = params.t_to_sleep * 1000;
         data.head->time_to_eat = params.t_to_eat * 1000;
         pthread_create(&ph[i], NULL, philosopher_state, (void *)data.head);
+        data.head->philosopher = ph[i];
     }
     n = data.head->next;
     i++;
@@ -46,6 +47,7 @@ t_data   create_philo_container(t_params params, t_data data)
         n->time_to_sleep = params.t_to_sleep * 1000;
         n->time_to_eat = params.t_to_eat * 1000;
         pthread_create(&ph[i], NULL, philosopher_state, (void *)n);
+        n->philosopher = ph[i];
         n = n->next;
         i++;
     }
@@ -59,6 +61,7 @@ t_data   create_philo_container(t_params params, t_data data)
         n->time_to_sleep = params.t_to_sleep * 1000;
         n->time_to_eat = params.t_to_eat * 1000;
         pthread_create(&ph[i], NULL, philosopher_state, (void *)n);
+        n->philosopher = ph[i];
         n->next = data.head;
     }
     // free(ph);
@@ -67,7 +70,18 @@ t_data   create_philo_container(t_params params, t_data data)
 
 void  join_threads(t_data data, t_params params)
 {
-    return (data);
+    int i;
+    t_list  *n;
+
+    i = 0;
+    n = data.head;
+    while (n && i < params.n_of_philos)
+    {
+        pthread_join(&n->philosopher, NULL);
+        n = n->next;
+        i++;
+    }
+    // return (data);
 }
 
 void    first_meal(t_params params, t_data data)
@@ -90,11 +104,11 @@ void  *philosopher_state(void *arg)
 
     while (1)
     {
-        if (ft_time() <= node->time_to_think)
-        {
-            printf("%zums philosopher %d is died\n", ft_time(), node->philosopher_id);
-            ft_exit();
-        }
+        // if (ft_time() < node->time_to_think)
+        // {
+        //     printf("%zums philosopher %d is died\n", ft_time(), node->philosopher_id);
+        //     ft_exit();
+        // }
         printf("%zums philosopher %d is thinking\n", ft_time(), node->philosopher_id);
         usleep(node->time_to_think);
     }

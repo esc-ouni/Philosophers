@@ -30,11 +30,12 @@
 
 typedef struct s_list
 {
-    int             philosopher_id;
-    int             time_to_think;
-    int             time_to_eat;
-    int             time_to_sleep;
-    int               num_of_meals;
+    pthread_t       philosopher;
+    long long       philosopher_id;
+    long long       time_to_think;
+    long long       time_to_eat;
+    long long       time_to_sleep;
+    long long       num_of_meals;
     pthread_mutex_t l_fork;
 	struct s_list	*next;
 }				t_list;
@@ -46,18 +47,18 @@ typedef struct s_data
 
 typedef struct s_params
 {
-    int n_of_philos;
-    int t_to_think;
-    int t_to_eat;
-    int t_to_sleep;
-    int n_of_meals;
+    long long n_of_philos;
+    long long t_to_think;
+    long long t_to_eat;
+    long long t_to_sleep;
+    long long n_of_meals;
 }   t_params;
 
 time_t      ft_time();
 void        first_meal(t_params params, t_data data);
 t_data      create_philo_container(t_params params, t_data data);
 // t_data      create_threads(t_data data, t_params params);
-void        join_threads(t_data data, t_params params)
+void        join_threads(t_data data, t_params params);
 void        *philosopher_state(void *arg);
 void	    *h_malloc(t_data data, size_t s, void *p);
 t_params    ft_parse(t_data data, t_params params, int argc, char **argv);

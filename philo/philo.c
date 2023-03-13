@@ -36,5 +36,6 @@ int	main(int argc, char *argv[])
 	// 	n = n->next;
 	// 	i++;
 	// }
+	while (1);
 	return (0);
 }
