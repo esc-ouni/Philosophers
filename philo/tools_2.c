@@ -77,7 +77,7 @@ void  join_threads(t_data data, t_params params)
     n = data.head;
     while (n && i < params.n_of_philos)
     {
-        pthread_detach(&n->philosopher);
+        pthread_join(&n->philosopher, NULL);
         n = n->next;
         i++;
     }
@@ -93,26 +93,23 @@ void    first_meal(t_params params, t_data data)
 
 void  *philosopher_state(void *arg)
 {
-    // pthread_mutex_t g_mutex;
+    pthread_mutex_t g_mutex;
     int id;
     t_list  *node;
-    // ft_time();
+    ft_time();
 
     node = (t_list  *)arg;
-    // node = search_by_id(node->philosopher_id, node);
     id = node->philosopher_id;
     node->time_left = node->time_to_think + node->time_to_sleep;
     pthread_mutex_init(&node->l_fork, NULL);
-    // pthread_mutex_init(&g_mutex, NULL);
-    // pthread_mutex_lock(&g_mutex);
+    pthread_mutex_init(&g_mutex, NULL);
     check_death(node);
 
     while (1)
     {
-        // printf("\n\n%d\n\n", node->time_to_think);
         // check_death(node);
 
-
+        pthread_mutex_lock(&g_mutex);
         printf("%zu %d is thinking\n", ft_time(), node->philosopher_id);
         check_death(node);
         
@@ -141,6 +138,7 @@ void  *philosopher_state(void *arg)
         usleep(node->time_to_sleep * 1000);
         check_death(node);
         
+        pthread_mutex_unlock(&g_mutex);
     }
     return (NULL);
 }
