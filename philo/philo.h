@@ -58,8 +58,9 @@ typedef struct s_params
 time_t      ft_time();
 void        first_meal(t_params params, t_data data);
 t_data      create_philo_container(t_params params, t_data data);
-void        check_death(t_list *node);
+// void        check_death(t_list *node);
 void        printer(t_list *node, char *s);
+void        check_death(t_list *node, time_t time);
 // t_data      create_threads(t_data data, t_params params);
 void        join_threads(t_data data, t_params params);
 void        *philosopher_state(void *arg);

@@ -22,8 +22,8 @@ int	main(int argc, char *argv[])
 	data.head = NULL;
 	params.n_of_philos = 0;
 	params = ft_parse(data, params, argc, argv);
-	data = create_philo_container(params, data);
     printf("===SUMULATION_STARTS============\n");
+	data = create_philo_container(params, data);
 	join_threads(data, params);
 	// first_meal(params, data);
 	// n = data.head;
