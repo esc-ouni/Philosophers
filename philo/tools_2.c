@@ -104,38 +104,38 @@ void  *philosopher_state(void *arg)
 
     while (1)
     {
-        // check_death(node);
+        check_death(node);
+        pthread_mutex_init(&node->l_fork, NULL);
 
         printf("%ld %lld is thinking\n", ft_time(), node->philosopher_id);
         check_death(node);
         
-        pthread_mutex_init(&node->l_fork, NULL);
 	    if (node->philosopher_id % 2 == 0)
         {
             pthread_mutex_lock(&node->next->l_fork);
-            printf("%ld %lld has taken a fork\n", ft_time(), node->philosopher_id);
+            printer(node, "has taken a fork");
             check_death(node);
         }
         else
         {
             pthread_mutex_lock(&node->l_fork);
-            printf("%ld %lld has taken a fork\n", ft_time(), node->philosopher_id);
+            printer(node, "has taken a fork");
             check_death(node);
         }
         if (node->philosopher_id % 2 == 0)
         {
             pthread_mutex_lock(&node->l_fork);
-            printf("%ld %lld has taken a fork\n", ft_time(), node->philosopher_id);
+            printer(node, "has taken a fork");
             check_death(node);
         }
         else
         {
             pthread_mutex_lock(&node->next->l_fork);
-            printf("%ld %lld has taken a fork\n", ft_time(), node->philosopher_id);
+            printer(node, "has taken a fork");
             check_death(node);
         }
 
-        printf("%ld %lld is eating\n", ft_time(), node->philosopher_id);
+        printer(node, "is eating");
         node->time_left += ft_time();
         usleep(node->time_to_eat * 1000);
         check_death(node);
@@ -144,11 +144,10 @@ void  *philosopher_state(void *arg)
         pthread_mutex_unlock(&node->next->l_fork);
         check_death(node);
 
-        printf("%ld %lld is sleeping\n", ft_time(), node->philosopher_id);
+        printer(node, "is sleeping");
         usleep(node->time_to_sleep * 1000);
         check_death(node);
         // continue ;
-        
     }
     return (NULL);
 }
@@ -163,6 +162,7 @@ void    check_death(t_list *node)
     {
         printf("%ld %lld died\n", ft_time(), node->philosopher_id);
         printf("===SUMULATION_ENDS==============\n");
+        // pthread_exit(NULL);
         exit(0);
         pthread_mutex_lock(&lock);
     }
