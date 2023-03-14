@@ -14,8 +14,8 @@
 
 int	main(int argc, char *argv[])
 {
-	int	i	=	0;
-	t_list	*n;
+	// int	i	=	0;
+	// t_list	*n;
 	t_params	params;
 	t_data	data;
 
