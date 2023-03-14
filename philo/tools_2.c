@@ -73,6 +73,7 @@ void  join_threads(t_data data, t_params params)
     int i;
     t_list  *n;
 
+    ft_time();
     i = 0;
     n = data.head;
     while (n && i < params.n_of_philos)
@@ -96,7 +97,7 @@ void  *philosopher_state(void *arg)
     int id;
     t_list  *node;
 
-    ft_time();
+    // ft_time();
     node = (t_list  *)arg;
     id = node->philosopher_id;
     node->time_left = node->time_to_think;
