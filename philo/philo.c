@@ -24,8 +24,8 @@ int	main(int argc, char *argv[])
 	params = ft_parse(data, params, argc, argv);
     printf("===SUMULATION_STARTS============\n");
 	data = create_philo_container(params, data);
+	first_meal(params, data);
 	join_threads(data, params);
-	// first_meal(params, data);
 	// n = data.head;
 
 	// printf("\n\n===Sumulation======\n");

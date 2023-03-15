@@ -18,6 +18,9 @@
 # define THINKIG 3
 # define DEATH 4
 
+# define LOCKED 78
+# define UNLOCKED 81
+
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -37,6 +40,9 @@ typedef struct s_list
     long long       time_to_sleep;
     long long       num_of_meals;
     long long       time_left;
+    long long       lock_status;
+    long long       act_status;
+    long long       old_status;
     pthread_mutex_t l_fork;
 	struct s_list	*next;
 }				t_list;

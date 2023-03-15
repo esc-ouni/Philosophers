@@ -32,6 +32,8 @@ t_data   create_philo_container(t_params params, t_data data)
         data.head->time_to_think = params.t_to_think;
         data.head->time_to_sleep = params.t_to_sleep;
         data.head->time_to_eat = params.t_to_eat;
+        data.head->lock_status = UNLOCKED;
+        data.head->old_status = 9;
         pthread_create(&ph[i], NULL, philosopher_state, (void *)data.head);
         data.head->philosopher = ph[i];
     }
@@ -47,6 +49,8 @@ t_data   create_philo_container(t_params params, t_data data)
         n->time_to_sleep = params.t_to_sleep;
         n->time_to_eat = params.t_to_eat;
         pthread_create(&ph[i], NULL, philosopher_state, (void *)n);
+        n->lock_status = UNLOCKED;
+        n->old_status = 9;
         n->philosopher = ph[i];
         n = n->next;
         i++;
@@ -60,6 +64,8 @@ t_data   create_philo_container(t_params params, t_data data)
         n->time_to_think = params.t_to_think;
         n->time_to_sleep = params.t_to_sleep;
         n->time_to_eat = params.t_to_eat;
+        n->lock_status = UNLOCKED;
+        n->old_status = 9;
         pthread_create(&ph[i], NULL, philosopher_state, (void *)n);
         n->philosopher = ph[i];
         n->next = data.head;
@@ -87,56 +93,78 @@ void  join_threads(t_data data, t_params params)
 
 void    first_meal(t_params params, t_data data)
 {
-    (void)data;
     (void)params;
-    //first_meal
+    t_list  *n;
+
+    n = data.head;
+    while (n && n->lock_status == -1)
+    {
+        if (n->philosopher_id % 2 == 0)
+        {
+            pthread_mutex_lock(&n->l_fork);
+            pthread_mutex_lock(&n->next->l_fork);
+            n->lock_status = LOCKED;
+            n->next->lock_status = LOCKED;
+        }
+        // else
+        //     n->lock_status = UNLOCKED;
+        n = n->next;
+    }
 }
 
 void  *philosopher_state(void *arg)
 {
-    int n;
+    // int n;
     int id;
     t_list  *node;
+    pthread_mutex_t *l_fork;
+    pthread_mutex_t *r_fork;
 
-    ft_time();
+    // ft_time();
     node = (t_list  *)arg;
+    l_fork = &node->l_fork;
+    r_fork = &node->next->l_fork;
     id = node->philosopher_id;
     node->time_left = node->time_to_think;
-    check_death(node, ft_time());
-    check_death(node, ft_time());
-    pthread_mutex_init(&node->l_fork, NULL);
-    n = 14;
-    // pthread_mutex_lock(&node->l_fork);
-    // pthread_mutex_unlock(&node->l_fork);
+    // check_death(node, ft_time());
+    // check_death(node, ft_time());
+    pthread_mutex_init(l_fork, NULL);
+    // pthread_mutex_lock(&l_fork);
+    // pthread_mutex_unlock(&l_fork);
 
     while (1)
     {
         check_death(node, ft_time());
+        if (node->old_status == 9)
+        {
+            printf("%ld %lld is thinking\n", ft_time(), node->philosopher_id);
+            node->old_status = 0;
+        }
 
-        printf("%ld %lld is thinking\n", ft_time(), node->philosopher_id);
-        check_death(node, ft_time());
+        if (node->lock_status == UNLOCKED && node->next->lock_status == UNLOCKED)
+        {
+            pthread_mutex_lock(l_fork);
+            node->lock_status = LOCKED;
+            pthread_mutex_lock(r_fork);
+            node->next->lock_status = LOCKED;
+            printer(node, "has taken a fork");
+            printer(node, "has taken a fork");
+        
+            check_death(node, ft_time());
 
-        pthread_mutex_lock(&node->l_fork);
-        printer(node, "has taken a fork");
-        check_death(node, ft_time());
-    
-        pthread_mutex_lock(&node->next->l_fork);
-        printer(node, "has taken a fork");
-        check_death(node, ft_time());
+            printer(node, "is eating");
+            node->time_left += ft_time();
+            usleep(node->time_to_eat * 1000);
 
-        printer(node, "is eating");
-        usleep(node->time_to_eat * 1000);
-        node->time_left += ft_time();
-        check_death(node, ft_time());
-
-        pthread_mutex_unlock(&node->l_fork);
-        pthread_mutex_unlock(&node->next->l_fork);
-
-        check_death(node, ft_time());
-
-        printer(node, "is sleeping");
-        usleep(node->time_to_sleep * 1000);
-        check_death(node, ft_time());
+            pthread_mutex_unlock(l_fork);
+            node->lock_status = UNLOCKED;
+            pthread_mutex_unlock(r_fork);
+            node->next->lock_status = UNLOCKED;
+            printer(node, "is sleeping");
+            usleep(node->time_to_sleep * 1000);
+            node->old_status = 9;
+        }
+        // check_death(node, ft_time());
         // continue ;
     }
     return (NULL);
@@ -148,7 +176,7 @@ void    check_death(t_list *node, time_t time)
 
     pthread_mutex_init(&lock2, NULL);
     pthread_mutex_lock(&lock2);
-    if (node->time_left < time - 100)
+    if (node->time_left <= ft_time())
     {
         printf("%ld %lld died\n", time, node->philosopher_id);
         printf("===SUMULATION_ENDS==============\n");
