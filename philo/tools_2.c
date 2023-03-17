@@ -152,6 +152,11 @@ void  *philosopher_state(void *arg)
         {
             pthread_mutex_lock(l_fork);
             node->lock_status = LOCKED;
+            if (node->next->lock_status == LOCKED)
+            {
+                pthread_mutex_unlock(l_fork);
+                continue;
+            }
             pthread_mutex_lock(r_fork);
             node->next->lock_status = LOCKED;
             printer(node, "has taken a fork");
