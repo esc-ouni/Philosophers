@@ -13,6 +13,9 @@
 #ifndef PHILO_H
 # define PHILO_H
 
+# define ALIVE 187
+# define DEAD 190
+
 # define EATING 1
 # define SLEEPING 2
 # define THINKIG 3
@@ -43,6 +46,7 @@ typedef struct s_list
     long long       lock_status;
     long long       act_status;
     long long       old_status;
+    long long       state;
     pthread_mutex_t l_fork;
 	struct s_list	*next;
 }				t_list;

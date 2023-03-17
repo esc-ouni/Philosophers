@@ -104,10 +104,10 @@ void    first_meal(t_params params, t_data data)
     {
         if (n->philosopher_id % 2 == 0)
         {
-            pthread_mutex_lock(&n->l_fork);
-            pthread_mutex_lock(&n->next->l_fork);
-            n->lock_status = LOCKED;
-            n->next->lock_status = LOCKED;
+            // pthread_mutex_lock(&n->l_fork);
+            // pthread_mutex_lock(&n->next->l_fork);
+            n->lock_status = UNLOCKED;
+            n->next->lock_status = UNLOCKED;
         }
         // else
         //     n->lock_status = UNLOCKED;
@@ -194,9 +194,9 @@ void    check_death(t_list *node, time_t time)
     if (node->time_left <= ft_time())
     {
         printf("%ld %lld died\n", time, node->philosopher_id);
-        printf("===SUMULATION_ENDS==============\n");
         // pthread_exit(NULL);
-        exit(0);
+        // exit(0);
+        node->state = DEAD;
         // pthread_mutex_lock(&lock2);
     }
     // pthread_mutex_unlock(&lock);
