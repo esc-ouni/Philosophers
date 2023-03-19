@@ -12,33 +12,22 @@
 
 #include "philo.h"
 
+
+
 int	main(int argc, char *argv[])
 {
-	// int	i	=	0;
-	t_list	*n;
+    pthread_mutex_init(&lock, NULL);
+    pthread_mutex_init(&lock2, NULL);
+
 	t_params	params;
 	t_data	data;
-
 	data.head = NULL;
 	params.n_of_philos = 0;
 	params = ft_parse(data, params, argc, argv);
     printf("===SUMULATION_STARTS============\n");
 	data = create_philo_container(params, data);
-	first_meal(params, data);
+	// init_mutexes(data, params);
 	join_threads(data, params);
-	n = data.head;
-
-	// printf("\n\n===Sumulation======\n");
-	while(n)
-	{
-		if (n->state == DEAD)
-		{
-			printf("===SUMULATION_ENDS==============\n");
-			// pthread_exit(NULL);
-			exit(1);
-		}
-		n = n->next;
-	}
-	// while (1);
+	while (1);
 	return (0);
 }

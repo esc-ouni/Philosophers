@@ -33,6 +33,9 @@
 # include <sys/time.h>
 # include <semaphore.h>
 
+    pthread_mutex_t lock;
+    pthread_mutex_t lock2;
+
 
 typedef struct s_list
 {
@@ -67,11 +70,10 @@ typedef struct s_params
 
 time_t      ft_time();
 void        first_meal(t_params params, t_data data);
+void        init_mutexes(t_data data, t_params params);
 t_data      create_philo_container(t_params params, t_data data);
-// void        check_death(t_list *node);
 void        printer(t_list *node, char *s);
 void        check_death(t_list *node, time_t time);
-// t_data      create_threads(t_data data, t_params params);
 void        join_threads(t_data data, t_params params);
 void        *philosopher_state(void *arg);
 void	    *h_malloc(t_data data, size_t s, void *p);
@@ -83,6 +85,5 @@ t_list	    *ft_lstnew(t_data data);
 t_list	    *ft_lstlast(t_list *lst);
 void	    ft_lstclear(t_list **lst);
 void	    ft_lstadd_back(t_data data, t_list **lst, t_list *new);
-t_list	    *search_by_id(int id, t_list *node);
 
 #endif

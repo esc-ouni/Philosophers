@@ -91,29 +91,8 @@ void  join_threads(t_data data, t_params params)
         n = n->next;
         i++;
     }
-    // return (data);
 }
 
-void    first_meal(t_params params, t_data data)
-{
-    (void)params;
-    t_list  *n;
-
-    n = data.head;
-    while (n && n->lock_status == -1)
-    {
-        if (n->philosopher_id % 2 == 0)
-        {
-            // pthread_mutex_lock(&n->l_fork);
-            // pthread_mutex_lock(&n->next->l_fork);
-            n->lock_status = UNLOCKED;
-            n->next->lock_status = UNLOCKED;
-        }
-        // else
-        //     n->lock_status = UNLOCKED;
-        n = n->next;
-    }
-}
 
 void  *philosopher_state(void *arg)
 {
@@ -129,11 +108,7 @@ void  *philosopher_state(void *arg)
     r_fork = &node->next->l_fork;
     id = node->philosopher_id;
     node->time_left = node->time_to_think;
-    // check_death(node, ft_time());
-    // check_death(node, ft_time());
     pthread_mutex_init(l_fork, NULL);
-    // pthread_mutex_lock(&l_fork);
-    // pthread_mutex_unlock(&l_fork);
 
     while (1)
     {
@@ -187,27 +162,29 @@ void  *philosopher_state(void *arg)
 
 void    check_death(t_list *node, time_t time)
 {
-    pthread_mutex_t lock2;
-
-    pthread_mutex_init(&lock2, NULL);
     pthread_mutex_lock(&lock2);
     if (node->time_left <= ft_time())
     {
         printf("%ld %lld died\n", time, node->philosopher_id);
-        // pthread_exit(NULL);
-        // exit(0);
-        node->state = DEAD;
+        printf("===SUMULATION_ENDS==============\n");
+        exit(0);
         // pthread_mutex_lock(&lock2);
     }
-    // pthread_mutex_unlock(&lock);
+    else
+        pthread_mutex_unlock(&lock2);
 }
 
 void    printer(t_list *node, char *s)
 {
-    pthread_mutex_t lock;
-
-    pthread_mutex_init(&lock, NULL);
     pthread_mutex_lock(&lock);
     printf("%ld %lld %s\n", ft_time(), node->philosopher_id, s);
     pthread_mutex_unlock(&lock);
 }
+
+// void        init_mutexes(t_data data, t_params params)
+// {
+//     while()
+//     {
+
+//     }
+// }
