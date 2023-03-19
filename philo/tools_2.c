@@ -108,7 +108,6 @@ void  *philosopher_state(void *arg)
     r_fork = &node->next->l_fork;
     id = node->philosopher_id;
     node->time_left = node->time_to_think;
-    pthread_mutex_init(l_fork, NULL);
 
     while (1)
     {
@@ -143,8 +142,8 @@ void  *philosopher_state(void *arg)
 
             printer(node, "is eating");
             node->num_of_meals--;
-            node->time_left += ft_time();
             usleep(node->time_to_eat * 1000);
+            node->time_left += ft_time();
             check_death(node, ft_time());
 
             pthread_mutex_unlock(l_fork);
@@ -181,10 +180,17 @@ void    printer(t_list *node, char *s)
     pthread_mutex_unlock(&lock);
 }
 
-// void        init_mutexes(t_data data, t_params params)
-// {
-//     while()
-//     {
+void        init_mutexes(t_data data, t_params params)
+{
+    int i;
+    t_list  *n;
 
-//     }
-// }
+    i = 0;
+    n = data.head;
+    while(i < params.n_of_philos)
+    {
+        pthread_mutex_init(&n->l_fork, NULL);
+        i++;
+        n = n->next;
+    }
+}
