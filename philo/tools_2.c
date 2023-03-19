@@ -96,12 +96,13 @@ void  join_threads(t_data data, t_params params)
 
 void  *philosopher_state(void *arg)
 {
-    // int n;
+    int n;
     int id;
     t_list  *node;
     pthread_mutex_t *l_fork;
     pthread_mutex_t *r_fork;
 
+    n = 0;
     ft_time();
     node = (t_list  *)arg;
     l_fork = &node->l_fork;
