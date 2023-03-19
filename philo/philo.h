@@ -13,8 +13,13 @@
 #ifndef PHILO_H
 # define PHILO_H
 
+# define EAT_ENOUGH 45
+
 # define ALIVE 187
 # define DEAD 190
+
+#define THINKING_STATE 9
+#define ALREADY_THINKING 0
 
 # define EATING 1
 # define SLEEPING 2
@@ -33,8 +38,8 @@
 # include <sys/time.h>
 # include <semaphore.h>
 
-    pthread_mutex_t lock;
-    pthread_mutex_t lock2;
+pthread_mutex_t lock;
+pthread_mutex_t lock2;
 
 
 typedef struct s_list
@@ -50,6 +55,7 @@ typedef struct s_list
     long long       act_status;
     long long       old_status;
     long long       state;
+    long long       eat_state;
     pthread_mutex_t l_fork;
 	struct s_list	*next;
 }				t_list;
@@ -69,7 +75,6 @@ typedef struct s_params
 }   t_params;
 
 time_t      ft_time();
-void        first_meal(t_params params, t_data data);
 void        init_mutexes(t_data data, t_params params);
 t_data      create_philo_container(t_params params, t_data data);
 void        printer(t_list *node, char *s);

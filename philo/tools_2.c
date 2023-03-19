@@ -113,13 +113,15 @@ void  *philosopher_state(void *arg)
     while (1)
     {
         if (!node->num_of_meals)
-            break;
-        check_death(node, ft_time());
-        if (node->old_status == 9)
         {
-            // printf("%ld %lld is thinking\n", ft_time(), node->philosopher_id);
+            node->eat_state = EAT_ENOUGH;
+            break;
+        }
+        check_death(node, ft_time());
+        if (node->old_status == THINKING_STATE)
+        {
             printer(node, "is thinking");
-            node->old_status = 0;
+            node->old_status = ALREADY_THINKING;
         }
         check_death(node, ft_time());
 
@@ -151,11 +153,10 @@ void  *philosopher_state(void *arg)
             node->next->lock_status = UNLOCKED;
             printer(node, "is sleeping");
             usleep(node->time_to_sleep * 1000);
-            node->old_status = 9;
+            node->old_status = THINKING_STATE;
             check_death(node, ft_time());
         }
         check_death(node, ft_time());
-        // continue ;
     }
     return (NULL);
 }
@@ -168,7 +169,6 @@ void    check_death(t_list *node, time_t time)
         printf("%ld %lld died\n", time, node->philosopher_id);
         printf("===SUMULATION_ENDS==============\n");
         exit(0);
-        // pthread_mutex_lock(&lock2);
     }
     else
         pthread_mutex_unlock(&lock2);
