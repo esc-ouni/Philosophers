@@ -103,12 +103,14 @@ t_data  join_threads(t_data data, t_params params)
 
 void  *philosopher_state(void *arg)
 {
+    int i;
     int n;
     int id;
     t_list  *node;
     pthread_mutex_t *l_fork;
     pthread_mutex_t *r_fork;
 
+    i = 0;
     n = 0;
     ft_time();
     node = (t_list  *)arg;
@@ -116,10 +118,11 @@ void  *philosopher_state(void *arg)
     r_fork = &node->next->l_fork;
     id = node->philosopher_id;
     node->time_left = node->time_to_think;
-
+    // node->num_of_meals = 0;
+    // printf("\n\n%lld\n\n", node->num_of_meals);
     while (1)
     {
-        if (!node->num_of_meals)
+        if (i == node->num_of_meals)
         {
             node->eat_state = EAT_ENOUGH;
             break;
@@ -149,7 +152,7 @@ void  *philosopher_state(void *arg)
             check_death(node, ft_time());
 
             printer(node, "is eating");
-            node->num_of_meals--;
+            i++;
             usleep(node->time_to_eat * 1000);
             node->time_left += ft_time();
             check_death(node, ft_time());
