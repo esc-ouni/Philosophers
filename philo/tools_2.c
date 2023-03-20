@@ -171,7 +171,7 @@ void  *philosopher_state(void *arg)
 void    check_death(t_list *node, time_t time)
 {
     pthread_mutex_lock(&lock2);
-    if (node->time_left <= ft_time())
+    if (node->time_left <= time)
     {
         printf("%ld %lld died\n", time, node->philosopher_id);
         printf("===SUMULATION_ENDS==============\n");
