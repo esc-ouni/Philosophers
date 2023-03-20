@@ -18,18 +18,20 @@ int	main(int argc, char *argv[])
 {
 	t_list	*n;
 	int 	i = 0;
+
     pthread_mutex_init(&lock, NULL);
     pthread_mutex_init(&lock2, NULL);
-
 	t_params	params;
 	t_data	data;
 	data.head = NULL;
+	data.mutexes = NULL;
+	data.threads = NULL;
 	params.n_of_philos = 0;
 	params = ft_parse(data, params, argc, argv);
     printf("===SUMULATION_STARTS============\n");
 	data = create_philo_container(params, data);
-	init_mutexes(data, params);
-	join_threads(data, params);
+	data = join_threads(data, params);
+	data = init_mutexes(data, params);
 	n = data.head;
 
 	while (n && i < params.n_of_philos)
@@ -42,7 +44,6 @@ int	main(int argc, char *argv[])
 		n = n->next;
 	}
     printf("===ALL_PHILOSOPHES_EAT_ENOUGH===\n");
-	ft_exit(data);
-	// while (1);
+	exit(0);
 	return (0);
 }

@@ -31,20 +31,23 @@ t_params ft_parse(t_data data, t_params params, int argc, char **argv)
 
 void    ft_exit(t_data data)
 {
-    (void)data;
-    // if (data.head)
-    //     ft_lstclear(&data.head);
+    if (data.head)
+        ft_lstclear(&data.head);
+    if (data.mutexes)
+        free(data.mutexes);
+    if (data.threads)
+        free(data.threads);
     exit(0);
 }
-# define ARGS 124
-# define MALLOC 678
-# define MUTEXES 897
-# define THREADS 895
 
 void    ft_exit_with_error(int n, t_data data)
 {
     if (data.head)
         ft_lstclear(&data.head);
+    if (data.mutexes)
+        free(data.mutexes);
+    if (data.threads)
+        free(data.threads);
     printf("\n\x1B[32m");
     // printf("\n\033[0;31m");
     if (n == ARGS)

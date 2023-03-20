@@ -20,6 +20,7 @@ t_data   create_philo_container(t_params params, t_data data)
     int i;
 
     ph = NULL;
+    mt = NULL;
     ph = (pthread_t *)h_malloc(data, sizeof(pthread_t) * (params.n_of_philos + 1), ph);
     mt = (pthread_mutex_t *)h_malloc(data, sizeof(pthread_mutex_t) * (params.n_of_philos + 1), ph);
 
@@ -35,7 +36,8 @@ t_data   create_philo_container(t_params params, t_data data)
         data.head->num_of_meals = params.n_of_meals;
         data.head->lock_status = UNLOCKED;
         data.head->old_status = 9;
-        pthread_create(&ph[i], NULL, philosopher_state, (void *)data.head);
+        if (pthread_create(&ph[i], NULL, philosopher_state, (void *)data.head))
+            ft_exit_with_error(THREADS, data);
         data.head->philosopher = ph[i];
     }
     n = data.head->next;
@@ -50,7 +52,8 @@ t_data   create_philo_container(t_params params, t_data data)
         n->time_to_sleep = params.t_to_sleep;
         n->time_to_eat = params.t_to_eat;
         n->num_of_meals = params.n_of_meals;
-        pthread_create(&ph[i], NULL, philosopher_state, (void *)n);
+        if (pthread_create(&ph[i], NULL, philosopher_state, (void *)n))
+            ft_exit_with_error(THREADS, data);
         n->lock_status = UNLOCKED;
         n->old_status = 9;
         n->philosopher = ph[i];
@@ -69,16 +72,17 @@ t_data   create_philo_container(t_params params, t_data data)
         n->num_of_meals = params.n_of_meals;
         n->lock_status = UNLOCKED;
         n->old_status = 9;
-        pthread_create(&ph[i], NULL, philosopher_state, (void *)n);
+        if (pthread_create(&ph[i], NULL, philosopher_state, (void *)n))
+            ft_exit_with_error(THREADS, data);
         n->philosopher = ph[i];
         n->next = data.head;
     }
-    free(ph);
-    free(mt);
+    data.mutexes = mt;
+    data.threads = ph;
     return (data);
 }
 
-void  join_threads(t_data data, t_params params)
+t_data  join_threads(t_data data, t_params params)
 {
     int i;
     t_list  *n;
@@ -93,6 +97,7 @@ void  join_threads(t_data data, t_params params)
         n = n->next;
         i++;
     }
+    return (data);
 }
 
 
@@ -183,7 +188,7 @@ void    printer(t_list *node, char *s)
     pthread_mutex_unlock(&lock);
 }
 
-void        init_mutexes(t_data data, t_params params)
+t_data        init_mutexes(t_data data, t_params params)
 {
     int i;
     t_list  *n;
@@ -197,4 +202,5 @@ void        init_mutexes(t_data data, t_params params)
         i++;
         n = n->next;
     }
+    return(data);
 }
