@@ -103,26 +103,25 @@ t_data  join_threads(t_data data, t_params params)
 
 void  *philosopher_state(void *arg)
 {
-    int i;
-    int n;
+    int max;
     int id;
     t_list  *node;
     pthread_mutex_t *l_fork;
     pthread_mutex_t *r_fork;
 
-    i = 0;
-    n = 0;
+    max = 0;
     ft_time();
     node = (t_list  *)arg;
     l_fork = &node->l_fork;
     r_fork = &node->next->l_fork;
     id = node->philosopher_id;
+    node->eaten_meals = 0;
     node->time_left = node->time_to_think;
     // node->num_of_meals = 0;
     // printf("\n\n%lld\n\n", node->num_of_meals);
     while (1)
     {
-        if (i == node->num_of_meals)
+        if (node->eaten_meals == node->num_of_meals)
         {
             node->eat_state = EAT_ENOUGH;
             break;
@@ -135,7 +134,7 @@ void  *philosopher_state(void *arg)
         }
         check_death(node, ft_time());
 
-        if (node->lock_status == UNLOCKED && node->next->lock_status == UNLOCKED)
+        if (node->lock_status == UNLOCKED && node->next->lock_status == UNLOCKED && node->eaten_meals <= max)
         {
             pthread_mutex_lock(l_fork);
             node->lock_status = LOCKED;
@@ -152,7 +151,9 @@ void  *philosopher_state(void *arg)
             check_death(node, ft_time());
 
             printer(node, "is eating");
-            i++;
+            node->eaten_meals++;
+            if (node->eaten_meals > max)
+                max = node->eaten_meals;
             usleep(node->time_to_eat * 1000);
             node->time_left += ft_time();
             check_death(node, ft_time());

@@ -45,6 +45,8 @@
 
 pthread_mutex_t lock;
 pthread_mutex_t lock2;
+pthread_mutex_t lockk;
+
 
 
 typedef struct s_list
@@ -61,6 +63,7 @@ typedef struct s_list
     long long       old_status;
     long long       state;
     long long       eat_state;
+    long long       eaten_meals;
     pthread_mutex_t l_fork;
 	struct s_list	*next;
 }				t_list;
