@@ -77,19 +77,3 @@ void	ft_lstclear(t_list **lst)
 	}
 	*lst = NULL;
 }
-
-t_list	*search_by_id(int id, t_list *node)
-{
-	t_list	*n;
-
-	n = node;
-	// if (!n)
-	// 	ft_exit_with_error(NULL);
-	while (n)
-	{
-		if (id == n->philosopher_id)
-			return (n);
-		n = n->next;
-	}
-	return (n);
-}
