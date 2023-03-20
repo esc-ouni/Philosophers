@@ -228,5 +228,4 @@ void    one_philosophe(t_data data, t_params params)
         printf("===SUMULATION_ENDS==============\n");
         exit(0);
     }
-    exit(0);
 }
