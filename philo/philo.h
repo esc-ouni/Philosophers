@@ -83,7 +83,7 @@ typedef struct s_params
 
 time_t      ft_time();
 t_data		init_mutexes(t_data data, t_params params);
-t_data      create_philo_container(t_params params, t_data data);
+t_data      create_philos(t_params params, t_data data);
 void        printer(t_list *node, char *s);
 void        check_death(t_list *node, time_t time);
 t_data		join_threads(t_data data, t_params params);

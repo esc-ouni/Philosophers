@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-t_data   create_philo_container(t_params params, t_data data)
+t_data   create_philos(t_params params, t_data data)
 {
     pthread_t *ph;
     pthread_mutex_t *mt;
