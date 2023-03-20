@@ -190,8 +190,6 @@ void    printer(t_list *node, char *s)
 
 t_data        init_mutexes(t_data data, t_params params)
 {
-    pthread_mutex_t lock;
-    pthread_mutex_t lock2;
     int i;
     t_list  *n;
 
