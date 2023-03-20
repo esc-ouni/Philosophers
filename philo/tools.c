@@ -16,7 +16,7 @@ t_params ft_parse(t_data data, t_params params, int argc, char **argv)
 {
     (void)argv;
     if (argc < 5 || argc > 6)
-        ft_exit_with_error(data);
+        ft_exit_with_error(ARGS, data);
     params.n_of_philos = ft_atoi(data, argv[1]);
     params.t_to_think = ft_atoi(data, argv[2]);
     params.t_to_eat = ft_atoi(data, argv[3]);
@@ -36,17 +36,30 @@ void    ft_exit(t_data data)
     //     ft_lstclear(&data.head);
     exit(0);
 }
+# define ARGS 124
+# define MALLOC 678
+# define MUTEXES 897
+# define THREADS 895
 
-void    ft_exit_with_error(t_data data)
+void    ft_exit_with_error(int n, t_data data)
 {
     if (data.head)
         ft_lstclear(&data.head);
     printf("\n\x1B[32m");
     // printf("\n\033[0;31m");
-    printf("===HINT=========================\n");
-    printf("Program need at least 4 arguments specefied like this:\n");
-    printf("Number_of_philos Time_to_die time_to_eat Time_to_sleep ");
-    printf("Number_of_meals(opptional)\n\n");
+    if (n == ARGS)
+    {
+        printf("===HINT=========================\n");
+        printf("Program need at least 4 arguments specefied like this:\n");
+        printf("Number_of_philos Time_to_die time_to_eat Time_to_sleep ");
+        printf("Number_of_meals(opptional)\n\n");
+    }
+    else if (n == MALLOC)
+        printf("ERROR : No enough memory to be allocated\n\n");
+    else if (n == MUTEXES)
+        printf("ERROR : Mutexe didn't created properly\n\n");
+    else if (n == THREADS)
+        printf("ERROR : Thread didn't created properly\n\n");
     exit(1);
 }
 
@@ -70,7 +83,7 @@ void	*h_malloc(t_data data, size_t s, void *p)
 	p = malloc(s);
 	if (!p)
 	{
-		ft_exit_with_error(data);
+		ft_exit_with_error(MALLOC, data);
 	}
 	return (p);
 }

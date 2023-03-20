@@ -21,6 +21,11 @@
 #define THINKING_STATE 9
 #define ALREADY_THINKING 0
 
+# define ARGS 124
+# define MALLOC 678
+# define MUTEXES 897
+# define THREADS 895
+
 # define EATING 1
 # define SLEEPING 2
 # define THINKIG 3
@@ -62,7 +67,9 @@ typedef struct s_list
 
 typedef struct s_data
 {
-    t_list  *head;
+    t_list			*head;
+    pthread_mutex_t *mutexes;
+    pthread_t       *threads;
 }   t_data;
 
 typedef struct s_params
@@ -85,7 +92,8 @@ void	    *h_malloc(t_data data, size_t s, void *p);
 t_params    ft_parse(t_data data, t_params params, int argc, char **argv);
 int         ft_atoi(t_data data, char *str);
 int         ft_isdigit(int c);
-void        ft_exit_with_error(t_data data);
+void        ft_exit_with_error(int  n, t_data data);
+void        ft_exit(t_data data);
 t_list	    *ft_lstnew(t_data data);
 t_list	    *ft_lstlast(t_list *lst);
 void	    ft_lstclear(t_list **lst);

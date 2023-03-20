@@ -73,7 +73,8 @@ t_data   create_philo_container(t_params params, t_data data)
         n->philosopher = ph[i];
         n->next = data.head;
     }
-    // free(ph);
+    free(ph);
+    free(mt);
     return (data);
 }
 
@@ -87,7 +88,8 @@ void  join_threads(t_data data, t_params params)
     n = data.head;
     while (n && i < params.n_of_philos)
     {
-        pthread_detach(n->philosopher);
+        if (pthread_detach(n->philosopher))
+            ft_exit_with_error(THREADS, data);
         n = n->next;
         i++;
     }
@@ -190,7 +192,8 @@ void        init_mutexes(t_data data, t_params params)
     n = data.head;
     while(i < params.n_of_philos)
     {
-        pthread_mutex_init(&n->l_fork, NULL);
+        if(pthread_mutex_init(&n->l_fork, NULL))
+            ft_exit_with_error(MUTEXES, data);
         i++;
         n = n->next;
     }

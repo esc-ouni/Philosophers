@@ -42,7 +42,7 @@ int	main(int argc, char *argv[])
 		n = n->next;
 	}
     printf("===ALL_PHILOSOPHES_EAT_ENOUGH===\n");
-	exit(0);
+	ft_exit(data);
 	// while (1);
 	return (0);
 }
