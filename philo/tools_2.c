@@ -190,11 +190,17 @@ void    printer(t_list *node, char *s)
 
 t_data        init_mutexes(t_data data, t_params params)
 {
+    pthread_mutex_t lock;
+    pthread_mutex_t lock2;
     int i;
     t_list  *n;
 
     i = 0;
     n = data.head;
+    if (pthread_mutex_init(&lock, NULL))
+        ft_exit_with_error(MUTEXES, data);
+    if (pthread_mutex_init(&lock2, NULL))
+        ft_exit_with_error(MUTEXES, data);
     while(i < params.n_of_philos)
     {
         if(pthread_mutex_init(&n->l_fork, NULL))

@@ -12,15 +12,11 @@
 
 #include "philo.h"
 
-
-
 int	main(int argc, char *argv[])
 {
 	t_list	*n;
 	int 	i = 0;
 
-    pthread_mutex_init(&lock, NULL);
-    pthread_mutex_init(&lock2, NULL);
 	t_params	params;
 	t_data	data;
 	data.head = NULL;
