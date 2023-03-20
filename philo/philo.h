@@ -87,6 +87,7 @@ t_data      create_philo_container(t_params params, t_data data);
 void        printer(t_list *node, char *s);
 void        check_death(t_list *node, time_t time);
 t_data		join_threads(t_data data, t_params params);
+void		one_philosophe(t_data data, t_params params);
 void        *philosopher_state(void *arg);
 void	    *h_malloc(t_data data, size_t s, void *p);
 t_params    ft_parse(t_data data, t_params params, int argc, char **argv);
