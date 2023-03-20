@@ -151,12 +151,14 @@ void  *philosopher_state(void *arg)
             check_death(node, ft_time());
 
             printer(node, "is eating");
+            pthread_mutex_lock(&lockk);
             node->eaten_meals++;
             if (node->eaten_meals > max)
                 max = node->eaten_meals;
+            pthread_mutex_unlock(&lockk);
             usleep(node->time_to_eat * 1000);
             node->time_left += ft_time();
-            check_death(node, ft_time());
+            // check_death(node, ft_time());
 
             pthread_mutex_unlock(l_fork);
             node->lock_status = UNLOCKED;
