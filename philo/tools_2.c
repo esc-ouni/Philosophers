@@ -14,39 +14,42 @@
 
 t_data	create_philos(t_params params, t_data data)
 {
-	pthread_t		*ph;
-	pthread_mutex_t	*mt;
-	t_list			*n;
+	t_info			info;
+	// pthread_t		*ph;
+	// pthread_mutex_t	*mt;
+	// t_list			*n;
 	int				i;
 
-	ph = NULL;
-	mt = NULL;
-	ph = h_malloc(data, sizeof(pthread_t) * (params.n_of_philos + 1), ph);
-	mt = h_malloc(data, sizeof(pthread_mutex_t) * (params.n_of_philos + 1), ph);
+	// info.mt = NULL;
+	info.ph = NULL;
+	info.mt = NULL;
+	info.n = NULL;
+	info.ph = h_malloc(data, sizeof(pthread_t) * (params.n_of_philos + 1), info.ph);
+	info.mt = h_malloc(data, sizeof(pthread_mutex_t) * (params.n_of_philos + 1), info.ph);
 	i = -1;
 	while (i++ < params.n_of_philos)
 	{
-		n = ft_lstnew(data);
-		ft_lstadd_back(data, &data.head, n);
-		n->philosopher_id = i + 1;
-		n->l_fork = mt[i];
-		n->time_to_think = params.t_to_think;
-		n->time_to_sleep = params.t_to_sleep;
-		n->time_to_eat = params.t_to_eat;
-		n->num_of_meals = params.n_of_meals;
-		if (pthread_create(&ph[i], NULL, philosopher_state, (void *)n))
+		info.n = ft_lstnew(data);
+		ft_lstadd_back(data, &data.head, info.n);
+		info.n->philosopher_id = i + 1;
+		info.n->l_fork = info.mt[i];
+		info.n->time_to_think = params.t_to_think;
+		info.n->time_to_sleep = params.t_to_sleep;
+		info.n->time_to_eat = params.t_to_eat;
+		info.n->num_of_meals = params.n_of_meals;
+		if (pthread_create(&info.ph[i], NULL, philosopher_state, (void *)info.n))
 			ft_exit_with_error(THREADS, data);
-		n->lock_status = UNLOCKED;
-		n->old_status = 9;
-		n->philosopher = ph[i];
+		info.n->lock_status = UNLOCKED;
+		info.n->old_status = 9;
+		info.n->philosopher = info.ph[i];
 		if (i == params.n_of_philos - 1)
-			n->next = data.head;
+			info.n->next = data.head;
 		else
-			n = n->next;
+			info.n = info.n->next;
 	}
-	data.head = n;
-	data.mutexes = mt;
-	data.threads = ph;
+	data.head = info.n;
+	data.mutexes = info.mt;
+	data.threads = info.ph;
 	return (data);
 }
 

@@ -80,6 +80,13 @@ typedef struct s_data
 	pthread_t		*threads;
 }	t_data;
 
+typedef struct s_info
+{
+	pthread_t		*ph;
+	pthread_mutex_t	*mt;
+	t_list			*n;
+}	t_info;
+
 typedef struct s_params
 {
 	long long	n_of_philos;
