@@ -44,7 +44,7 @@ void	ft_lstadd_back(t_data data, t_list **lst, t_list *new)
 {
 	t_list	*o_last;
 
-	if (new == NULL)
+	if (!new)
 	{
 		new = ft_lstnew(data);
 		return ;

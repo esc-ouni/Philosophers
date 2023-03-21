@@ -26,8 +26,7 @@ t_data	create_philos(t_params params, t_data data)
 	mt = (pthread_mutex_t *)h_malloc(data, sizeof(pthread_mutex_t) \
 	* (params.n_of_philos + 1), ph);
 	i = 0;
-	n = data.head;
-	while (i < (params.n_of_philos - 1))
+	while (i < params.n_of_philos)
 	{
 		n = ft_lstnew(data);
 		ft_lstadd_back(data, &data.head, n);
@@ -42,25 +41,11 @@ t_data	create_philos(t_params params, t_data data)
 		n->lock_status = UNLOCKED;
 		n->old_status = 9;
 		n->philosopher = ph[i];
-		n = n->next;
+		if (i == params.n_of_philos - 1)
+			n->next = data.head;
+		else
+			n = n->next;
 		i++;
-	}
-	if (i == params.n_of_philos - 1)
-	{
-		n = ft_lstnew(data);
-		ft_lstadd_back(data, &data.head, n);
-		n->philosopher_id = i + 1;
-		n->l_fork = mt[i];
-		n->time_to_think = params.t_to_think;
-		n->time_to_sleep = params.t_to_sleep;
-		n->time_to_eat = params.t_to_eat;
-		n->num_of_meals = params.n_of_meals;
-		n->lock_status = UNLOCKED;
-		n->old_status = 9;
-		if (pthread_create(&ph[i], NULL, philosopher_state, (void *)n))
-			ft_exit_with_error(THREADS, data);
-		n->philosopher = ph[i];
-		n->next = data.head;
 	}
 	data.head = n;
 	data.mutexes = mt;
