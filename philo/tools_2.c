@@ -21,10 +21,8 @@ t_data	create_philos(t_params params, t_data data)
 
 	ph = NULL;
 	mt = NULL;
-	ph = (pthread_t *)h_malloc(data, sizeof(pthread_t) \
-	* (params.n_of_philos + 1), ph);
-	mt = (pthread_mutex_t *)h_malloc(data, sizeof(pthread_mutex_t) \
-	* (params.n_of_philos + 1), ph);
+	ph = h_malloc(data, sizeof(pthread_t) * (params.n_of_philos + 1), ph);
+	mt = h_malloc(data, sizeof(pthread_mutex_t) * (params.n_of_philos + 1), ph);
 	i = 0;
 	while (i < params.n_of_philos)
 	{
