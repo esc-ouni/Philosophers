@@ -16,7 +16,7 @@ CC     = cc
 
 RM     = rm -rf
 
-FLAGS  = -Wall -Wextra -Werror 
+FLAGS  = -Wall -Wextra -Werror -fsanitize=thread -g
 
 HR     = philo.h
 

@@ -20,7 +20,11 @@ int	main(int argc, char *argv[])
 	t_data		data;
 
 	i = 0;
-	pthread_mutex_init(&lockk, NULL);
+	// pthread_mutex_init(&lockkk, NULL);
+	pthread_mutex_init(&lokkkk2, NULL);
+	pthread_mutex_init(&lokkkk, NULL);
+	pthread_mutex_init(&klop2, NULL);
+	pthread_mutex_init(&klop3, NULL);
 	data.head = NULL;
 	data.mutexes = NULL;
 	data.threads = NULL;

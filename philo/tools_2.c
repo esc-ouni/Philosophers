@@ -112,8 +112,12 @@ void	*philosopher_state(void *arg)
 	max = 0;
 	ft_time();
 	node = (t_list  *)arg;
+	pthread_mutex_lock(&klop3);
 	l_fork = &node->l_fork;
+	pthread_mutex_unlock(&klop3);
+	// pthread_mutex_lock(&klop2);
 	r_fork = &node->next->l_fork;
+	// pthread_mutex_unlock(&klop2);
 	id = node->philosopher_id;
 	node->eaten_meals = 0;
 	node->time_left = node->time_to_think;
@@ -201,8 +205,6 @@ t_data	init_mutexes(t_data data, t_params params)
 	if (pthread_mutex_init(&lock, NULL))
 		ft_exit_with_error(MUTEXES, data);
 	if (pthread_mutex_init(&klop, NULL))
-		ft_exit_with_error(MUTEXES, data);
-	if (pthread_mutex_init(&lokkkk, NULL))
 		ft_exit_with_error(MUTEXES, data);
 	if (pthread_mutex_init(&lock2, NULL))
 		ft_exit_with_error(MUTEXES, data);
