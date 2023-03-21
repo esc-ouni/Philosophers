@@ -110,7 +110,7 @@ void	*philosopher_state(void *arg)
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
 
-	printf("\n%p\n%p\n%p\n%p\n\n", max, id, node, l_fork, r_fork);
+	// printf("\n%p\n%p\n%p\n%p\n\n", max, id, node, l_fork, r_fork);
 
 	max = 0;
 	ft_time();
