@@ -103,21 +103,24 @@ t_data	join_threads(t_data data, t_params params)
 
 void	*philosopher_state(void *arg)
 {
+	pthread_mutex_lock(&klop2);
 	int				max;
 	int				id;
 	t_list			*node;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
 
+	printf("\n%p\n%p\n%p\n%p\n\n", max, id, node, l_fork, r_fork);
+
 	max = 0;
 	ft_time();
 	node = (t_list  *)arg;
+	pthread_mutex_lock(&klop4);
 	pthread_mutex_lock(&klop3);
 	l_fork = &node->l_fork;
 	pthread_mutex_unlock(&klop3);
-	// pthread_mutex_lock(&klop2);
 	r_fork = &node->next->l_fork;
-	// pthread_mutex_unlock(&klop2);
+	pthread_mutex_unlock(&klop4);
 	id = node->philosopher_id;
 	node->eaten_meals = 0;
 	node->time_left = node->time_to_think;
@@ -125,6 +128,7 @@ void	*philosopher_state(void *arg)
 	// printf("\n\n%lld\n\n", node->num_of_meals);
 	while (1)
 	{
+		// pthread_mutex_lock(&klop5);
 		if (node->eaten_meals == node->num_of_meals)
 		{
 			node->eat_state = EAT_ENOUGH;
@@ -169,8 +173,10 @@ void	*philosopher_state(void *arg)
 			usleep(node->time_to_sleep * 1000);
 			node->old_status = THINKING_STATE;
 			check_death(node, ft_time());
+			// pthread_mutex_unlock(&klop5);
 		}
 		check_death(node, ft_time());
+		pthread_mutex_unlock(&klop2);
 	}
 	return (NULL);
 }

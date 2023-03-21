@@ -51,6 +51,8 @@ pthread_mutex_t	lokkkk2;
 pthread_mutex_t	klop;
 pthread_mutex_t	klop2;
 pthread_mutex_t	klop3;
+pthread_mutex_t	klop4;
+pthread_mutex_t	klop5;
 
 typedef struct s_list
 {
