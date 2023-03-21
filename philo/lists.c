@@ -12,7 +12,6 @@
 
 #include "philo.h"
 
-
 t_list	*ft_lstnew(t_data data)
 {
 	t_list	*new_node;
