@@ -15,12 +15,8 @@
 t_data	create_philos(t_params params, t_data data)
 {
 	t_info			info;
-	// pthread_t		*ph;
-	// pthread_mutex_t	*mt;
-	// t_list			*n;
 	int				i;
 
-	// info.mt = NULL;
 	info.ph = NULL;
 	info.mt = NULL;
 	info.n = NULL;
@@ -37,10 +33,10 @@ t_data	create_philos(t_params params, t_data data)
 		info.n->time_to_sleep = params.t_to_sleep;
 		info.n->time_to_eat = params.t_to_eat;
 		info.n->num_of_meals = params.n_of_meals;
-		if (pthread_create(&info.ph[i], NULL, philosopher_state, (void *)info.n))
-			ft_exit_with_error(THREADS, data);
 		info.n->lock_status = UNLOCKED;
-		info.n->old_status = 9;
+		info.n->old_status = THINKING_STATE;
+		if (pthread_create(&info.ph[i], NULL, philosopher_state, info.n))
+			ft_exit_with_error(THREADS, data);
 		info.n->philosopher = info.ph[i];
 		if (i == params.n_of_philos - 1)
 			info.n->next = data.head;
