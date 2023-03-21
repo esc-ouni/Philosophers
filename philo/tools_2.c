@@ -162,6 +162,7 @@ void	*philosopher_state(void *arg)
 			if (node->eaten_meals > max)
 				max = node->eaten_meals;
 			pthread_mutex_unlock(&lockk);
+			pthread_mutex_unlock(&klop2);
 			usleep(node->time_to_eat * 1000);
 			node->time_left += ft_time();
 			check_death(node, ft_time());
@@ -176,7 +177,6 @@ void	*philosopher_state(void *arg)
 			// pthread_mutex_unlock(&klop5);
 		}
 		check_death(node, ft_time());
-		pthread_mutex_unlock(&klop2);
 	}
 	return (NULL);
 }
