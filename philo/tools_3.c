@@ -42,8 +42,11 @@ void	*philosopher_state(void *arg)
 	t_list			*node;
 
 	ft_time();
+	node = NULL;
 	pthread_mutex_lock(&klop7);
-	node = (t_list  *)arg;
+	node = arg;
+	(void)malloc(5);
+	printf("\n%p\n\n", &node);
 	pthread_mutex_unlock(&klop7);
 	node->l_fork = &node->fork;
 	node->r_fork = &node->next->fork;
