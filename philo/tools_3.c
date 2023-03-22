@@ -37,13 +37,8 @@ void	*philosopher_state(void *arg)
 		if (node->lock_status == UNLOCKED && node->next->lock_status == UNLOCKED)
 		{
 			pthread_mutex_lock(node->l_fork);
-			node->lock_status = LOCKED;
-			if (node->next->lock_status == LOCKED)
-			{
-				pthread_mutex_unlock(node->l_fork);
-				continue ;
-			}
 			pthread_mutex_lock(node->r_fork);
+			node->lock_status = LOCKED;
 			node->next->lock_status = LOCKED;
 			printer(node, "has taken a fork");
 			printer(node, "has taken a fork");		
