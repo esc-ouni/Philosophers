@@ -41,7 +41,6 @@
 # include <pthread.h>
 # include <signal.h>
 # include <sys/time.h>
-# include <semaphore.h>
 
 pthread_mutex_t	lock;
 pthread_mutex_t	lock2;

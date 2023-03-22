@@ -70,13 +70,10 @@ time_t	ft_time(void)
 	struct timeval	tp;
 	time_t			t;
 
-	pthread_mutex_lock(&lokkkk);
 	gettimeofday(&tp, NULL);
 	if (!init_time)
 	{
-		// pthread_mutex_lock(&lokkkk2);
 		init_time = (time_t)(tp.tv_sec * 1000) + (time_t)(tp.tv_usec / 1000);
-		// pthread_mutex_unlock(&lokkkk2);
 	}
 	t = (((time_t)(tp.tv_usec / 1000) + (time_t)tp.tv_sec * 1000) - init_time);
 	pthread_mutex_unlock(&lokkkk);
