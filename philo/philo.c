@@ -42,7 +42,7 @@ int	main(int argc, char *argv[])
 		if (n->eat_state == EAT_ENOUGH)
 		{
 			i++;
-			n->eat_state = 4;
+			n->eat_state = DEATH;
 		}
 		n = n->next;
 	}
