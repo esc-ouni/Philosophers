@@ -25,10 +25,7 @@ void	*philosopher_state(void *arg)
 	while (1)
 	{
 		if (node->eaten_meals == node->num_of_meals)
-		{
-			node->eat_state = EAT_ENOUGH;
 			break ;
-		}
 		if (node->old_status == THINKING_STATE)
 		{
 			printer(node, "is thinking");
@@ -55,6 +52,7 @@ void	*philosopher_state(void *arg)
 			node->old_status = THINKING_STATE;
 		}
 	}
+	node->eat_state = EAT_ENOUGH;
 	return (NULL);
 }
 
