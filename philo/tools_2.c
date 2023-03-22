@@ -30,7 +30,7 @@ t_info	info_init(t_params params, t_data data, t_info info)
 t_list	node_init(t_params params, int i, t_info info)
 {
 	info.n->philosopher_id = i + 1;
-	info.n->l_fork = info.mt[i];
+	info.n->fork = info.mt[i];
 	info.n->time_to_think = params.t_to_think;
 	info.n->time_to_sleep = params.t_to_sleep;
 	info.n->time_to_eat = params.t_to_eat;
@@ -98,7 +98,7 @@ t_data	init_mutexes(t_data data, t_params params)
 		ft_exit_with_error(MUTEXES, data);
 	while (i < params.n_of_philos)
 	{
-		if (pthread_mutex_init(&n->l_fork, NULL))
+		if (pthread_mutex_init(&n->fork, NULL))
 			ft_exit_with_error(MUTEXES, data);
 		i++;
 		n = n->next;

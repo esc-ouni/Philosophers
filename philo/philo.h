@@ -69,8 +69,10 @@ typedef struct s_list
 	int				eat_state;
 	int				eaten_meals;
 	pthread_t		philosopher;
-	pthread_mutex_t	l_fork;
+	pthread_mutex_t	fork;
 	struct s_list	*next;
+	pthread_mutex_t	*l_fork;
+	pthread_mutex_t	*r_fork;
 }				t_list;
 
 typedef struct s_data
