@@ -20,18 +20,13 @@ void	*philosopher_state(void *arg)
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
 
-	pthread_mutex_lock(&klop2);
 	// printf("\n%p\n%p\n%p\n%p\n\n", max, id, node, l_fork, r_fork);
 
 	max = 0;
 	ft_time();
 	node = (t_list  *)arg;
-	pthread_mutex_lock(&klop4);
-	pthread_mutex_lock(&klop3);
 	l_fork = &node->l_fork;
-	pthread_mutex_unlock(&klop3);
 	r_fork = &node->next->l_fork;
-	pthread_mutex_unlock(&klop4);
 	id = node->philosopher_id;
 	node->eaten_meals = 0;
 	node->time_left = node->time_to_think;
@@ -45,13 +40,11 @@ void	*philosopher_state(void *arg)
 			node->eat_state = EAT_ENOUGH;
 			break ;
 		}
-		check_death(node, ft_time());
 		if (node->old_status == THINKING_STATE)
 		{
 			printer(node, "is thinking");
 			node->old_status = ALREADY_THINKING;
 		}
-		check_death(node, ft_time());
 		if (node->lock_status == UNLOCKED && \
 		node->next->lock_status == UNLOCKED && node->eaten_meals <= max)
 		{
@@ -66,17 +59,12 @@ void	*philosopher_state(void *arg)
 			node->next->lock_status = LOCKED;
 			printer(node, "has taken a fork");
 			printer(node, "has taken a fork");		
-			check_death(node, ft_time());
 			printer(node, "is eating");
-			pthread_mutex_lock(&lockk);
 			node->eaten_meals++;
 			if (node->eaten_meals > max)
 				max = node->eaten_meals;
-			pthread_mutex_unlock(&lockk);
-			pthread_mutex_unlock(&klop2);
 			usleep(node->time_to_eat * 1000);
 			node->time_left += ft_time();
-			check_death(node, ft_time());
 			pthread_mutex_unlock(l_fork);
 			node->lock_status = UNLOCKED;
 			pthread_mutex_unlock(r_fork);
@@ -84,10 +72,8 @@ void	*philosopher_state(void *arg)
 			printer(node, "is sleeping");
 			usleep(node->time_to_sleep * 1000);
 			node->old_status = THINKING_STATE;
-			check_death(node, ft_time());
 			// pthread_mutex_unlock(&klop5);
 		}
-		check_death(node, ft_time());
 	}
 	return (NULL);
 }
