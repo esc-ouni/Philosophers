@@ -30,11 +30,8 @@ void	*philosopher_state(void *arg)
 	id = node->philosopher_id;
 	node->eaten_meals = 0;
 	node->time_left = node->time_to_think;
-	// node->num_of_meals = 0;
-	// printf("\n\n%lld\n\n", node->num_of_meals);
 	while (1)
 	{
-		// pthread_mutex_lock(&klop5);
 		if (node->eaten_meals == node->num_of_meals)
 		{
 			node->eat_state = EAT_ENOUGH;
@@ -72,7 +69,6 @@ void	*philosopher_state(void *arg)
 			printer(node, "is sleeping");
 			usleep(node->time_to_sleep * 1000);
 			node->old_status = THINKING_STATE;
-			// pthread_mutex_unlock(&klop5);
 		}
 	}
 	return (NULL);
