@@ -12,16 +12,26 @@
 
 #include "philo.h"
 
+t_info	info_init(t_params params, t_data data, t_info info)
+{
+	info.ph = NULL;
+	info.mt = NULL;
+	info.n = NULL;
+	info.ph = h_malloc(data, sizeof(pthread_t) * (params.n_of_philos + 1), info.ph);
+	info.mt = h_malloc(data, sizeof(pthread_mutex_t) * (params.n_of_philos + 1), info.ph);
+	data.head = info.n;
+	data.mutexes = info.mt;
+	data.threads = info.ph;
+	return (info);
+}
+
 t_data	create_philos(t_params params, t_data data)
 {
 	t_info			info;
 	int				i;
 
 	info.ph = NULL;
-	info.mt = NULL;
-	info.n = NULL;
-	info.ph = h_malloc(data, sizeof(pthread_t) * (params.n_of_philos + 1), info.ph);
-	info.mt = h_malloc(data, sizeof(pthread_mutex_t) * (params.n_of_philos + 1), info.ph);
+	info = info_init(params, data, info);
 	i = 0;
 	while (i < params.n_of_philos)
 	{
@@ -44,9 +54,6 @@ t_data	create_philos(t_params params, t_data data)
 			info.n = info.n->next;
 		i++;
 	}
-	data.head = info.n;
-	data.mutexes = info.mt;
-	data.threads = info.ph;
 	return (data);
 }
 
