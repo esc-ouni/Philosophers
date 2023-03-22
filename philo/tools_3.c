@@ -19,7 +19,6 @@ void    philosopher_state_2(void *arg)
 	t_list			*node;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
-	// t_list			*node;
 
 	max = 0;
 	node = (t_list  *)arg;
@@ -28,8 +27,6 @@ void    philosopher_state_2(void *arg)
 	id = node->philosopher_id;
 	node->eaten_meals = 0;
 	node->time_left = node->time_to_think;
-
-	node = (t_list  *)arg;
 	if (node->lock_status == UNLOCKED && \
 	node->next->lock_status == UNLOCKED && node->eaten_meals <= max)
 	{
