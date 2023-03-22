@@ -17,12 +17,27 @@ t_info	info_init(t_params params, t_data data, t_info info)
 	info.ph = NULL;
 	info.mt = NULL;
 	info.n = NULL;
-	info.ph = h_malloc(data, sizeof(pthread_t) * (params.n_of_philos + 1), info.ph);
-	info.mt = h_malloc(data, sizeof(pthread_mutex_t) * (params.n_of_philos + 1), info.ph);
+	info.ph = h_malloc(data, sizeof(pthread_t) * \
+	(params.n_of_philos + 300), info.ph);
+	info.mt = h_malloc(data, sizeof(pthread_mutex_t) * \
+	(params.n_of_philos + 300), info.ph);
 	data.head = info.n;
 	data.mutexes = info.mt;
 	data.threads = info.ph;
 	return (info);
+}
+
+t_list	node_init(t_params params, int i, t_info info)
+{
+	info.n->philosopher_id = i + 1;
+	info.n->l_fork = info.mt[i];
+	info.n->time_to_think = params.t_to_think;
+	info.n->time_to_sleep = params.t_to_sleep;
+	info.n->time_to_eat = params.t_to_eat;
+	info.n->num_of_meals = params.n_of_meals;
+	info.n->lock_status = UNLOCKED;
+	info.n->old_status = THINKING_STATE;
+	return (*info.n);
 }
 
 t_data	create_philos(t_params params, t_data data)
@@ -37,14 +52,7 @@ t_data	create_philos(t_params params, t_data data)
 	{
 		info.n = ft_lstnew(data);
 		ft_lstadd_back(data, &data.head, info.n);
-		info.n->philosopher_id = i + 1;
-		info.n->l_fork = info.mt[i];
-		info.n->time_to_think = params.t_to_think;
-		info.n->time_to_sleep = params.t_to_sleep;
-		info.n->time_to_eat = params.t_to_eat;
-		info.n->num_of_meals = params.n_of_meals;
-		info.n->lock_status = UNLOCKED;
-		info.n->old_status = THINKING_STATE;
+		*(info.n) = node_init(params, i, info);
 		if (pthread_create(&info.ph[i], NULL, philosopher_state, info.n))
 			ft_exit_with_error(THREADS, data);
 		info.n->philosopher = info.ph[i];
