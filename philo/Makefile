@@ -26,6 +26,7 @@ TLS    = lists.c \
 		tools.c \
 		tools_1.c \
 		tools_2.c \
+		tools_3.c \
 
 OBJ_M  = $(MND:%.c=%.o)
 
