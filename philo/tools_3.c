@@ -127,7 +127,7 @@ void	check_death(t_list *node, time_t time)
 	pthread_mutex_lock(&lock2);
 	if (node->time_left <= time)
 	{
-		printf("%ld %lld died\n", time, node->philosopher_id);
+		printf("%ld %d died\n", time, node->philosopher_id);
 		printf("===SUMULATION_ENDS==============\n");
 		exit(0);
 	}
@@ -138,6 +138,6 @@ void	check_death(t_list *node, time_t time)
 void	printer(t_list *node, char *s)
 {
 	pthread_mutex_lock(&lock);
-	printf("%ld %lld %s\n", ft_time(), node->philosopher_id, s);
+	printf("%ld %d %s\n", ft_time(), node->philosopher_id, s);
 	pthread_mutex_unlock(&lock);
 }

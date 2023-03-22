@@ -56,19 +56,19 @@ pthread_mutex_t	klop5;
 
 typedef struct s_list
 {
+	int				philosopher_id;
+	int				time_to_think;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				num_of_meals;
+	int				time_left;
+	int				lock_status;
+	int				act_status;
+	int				old_status;
+	int				state;
+	int				eat_state;
+	int				eaten_meals;
 	pthread_t		philosopher;
-	long long		philosopher_id;
-	long long		time_to_think;
-	long long		time_to_eat;
-	long long		time_to_sleep;
-	long long		num_of_meals;
-	long long		time_left;
-	long long		lock_status;
-	long long		act_status;
-	long long		old_status;
-	long long		state;
-	long long		eat_state;
-	long long		eaten_meals;
 	pthread_mutex_t	l_fork;
 	struct s_list	*next;
 }				t_list;

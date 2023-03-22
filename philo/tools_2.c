@@ -18,9 +18,9 @@ t_info	info_init(t_params params, t_data data, t_info info)
 	info.mt = NULL;
 	info.n = NULL;
 	info.ph = h_malloc(data, sizeof(pthread_t) * \
-	(params.n_of_philos + 300), info.ph);
+	(params.n_of_philos + 1), info.ph);
 	info.mt = h_malloc(data, sizeof(pthread_mutex_t) * \
-	(params.n_of_philos + 300), info.ph);
+	(params.n_of_philos + 1), info.ph);
 	data.head = info.n;
 	data.mutexes = info.mt;
 	data.threads = info.ph;
