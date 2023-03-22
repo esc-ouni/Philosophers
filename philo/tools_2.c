@@ -22,8 +22,8 @@ t_data	create_philos(t_params params, t_data data)
 	info.n = NULL;
 	info.ph = h_malloc(data, sizeof(pthread_t) * (params.n_of_philos + 1), info.ph);
 	info.mt = h_malloc(data, sizeof(pthread_mutex_t) * (params.n_of_philos + 1), info.ph);
-	i = -1;
-	while (i++ < params.n_of_philos)
+	i = 0;
+	while (i < params.n_of_philos)
 	{
 		info.n = ft_lstnew(data);
 		ft_lstadd_back(data, &data.head, info.n);
@@ -42,6 +42,7 @@ t_data	create_philos(t_params params, t_data data)
 			info.n->next = data.head;
 		else
 			info.n = info.n->next;
+		i++;
 	}
 	data.head = info.n;
 	data.mutexes = info.mt;
