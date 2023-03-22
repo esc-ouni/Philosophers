@@ -25,7 +25,6 @@ t_list	*ft_lstnew(t_data data)
 	return (new_node);
 }
 
-
 t_list	*ft_lstlast(t_list *lst)
 {
 	t_list	*node;

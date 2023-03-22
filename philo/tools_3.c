@@ -16,13 +16,13 @@ void	philosopher_state_2(void *arg)
 {
 	t_list			*node;
 
-	node = (t_list  *)arg;
+	node = arg;
 	pthread_mutex_lock(node->l_fork);
 	pthread_mutex_lock(node->r_fork);
 	node->lock_status = LOCKED;
 	node->next->lock_status = LOCKED;
 	printer(node, "has taken a fork");
-	printer(node, "has taken a fork");		
+	printer(node, "has taken a fork");
 	printer(node, "is eating");
 	node->eaten_meals++;
 	usleep(node->time_to_eat * 1000);
@@ -38,19 +38,12 @@ void	philosopher_state_2(void *arg)
 
 void	*philosopher_state(void *arg)
 {
-	pthread_mutex_lock(&klop9);
 	t_list			*node;
 
-	ft_time();
-	node = NULL;
-	pthread_mutex_lock(&klop7);
 	node = arg;
-	(void)malloc(5);
-	printf("\n%p\n\n", &node);
-	pthread_mutex_unlock(&klop7);
 	node->l_fork = &node->fork;
 	node->r_fork = &node->next->fork;
-	node->eaten_meals = 0;
+	node->eaten_meals = 0;	
 	node->time_left = node->time_to_think;
 	while (1)
 	{
@@ -61,7 +54,8 @@ void	*philosopher_state(void *arg)
 			printer(node, "is thinking");
 			node->old_status = ALREADY_THINKING;
 		}
-		if (node->lock_status == UNLOCKED && node->next->lock_status == UNLOCKED)
+		if (node->lock_status == UNLOCKED && \
+		node->next->lock_status == UNLOCKED)
 			philosopher_state_2(arg);
 	}
 	pthread_mutex_lock(&klop8);
