@@ -38,7 +38,7 @@ int	main(int argc, char *argv[])
 	printf("===SUMULATION_STARTS============\n");
 	one_philosophe(data, params);
 	data = create_philos(params, data);
-	data = init_mutexes(data, params);
+	// data = init_mutexes(data, params);
 	data = join_threads(data, params);
 	n = data.head;
 	while (n && i < params.n_of_philos)

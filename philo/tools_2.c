@@ -53,6 +53,8 @@ t_data	create_philos(t_params params, t_data data)
 		info.n = ft_lstnew(data);
 		ft_lstadd_back(&data.head, info.n);
 		*(info.n) = node_init(params, i, info);
+		if (pthread_mutex_init(&info.n->fork, NULL))
+			ft_exit_with_error(MUTEXES, data);
 		if (pthread_create(&info.ph[i], NULL, philosopher_state, info.n))
 			ft_exit_with_error(THREADS, data);
 		info.n->philosopher = info.ph[i];
@@ -98,8 +100,6 @@ t_data	init_mutexes(t_data data, t_params params)
 		ft_exit_with_error(MUTEXES, data);
 	while (i < params.n_of_philos)
 	{
-		if (pthread_mutex_init(&n->fork, NULL))
-			ft_exit_with_error(MUTEXES, data);
 		i++;
 		n = n->next;
 	}
