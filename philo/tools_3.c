@@ -60,7 +60,6 @@
 void	*philosopher_state(void *arg)
 {
 	int				max;
-	int				id;
 	t_list			*node;
 
 	ft_time();
@@ -68,7 +67,6 @@ void	*philosopher_state(void *arg)
 	node = (t_list  *)arg;
 	node->l_fork = &node->fork;
 	node->r_fork = &node->next->fork;
-	id = node->philosopher_id;
 	node->eaten_meals = 0;
 	node->time_left = node->time_to_think;
 	while (1)
