@@ -71,3 +71,22 @@ int	ft_isdigit(int c)
 	else
 		return (0);
 }
+
+void	one_philosophe(t_data data, t_params params)
+{
+	(void)data;
+	if (params.n_of_philos == 1)
+	{
+		if (params.t_to_think < ft_time())
+		{
+			printf("%ld 1 died\n", ft_time());
+			printf("===SUMULATION_ENDS==============\n");
+			exit(0);  
+		}
+		printf("%ld 1 is thinking\n", ft_time());
+		usleep(params.t_to_think * 1000);
+		printf("%ld 1 died\n", ft_time());
+		printf("===SUMULATION_ENDS==============\n");
+		exit(0);
+	}
+}
