@@ -12,58 +12,11 @@
 
 #include "philo.h"
 
-// void    philosopher_state_2(void *arg)
-// {
-// 	int				max;
-// 	int				id;
-// 	t_list			*node;
-// 	pthread_mutex_t	*l_fork;
-// 	pthread_mutex_t	*r_fork;
-
-// 	max = 0;
-// 	node = (t_list  *)arg;
-// 	l_fork = &node->l_fork;
-// 	r_fork = &node->next->l_fork;
-// 	id = node->philosopher_id;
-// 	node->eaten_meals = 0;
-// 	node->time_left = node->time_to_think;
-// 	if (node->lock_status == UNLOCKED && \
-// 	node->next->lock_status == UNLOCKED && node->eaten_meals <= max)
-// 	{
-// 		pthread_mutex_lock(l_fork);
-// 		node->lock_status = LOCKED;
-// 		if (node->next->lock_status == LOCKED)
-// 		{
-// 			pthread_mutex_unlock(l_fork);
-// 			// continue ;
-// 		}
-// 		pthread_mutex_lock(r_fork);
-// 		node->next->lock_status = LOCKED;
-// 		printer(node, "has taken a fork");
-// 		printer(node, "has taken a fork");		
-// 		printer(node, "is eating");
-// 		node->eaten_meals++;
-// 		if (node->eaten_meals > max)
-// 			max = node->eaten_meals;
-// 		usleep(node->time_to_eat * 1000);
-// 		node->time_left += ft_time();
-// 		pthread_mutex_unlock(l_fork);
-// 		node->lock_status = UNLOCKED;
-// 		pthread_mutex_unlock(r_fork);
-// 		node->next->lock_status = UNLOCKED;
-// 		printer(node, "is sleeping");
-// 		usleep(node->time_to_sleep * 1000);
-// 		node->old_status = THINKING_STATE;
-// 	}
-// }
-
 void	*philosopher_state(void *arg)
 {
-	int				max;
 	t_list			*node;
 
 	ft_time();
-	max = 0;
 	node = (t_list  *)arg;
 	node->l_fork = &node->fork;
 	node->r_fork = &node->next->fork;
@@ -81,9 +34,7 @@ void	*philosopher_state(void *arg)
 			printer(node, "is thinking");
 			node->old_status = ALREADY_THINKING;
 		}
-		// philosopher_state_2(arg);
-		if (node->lock_status == UNLOCKED && \
-		node->next->lock_status == UNLOCKED && node->eaten_meals <= max)
+		if (node->lock_status == UNLOCKED && node->next->lock_status == UNLOCKED)
 		{
 			pthread_mutex_lock(node->l_fork);
 			node->lock_status = LOCKED;
@@ -98,8 +49,6 @@ void	*philosopher_state(void *arg)
 			printer(node, "has taken a fork");		
 			printer(node, "is eating");
 			node->eaten_meals++;
-			if (node->eaten_meals > max)
-				max = node->eaten_meals;
 			usleep(node->time_to_eat * 1000);
 			node->time_left += ft_time();
 			pthread_mutex_unlock(node->l_fork);
