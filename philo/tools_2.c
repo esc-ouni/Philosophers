@@ -85,13 +85,13 @@ t_data	join_threads(t_data data, t_params params)
 
 void	*philosopher_state(void *arg)
 {
-	pthread_mutex_lock(&klop2);
 	int				max;
 	int				id;
 	t_list			*node;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
 
+	pthread_mutex_lock(&klop2);
 	// printf("\n%p\n%p\n%p\n%p\n\n", max, id, node, l_fork, r_fork);
 
 	max = 0;
