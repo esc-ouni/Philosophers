@@ -53,6 +53,9 @@ pthread_mutex_t	klop2;
 pthread_mutex_t	klop3;
 pthread_mutex_t	klop4;
 pthread_mutex_t	klop5;
+pthread_mutex_t	klop7;
+pthread_mutex_t	klop8;
+pthread_mutex_t	klop9;
 
 typedef struct s_list
 {
@@ -115,6 +118,6 @@ void		ft_exit(t_data data);
 t_list		*ft_lstnew(t_data data);
 t_list		*ft_lstlast(t_list *lst);
 void		ft_lstclear(t_list **lst);
-void		ft_lstadd_back(t_data data, t_list **lst, t_list *new);
+void		ft_lstadd_back(t_list **lst, t_list *new);
 
 #endif

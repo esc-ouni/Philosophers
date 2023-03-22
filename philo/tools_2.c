@@ -51,7 +51,7 @@ t_data	create_philos(t_params params, t_data data)
 	while (i < params.n_of_philos)
 	{
 		info.n = ft_lstnew(data);
-		ft_lstadd_back(data, &data.head, info.n);
+		ft_lstadd_back(&data.head, info.n);
 		*(info.n) = node_init(params, i, info);
 		if (pthread_create(&info.ph[i], NULL, philosopher_state, info.n))
 			ft_exit_with_error(THREADS, data);

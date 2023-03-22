@@ -26,6 +26,10 @@ int	main(int argc, char *argv[])
 	pthread_mutex_init(&klop3, NULL);
 	pthread_mutex_init(&klop4, NULL);
 	pthread_mutex_init(&klop5, NULL);
+	// pthread_mutex_init(&klop5, NULL);
+	pthread_mutex_init(&klop7, NULL);
+	pthread_mutex_init(&klop8, NULL);
+	pthread_mutex_init(&klop9, NULL);
 	data.head = NULL;
 	data.mutexes = NULL;
 	data.threads = NULL;

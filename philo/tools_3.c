@@ -27,21 +27,24 @@ void	philosopher_state_2(void *arg)
 	node->eaten_meals++;
 	usleep(node->time_to_eat * 1000);
 	node->time_left += ft_time();
-	pthread_mutex_unlock(node->l_fork);
-	node->lock_status = UNLOCKED;
-	pthread_mutex_unlock(node->r_fork);
-	node->next->lock_status = UNLOCKED;
 	printer(node, "is sleeping");
 	usleep(node->time_to_sleep * 1000);
 	node->old_status = THINKING_STATE;
+	pthread_mutex_unlock(node->r_fork);
+	pthread_mutex_unlock(node->l_fork);
+	node->lock_status = UNLOCKED;
+	node->next->lock_status = UNLOCKED;
 }
 
 void	*philosopher_state(void *arg)
 {
+	pthread_mutex_lock(&klop9);
 	t_list			*node;
 
 	ft_time();
+	pthread_mutex_lock(&klop7);
 	node = (t_list  *)arg;
+	pthread_mutex_unlock(&klop7);
 	node->l_fork = &node->fork;
 	node->r_fork = &node->next->fork;
 	node->eaten_meals = 0;
@@ -58,7 +61,10 @@ void	*philosopher_state(void *arg)
 		if (node->lock_status == UNLOCKED && node->next->lock_status == UNLOCKED)
 			philosopher_state_2(arg);
 	}
+	pthread_mutex_lock(&klop8);
 	node->eat_state = EAT_ENOUGH;
+	pthread_mutex_unlock(&klop8);
+	pthread_mutex_unlock(&klop9);
 	return (NULL);
 }
 

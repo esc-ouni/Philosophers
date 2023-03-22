@@ -25,6 +25,7 @@ t_list	*ft_lstnew(t_data data)
 	return (new_node);
 }
 
+
 t_list	*ft_lstlast(t_list *lst)
 {
 	t_list	*node;
@@ -40,15 +41,12 @@ t_list	*ft_lstlast(t_list *lst)
 	return (node);
 }
 
-void	ft_lstadd_back(t_data data, t_list **lst, t_list *new)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
 	t_list	*o_last;
 
-	if (!new)
-	{
-		new = ft_lstnew(data);
+	if (lst == NULL || new == NULL)
 		return ;
-	}
 	if (*lst == NULL)
 	{
 		*lst = new;
