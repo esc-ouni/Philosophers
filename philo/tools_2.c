@@ -53,11 +53,8 @@ t_data	create_philos(t_params params, t_data data)
 		info.n = ft_lstnew(data);
 		ft_lstadd_back(&data.head, info.n);
 		*(info.n) = node_init(params, i, info);
-		if (pthread_mutex_init(&info.n->fork, NULL))
-			ft_exit_with_error(MUTEXES, data);
-		if (pthread_create(&info.ph[i], NULL, philosopher_state, info.n))
-			ft_exit_with_error(THREADS, data);
 		info.n->philosopher = info.ph[i];
+		usleep(200);
 		if (i == params.n_of_philos - 1)
 			info.n->next = data.head;
 		else
@@ -77,8 +74,12 @@ t_data	join_threads(t_data data, t_params params)
 	n = data.head;
 	while (n && i < params.n_of_philos)
 	{
+		if (pthread_create(&n->philosopher, NULL, philosopher_state, n))
+			ft_exit_with_error(THREADS, data);
+		usleep(200);
 		if (pthread_detach(n->philosopher))
 			ft_exit_with_error(THREADS, data);
+		usleep(200);
 		n = n->next;
 		i++;
 	}
@@ -92,14 +93,11 @@ t_data	init_mutexes(t_data data, t_params params)
 
 	i = 0;
 	n = data.head;
-	if (pthread_mutex_init(&lock, NULL))
-		ft_exit_with_error(MUTEXES, data);
-	if (pthread_mutex_init(&klop, NULL))
-		ft_exit_with_error(MUTEXES, data);
-	if (pthread_mutex_init(&lock2, NULL))
-		ft_exit_with_error(MUTEXES, data);
 	while (i < params.n_of_philos)
 	{
+		if (pthread_mutex_init(&n->fork, NULL))
+			ft_exit_with_error(MUTEXES, data);
+		usleep(200);
 		i++;
 		n = n->next;
 	}

@@ -42,20 +42,6 @@
 # include <signal.h>
 # include <sys/time.h>
 
-pthread_mutex_t	lock;
-pthread_mutex_t	lock2;
-pthread_mutex_t	lockk;
-pthread_mutex_t	lokkkk;
-pthread_mutex_t	lokkkk2;
-pthread_mutex_t	klop;
-pthread_mutex_t	klop2;
-pthread_mutex_t	klop3;
-pthread_mutex_t	klop4;
-pthread_mutex_t	klop5;
-pthread_mutex_t	klop7;
-pthread_mutex_t	klop8;
-pthread_mutex_t	klop9;
-
 typedef struct s_list
 {
 	int				philosopher_id;

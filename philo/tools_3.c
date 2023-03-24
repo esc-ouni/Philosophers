@@ -58,29 +58,24 @@ void	*philosopher_state(void *arg)
 		node->next->lock_status == UNLOCKED)
 			philosopher_state_2(arg);
 	}
-	pthread_mutex_lock(&klop8);
 	node->eat_state = EAT_ENOUGH;
-	pthread_mutex_unlock(&klop8);
-	pthread_mutex_unlock(&klop9);
 	return (NULL);
 }
 
 void	check_death(t_list *node, time_t time)
 {
-	pthread_mutex_lock(&lock2);
+	// pthread_mutex_lock(&lock2);
 	if (node->time_left <= time)
 	{
 		printf("%ld %d died\n", time, node->philosopher_id);
 		printf("===SUMULATION_ENDS==============\n");
 		exit(0);
 	}
-	else
-		pthread_mutex_unlock(&lock2);
+	// else
+	// 	pthread_mutex_unlock(&lock2);
 }
 
 void	printer(t_list *node, char *s)
 {
-	pthread_mutex_lock(&lock);
 	printf("%ld %d %s\n", ft_time(), node->philosopher_id, s);
-	pthread_mutex_unlock(&lock);
 }
