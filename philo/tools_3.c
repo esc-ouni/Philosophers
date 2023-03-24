@@ -12,7 +12,26 @@
 
 #include "philo.h"
 
-void	philosopher_state_2(void *arg)
+void	sleepp(void	*arg)
+{
+	t_list			*node;
+
+	node = arg;
+	printer(node, "is sleeping");
+	usleep(node->time_to_sleep * 1000);
+	node->old_status = THINKING_STATE;
+	pthread_mutex_unlock(node->r_fork);
+	pthread_mutex_unlock(node->l_fork);
+	node->lock_status = UNLOCKED;
+	node->next->lock_status = UNLOCKED;
+}
+
+// void	think(void	*arg)
+// {
+	
+// }
+
+void	eat(void	*arg)
 {
 	t_list			*node;
 
@@ -27,14 +46,11 @@ void	philosopher_state_2(void *arg)
 	node->eaten_meals++;
 	usleep(node->time_to_eat * 1000);
 	node->time_left += ft_time();
-	printer(node, "is sleeping");
-	usleep(node->time_to_sleep * 1000);
-	node->old_status = THINKING_STATE;
-	pthread_mutex_unlock(node->r_fork);
-	pthread_mutex_unlock(node->l_fork);
-	node->lock_status = UNLOCKED;
-	node->next->lock_status = UNLOCKED;
 }
+// void	pickup_forks(void	*arg)
+// {
+	
+// }
 
 void	*philosopher_state(void *arg)
 {
@@ -56,7 +72,10 @@ void	*philosopher_state(void *arg)
 		}
 		if (node->lock_status == UNLOCKED && \
 		node->next->lock_status == UNLOCKED)
-			philosopher_state_2(arg);
+		{
+			eat(arg);
+			sleepp(arg);
+		}
 	}
 	node->eat_state = EAT_ENOUGH;
 	return (NULL);
