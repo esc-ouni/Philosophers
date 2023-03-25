@@ -16,7 +16,6 @@ void	sleepp(t_list	*node)
 {
 	printer(node, "is sleeping");
 	usleep(node->time_to_sleep * 1000);
-	node->time_left += ft_time();
 	node->old_status = THINKING_STATE;
 }
 
@@ -51,6 +50,7 @@ void	*philosopher_state(void *arg)
 	node = arg;
 	while (1)
 	{
+		check_death(node, ft_time());
 		if (node->eaten_meals == node->num_of_meals)
 			break ;
 		if (node->old_status == THINKING_STATE)
@@ -78,6 +78,7 @@ void	check_death(t_list *node, time_t time)
 		printf("%ld %d died\n", time, node->philosopher_id);
 		printf("===SUMULATION_ENDS==============\n");
 		exit(0);
+		pthread_mutex_lock(&node->lock->lock1);
 	}
 	else
 		pthread_mutex_unlock(&node->lock->lock1);
