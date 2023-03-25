@@ -16,6 +16,7 @@ void	sleepp(t_list	*node)
 {
 	printer(node, "is sleeping");
 	usleep(node->time_to_sleep * 1000);
+	node->time_left += ft_time();
 	node->old_status = THINKING_STATE;
 }
 
@@ -48,11 +49,8 @@ void	*philosopher_state(void *arg)
 	t_list			*node;
 
 	node = arg;
-	node->l_fork = &node->fork;
-	node->r_fork = &node->next->fork;
 	while (1)
 	{
-		check_death(node, ft_time());
 		if (node->eaten_meals == node->num_of_meals)
 			break ;
 		if (node->old_status == THINKING_STATE)
@@ -60,16 +58,12 @@ void	*philosopher_state(void *arg)
 			printer(node, "is thinking");
 			node->old_status = ALREADY_THINKING;
 		}
-		check_death(node, ft_time());
 		pickup_forks(arg);
-		check_death(node, ft_time());
 		if (node->lock_status == UNLOCKED && \
 		node->next->lock_status == UNLOCKED)
 		{
 			eat(arg);
-			check_death(node, ft_time());
 			sleepp(arg);
-			check_death(node, ft_time());
 		}
 	}
 	node->eat_state = EAT_ENOUGH;

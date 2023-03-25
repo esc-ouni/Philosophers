@@ -38,7 +38,7 @@ t_list	node_init(t_params params, int i, t_info info)
 	info.n->eaten_meals = 0;	
 	info.n->time_left = info.n->time_to_think;
 	info.n->lock_status = UNLOCKED;
-	info.n->old_status = THINKING_STATE;
+	info.n->old_status =  ALREADY_THINKING;
 	return (*info.n);
 }
 
@@ -78,6 +78,8 @@ t_data	join_threads(t_data data, t_params params)
 	n = data.head;
 	while (n && i < params.n_of_philos)
 	{
+		n->l_fork = &n->fork;
+		n->r_fork = &n->next->fork;
 		if (pthread_create(&n->philosopher, NULL, philosopher_state, n))
 			ft_exit_with_error(THREADS, data);
 		usleep(200);
