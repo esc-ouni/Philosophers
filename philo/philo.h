@@ -70,10 +70,8 @@ typedef struct s_list
 	struct s_list	*next;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
-	// t_locks			*lock;
+	t_locks			*lock;
 }				t_list;
-
-pthread_mutex_t	lock1;
 
 typedef struct s_data
 {

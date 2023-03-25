@@ -78,7 +78,7 @@ void	*philosopher_state(void *arg)
 
 void	check_death(t_list *node, time_t time)
 {
-	pthread_mutex_lock(&lock1);
+	pthread_mutex_lock(&node->lock->lock1);
 	if (node->time_left <= time)
 	{
 		printf("%ld %d died\n", time, node->philosopher_id);
@@ -86,7 +86,7 @@ void	check_death(t_list *node, time_t time)
 		exit(0);
 	}
 	else
-		pthread_mutex_unlock(&lock1);
+		pthread_mutex_unlock(&node->lock->lock1);
 }
 
 void	printer(t_list *node, char *s)
