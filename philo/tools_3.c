@@ -86,7 +86,7 @@ void	check_death(t_list *node, time_t time)
 		exit(0);
 	}
 	else
-		pthread_mutex_unlock(&lock1);
+		pthread_mutex_lock(&lock1);
 }
 
 void	printer(t_list *node, char *s)
