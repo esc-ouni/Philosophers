@@ -35,6 +35,8 @@ t_list	node_init(t_params params, int i, t_info info)
 	info.n->time_to_sleep = params.t_to_sleep;
 	info.n->time_to_eat = params.t_to_eat;
 	info.n->num_of_meals = params.n_of_meals;
+	info.n->eaten_meals = 0;	
+	info.n->time_left = info.n->time_to_think;
 	info.n->lock_status = UNLOCKED;
 	info.n->old_status = THINKING_STATE;
 	return (*info.n);
@@ -93,6 +95,9 @@ t_data	init_mutexes(t_data data, t_params params)
 
 	i = 0;
 	n = data.head;
+	if (pthread_mutex_init(&lock1, NULL))
+		ft_exit_with_error(MUTEXES, data);
+	usleep(200);
 	while (i < params.n_of_philos)
 	{
 		if (pthread_mutex_init(&n->fork, NULL))

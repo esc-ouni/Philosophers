@@ -42,6 +42,15 @@
 # include <signal.h>
 # include <sys/time.h>
 
+typedef struct s_locks
+{
+	pthread_mutex_t	lock1;
+	pthread_mutex_t	lock2;
+	pthread_mutex_t	lock3;
+	pthread_mutex_t	lock4;
+	pthread_mutex_t	lock5;
+}	t_locks;
+
 typedef struct s_list
 {
 	int				philosopher_id;
@@ -61,7 +70,10 @@ typedef struct s_list
 	struct s_list	*next;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
+	// t_locks			*lock;
 }				t_list;
+
+pthread_mutex_t	lock1;
 
 typedef struct s_data
 {
