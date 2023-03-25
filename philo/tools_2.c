@@ -95,8 +95,8 @@ t_data	init_mutexes(t_data data, t_params params)
 
 	i = 0;
 	n = data.head;
-	// if (pthread_mutex_init(&lock1, NULL))
-	// 	ft_exit_with_error(MUTEXES, data);
+	if (pthread_mutex_init(&lock1, NULL))
+		ft_exit_with_error(MUTEXES, data);
 	usleep(200);
 	while (i < params.n_of_philos)
 	{
