@@ -101,15 +101,19 @@ t_data	init_mutexes(t_data data, t_params params)
 	n = data.head;
 	if (pthread_mutex_init(&n->lock->lock1, NULL))
 		ft_exit_with_error(MUTEXES, data);
+	usleep(100);
 	if (pthread_mutex_init(&n->lock->lock2, NULL))
 		ft_exit_with_error(MUTEXES, data);
+	usleep(100);
 	if (pthread_mutex_init(&n->lock->lock3, NULL))
 		ft_exit_with_error(MUTEXES, data);
+	usleep(100);
 	if (pthread_mutex_init(&n->lock->lock4, NULL))
 		ft_exit_with_error(MUTEXES, data);
+	usleep(100);
 	if (pthread_mutex_init(&n->lock->lock5, NULL))
 		ft_exit_with_error(MUTEXES, data);
-	usleep(200);
+	usleep(100);
 	while (i < params.n_of_philos)
 	{
 		if (pthread_mutex_init(&n->fork, NULL))
