@@ -66,3 +66,20 @@ int	one_philosophe(t_data data, t_params params)
 	}
 	return (0);
 }
+int	inspector(t_list *n , t_params params)
+{
+	int	i;
+
+	i = 0;
+	while (n && i < params.n_of_philos)
+	{
+		if (n->eat_state == EAT_ENOUGH)
+		{
+			i++;
+			n->eat_state = DEATH;
+		}
+		n = n->next;
+	}
+	printf("===ALL_PHILOSOPHES_EAT_ENOUGH===\n");
+	return (0);
+}
