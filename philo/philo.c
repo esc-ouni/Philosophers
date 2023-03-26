@@ -30,9 +30,13 @@ int	main(int argc, char *argv[])
 		ft_exit_with_error(ARGS, data);
 		return (0);
 	}
-	printf("===SUMULATION_STARTS============\n");
-	one_philosophe(data, params);
-	data = create_philos(params, data);
+	if (one_philosophe(data, params))
+		return (0);
+	if (create_philos(params, &data))
+	{
+		ft_exit_with_error(ARGS, data);
+		return (0);
+	}
 	data = init_mutexes(data, params);
 	data = join_threads(data, params);
 	n = data.head;

@@ -12,18 +12,20 @@
 
 #include "philo.h"
 
-void	init_mutexes2(t_data data, t_params params, pthread_mutex_t	*mutexes)
+int		init_mutexes2(t_data data, t_params params, pthread_mutex_t	*mutexes)
 {
 	int	i;
 
 	i = 0;
+	(void)data;
 	while (i < params.n_of_philos)
 	{
 		if (pthread_mutex_init(&mutexes[i], NULL))
-			ft_exit_with_error(MUTEXES, data);
+			return (MUTEXES);
 		usleep(200);
 		i++;
 	}
+	return (0);
 }
 
 t_info	info_init(t_params params, t_data data, t_info info)
@@ -56,30 +58,30 @@ t_list	node_init(t_params params, int i, t_info info)
 	return (*info.n);
 }
 
-t_data	create_philos(t_params params, t_data data)
+int	create_philos(t_params params, t_data *data)
 {
 	t_info			info;
 	int				i;
 	static t_locks	lock;
 
 	info.ph = NULL;
-	info = info_init(params, data, info);
+	info = info_init(params, *data, info);
 	i = 0;
 	while (i < params.n_of_philos)
 	{
-		info.n = ft_lstnew(data);
-		ft_lstadd_back(&data.head, info.n);
+		info.n = ft_lstnew(*data);
+		ft_lstadd_back(&data->head, info.n);
 		*(info.n) = node_init(params, i, info);
 		info.n->philosopher = info.ph[i];
 		usleep(200);
 		info.n->lock = &lock;
 		if (i == params.n_of_philos - 1)
-			info.n->next = data.head;
+			info.n->next = data->head;
 		else
 			info.n = info.n->next;
 		i++;
 	}
-	return (data);
+	return (0);
 }
 
 t_data	join_threads(t_data data, t_params params)
@@ -90,6 +92,7 @@ t_data	join_threads(t_data data, t_params params)
 	ft_time();
 	i = 0;
 	n = data.head;
+	printf("===SUMULATION_STARTS============\n");
 	while (n && i < params.n_of_philos)
 	{
 		n->time_left = n->time_to_think;
