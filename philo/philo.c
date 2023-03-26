@@ -15,11 +15,9 @@
 int	main(int argc, char *argv[])
 {
 	t_list		*n;
-	// int			i;
 	t_params	params;
 	t_data		data;
 
-	// i = 0;
 	data.head = NULL;
 	data.mutexes = NULL;
 	data.threads = NULL;
