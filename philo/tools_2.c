@@ -45,7 +45,6 @@ t_info	info_init(t_params params, t_data data, t_info info)
 t_list	node_init(t_params params, int i, t_info info)
 {
 	info.n->philosopher_id = i + 1;
-	info.n->fork = info.mt[i];
 	info.n->l_fork = &info.mt[i];
 	info.n->r_fork = &info.mt[(i + 1) % params.n_of_philos];
 	info.n->time_to_think = params.t_to_think;
@@ -53,7 +52,6 @@ t_list	node_init(t_params params, int i, t_info info)
 	info.n->time_to_eat = params.t_to_eat;
 	info.n->num_of_meals = params.n_of_meals;
 	info.n->eaten_meals = 0;
-	info.n->lock_status =  UNLOCKED;
 	info.n->old_status =  ALREADY_THINKING;
 	return (*info.n);
 }
@@ -130,13 +128,5 @@ t_data	init_mutexes(t_data data, t_params params)
 	if (pthread_mutex_init(&n->lock->lock5, NULL))
 		ft_exit_with_error(MUTEXES, data);
 	usleep(100);
-	// while (i < params.n_of_philos)
-	// {
-	// 	if (pthread_mutex_init(&n->fork, NULL))
-	// 		ft_exit_with_error(MUTEXES, data);
-	// 	usleep(200);
-	// 	i++;
-	// 	n = n->next;
-	// }
 	return (data);
 }
