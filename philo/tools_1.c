@@ -12,9 +12,9 @@
 
 #include "philo.h"
 
-long long	check_l(t_data data, long long nb, int s)
+long long	check_l(t_data data, long long nb)
 {
-	if (nb > 2147483647 && s == 1)
+	if (nb > 2147483647)
 		ft_exit_with_error(ARGS, data);
 	return (nb);
 }
@@ -23,9 +23,7 @@ int	ft_atoi(t_data data, char *str)
 {
 	int				i;
 	long long		r;
-	int				s;
 
-	s = 1;
 	r = 0;
 	i = 0;
 	while ((str[i] == 45 || str[i] == 43))
@@ -38,13 +36,13 @@ int	ft_atoi(t_data data, char *str)
 	}
 	while (str[i] >= 48 && str[i] <= 57)
 	{
-		r = r * 10 + (str[i] - 48);
-		r = check_l(data, r, s);
-		i++;
+		r = r * 10 + (str[i++] - 48);
+		r = check_l(data, r);
+		// i++;
 	}
 	if (str[i] && (str[i] < 48 || str[i] > 57))
 		ft_exit_with_error(ARGS, data);
-	return (r * s);
+	return (r);
 }
 
 void	one_philosophe(t_data data, t_params params)
