@@ -104,7 +104,7 @@ void		one_philosophe(t_data data, t_params params);
 void		*philosopher_state(void *arg);
 void		*h_malloc(t_data data, size_t s, void *p);
 void		ft_parse(t_data data, t_params *params, int argc, char **argv);
-int			ft_atoi(t_data data, char *str);
+int			ft_atoi(char *str);
 int			ft_isdigit(int c);
 void		ft_exit_with_error(int  n, t_data data);
 void		ft_exit(t_data data);

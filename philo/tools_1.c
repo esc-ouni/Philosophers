@@ -12,14 +12,14 @@
 
 #include "philo.h"
 
-long long	check_l(t_data data, long long nb)
+long long	check_l(long long nb)
 {
 	if (nb > 2147483647)
-		ft_exit_with_error(ARGS, data);
+		return (-1);
 	return (nb);
 }
 
-int	ft_atoi(t_data data, char *str)
+int	ft_atoi(char *str)
 {
 	int				i;
 	long long		r;
@@ -29,19 +29,21 @@ int	ft_atoi(t_data data, char *str)
 	while ((str[i] == 45 || str[i] == 43))
 	{
 		if (str[i] == 45)
-			ft_exit_with_error(ARGS, data);
+			return (-1);
 		i++;
 		if ((str[i] < 48 || str[i] > 57))
-			ft_exit_with_error(ARGS, data);
+			return (-1);
 	}
 	while (str[i] >= 48 && str[i] <= 57)
 	{
 		r = r * 10 + (str[i++] - 48);
-		r = check_l(data, r);
+		r = check_l(r);
+		if (r == -1)
+			return (-1);
 		// i++;
 	}
 	if (str[i] && (str[i] < 48 || str[i] > 57))
-		ft_exit_with_error(ARGS, data);
+		return (-1);
 	return (r);
 }
 

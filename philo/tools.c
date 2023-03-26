@@ -17,14 +17,14 @@ void	ft_parse(t_data data, t_params *params, int argc, char **argv)
 	(void)argv;
 	if (argc < 5 || argc > 6)
 		ft_exit_with_error(ARGS, data);
-	params->n_of_philos = ft_atoi(data, argv[1]);
-	params->t_to_think = ft_atoi(data, argv[2]);
-	params->t_to_eat = ft_atoi(data, argv[3]);
-	params->t_to_sleep = ft_atoi(data, argv[4]);
+	params->n_of_philos = ft_atoi(argv[1]);
+	params->t_to_think = ft_atoi(argv[2]);
+	params->t_to_eat = ft_atoi(argv[3]);
+	params->t_to_sleep = ft_atoi(argv[4]);
 	if (argc == 5)
 		params->n_of_meals = -1;
 	else
-		params->n_of_meals = ft_atoi(data, argv[5]);
+		params->n_of_meals = ft_atoi(argv[5]);
 }
 
 void	ft_exit(t_data data)
