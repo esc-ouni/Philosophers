@@ -12,27 +12,9 @@
 
 #include "philo.h"
 
-char	*check(t_data data, char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str[0] == 45 || str[0] == 43 || str[0] == 48)
-		i++;
-	while (str[i])
-	{
-		if (!ft_isdigit(str[i]))
-			ft_exit_with_error(ARGS, data);
-		i++;
-	}
-	return (str);
-}
-
 long long	check_l(t_data data, long long nb, int s)
 {
 	if (nb > 2147483647 && s == 1)
-		ft_exit_with_error(ARGS, data);
-	else if (nb > 2147483648 && s == -1)
 		ft_exit_with_error(ARGS, data);
 	return (nb);
 }
@@ -46,7 +28,6 @@ int	ft_atoi(t_data data, char *str)
 	s = 1;
 	r = 0;
 	i = 0;
-	str = check(data, str);
 	while ((str[i] == 45 || str[i] == 43))
 	{
 		if (str[i] == 45)
@@ -61,15 +42,9 @@ int	ft_atoi(t_data data, char *str)
 		r = check_l(data, r, s);
 		i++;
 	}
+	if (str[i] && (str[i] < 48 || str[i] > 57))
+		ft_exit_with_error(ARGS, data);
 	return (r * s);
-}
-
-int	ft_isdigit(int c)
-{
-	if (c <= 57 && c >= 48)
-		return (1);
-	else
-		return (0);
 }
 
 void	one_philosophe(t_data data, t_params params)
