@@ -22,25 +22,15 @@ void	sleepp(t_list	*node)
 void	eat(t_list	*node)
 {
 	pthread_mutex_lock(node->l_fork);
-	pthread_mutex_lock(node->r_fork);
-	node->lock_status = LOCKED;
-	node->next->lock_status = LOCKED;
 	printer(node, "has taken a fork");
+	pthread_mutex_lock(node->r_fork);
 	printer(node, "has taken a fork");
 	printer(node, "is eating");
-	node->eaten_meals++;
+	node->eaten_meals += 1;
 	usleep(node->time_to_eat * 1000);
 	node->time_left += ft_time();
 	pthread_mutex_unlock(node->r_fork);
 	pthread_mutex_unlock(node->l_fork);
-	node->lock_status = UNLOCKED;
-	node->next->lock_status = UNLOCKED;
-}
-void	pickup_forks(t_list	*node)
-{
-	if (node->next->lock_status == LOCKED)
-		pthread_mutex_unlock(&node->fork);
-			node->lock_status = UNLOCKED;
 }
 
 void	*philosopher_state(void *arg)
@@ -58,13 +48,10 @@ void	*philosopher_state(void *arg)
 			printer(node, "is thinking");
 			node->old_status = ALREADY_THINKING;
 		}
-		pickup_forks(arg);
-		if (node->lock_status == UNLOCKED && \
-		node->next->lock_status == UNLOCKED)
-		{
-			eat(arg);
-			sleepp(arg);
-		}
+		check_death(node, ft_time());
+		eat(arg);
+		check_death(node, ft_time());
+		sleepp(arg);
 	}
 	node->eat_state = EAT_ENOUGH;
 	return (NULL);
