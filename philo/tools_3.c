@@ -14,14 +14,17 @@
 
 void	sleepp(t_list	*node)
 {
+	check_death(node, ft_time());
 	printer(node, "is sleeping");
 	usleep(node->time_to_sleep * 1000);
 	node->old_status = THINKING_STATE;
+	check_death(node, ft_time());
 	usleep(200);
 }
 
 void	eat(t_list	*node)
 {
+	check_death(node, ft_time());
 	pthread_mutex_lock(node->l_fork);
 	printer(node, "has taken a fork");
 	pthread_mutex_lock(node->r_fork);
@@ -52,7 +55,9 @@ void	*philosopher_state(void *arg)
 		eat(arg);
 		sleepp(arg);
 	}
+	pthread_mutex_lock(&node->lock->lock3);
 	node->eat_state = EAT_ENOUGH;
+	pthread_mutex_unlock(&node->lock->lock3);
 	return (NULL);
 }
 
@@ -61,9 +66,10 @@ void	check_death(t_list *node, time_t time)
 	pthread_mutex_lock(&node->lock->lock1);
 	if (node->time_left <= time)
 	{
+		usleep(200);
 		printf("%ld %d died\n", time, node->philosopher_id);
 		printf("===SUMULATION_ENDS==============\n");
-		exit(0);
+		node->state = DEAD;
 	}
 	else
 		pthread_mutex_unlock(&node->lock->lock1);
@@ -71,5 +77,7 @@ void	check_death(t_list *node, time_t time)
 
 void	printer(t_list *node, char *s)
 {
+	pthread_mutex_lock(&node->lock->lock2);
 	printf("%ld %d %s\n", ft_time(), node->philosopher_id, s);
+	pthread_mutex_unlock(&node->lock->lock2);
 }
