@@ -25,27 +25,15 @@ int	main(int argc, char *argv[])
 	data.threads = NULL;
 	params.n_of_philos = 0;
 	if (ft_parse(data, &params, argc, argv))
-	{
-		ft_exit_with_error(ARGS, data);
-		return (0);
-	}
+		return (ft_exit_with_error(ARGS, data), 0);
 	if (one_philosophe(data, params))
 		return (0);
 	if (create_philos(params, &data))
-	{
-		ft_exit_with_error(THREADS, data);
-		return (0);
-	}
+		return (ft_exit_with_error(THREADS, data), 0);
 	if (init_mutexes(&data, params))
-	{
-		ft_exit_with_error(MUTEXES, data);
-		return (0);
-	}
+		return (ft_exit_with_error(MUTEXES, data), 0);
 	if (join_threads(&data, params))
-	{
-		ft_exit_with_error(MUTEXES, data);
-		return (0);
-	}
+		return (ft_exit_with_error(THREADS, data), 0);
 	n = data.head;
 	while (n && i < params.n_of_philos)
 	{
@@ -57,6 +45,5 @@ int	main(int argc, char *argv[])
 		n = n->next;
 	}
 	printf("===ALL_PHILOSOPHES_EAT_ENOUGH===\n");
-	exit(0);
 	return (0);
 }
