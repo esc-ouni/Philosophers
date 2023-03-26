@@ -84,28 +84,28 @@ int	create_philos(t_params params, t_data *data)
 	return (0);
 }
 
-t_data	join_threads(t_data data, t_params params)
+int	join_threads(t_data *data, t_params params)
 {
 	int		i;
 	t_list	*n;
 
 	ft_time();
 	i = 0;
-	n = data.head;
+	n = data->head;
 	printf("===SUMULATION_STARTS============\n");
 	while (n && i < params.n_of_philos)
 	{
 		n->time_left = n->time_to_think;
 		if (pthread_create(&n->philosopher, NULL, philosopher_state, n))
-			ft_exit_with_error(THREADS, data);
+			return (THREADS);
 		usleep(200);
 		if (pthread_detach(n->philosopher))
-			ft_exit_with_error(THREADS, data);
+			return (THREADS);
 		usleep(200);
 		n = n->next;
 		i++;
 	}
-	return (data);
+	return (0);
 }
 
 int	init_mutexes(t_data *data, t_params params)

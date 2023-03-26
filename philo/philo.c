@@ -41,7 +41,11 @@ int	main(int argc, char *argv[])
 		ft_exit_with_error(MUTEXES, data);
 		return (0);
 	}
-	data = join_threads(data, params);
+	if (join_threads(&data, params))
+	{
+		ft_exit_with_error(MUTEXES, data);
+		return (0);
+	}
 	n = data.head;
 	while (n && i < params.n_of_philos)
 	{
