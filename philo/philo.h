@@ -29,7 +29,7 @@
 # define EATING 1
 # define SLEEPING 2
 # define THINKIG 3
-# define STOP 4
+# define DEATH 4
 
 # define LOCKED 78
 # define UNLOCKED 81

@@ -34,19 +34,14 @@ int	main(int argc, char *argv[])
 	n = data.head;
 	while (n && i < params.n_of_philos)
 	{
-		pthread_mutex_lock(&n->lock->lock5);
-		if (n->state == DEAD)
-			return (0);
-		pthread_mutex_lock(&n->lock->lock3);
 		if (n->eat_state == EAT_ENOUGH)
 		{
 			i++;
-			n->eat_state = STOP;
+			n->eat_state = DEATH;
 		}
-		pthread_mutex_unlock(&n->lock->lock3);
 		n = n->next;
-		pthread_mutex_unlock(&n->lock->lock5);
 	}
 	printf("===ALL_PHILOSOPHES_EAT_ENOUGH===\n");
+	exit(0);
 	return (0);
 }
