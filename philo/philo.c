@@ -25,7 +25,7 @@ int	main(int argc, char *argv[])
 	data.threads = NULL;
 	data.threads = NULL;
 	params.n_of_philos = 0;
-	params = ft_parse(data, params, argc, argv);
+	ft_parse(data, &params, argc, argv);
 	printf("===SUMULATION_STARTS============\n");
 	one_philosophe(data, params);
 	data = create_philos(params, data);

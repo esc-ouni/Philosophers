@@ -103,7 +103,7 @@ t_data		join_threads(t_data data, t_params params);
 void		one_philosophe(t_data data, t_params params);
 void		*philosopher_state(void *arg);
 void		*h_malloc(t_data data, size_t s, void *p);
-t_params	ft_parse(t_data data, t_params params, int argc, char **argv);
+void		ft_parse(t_data data, t_params *params, int argc, char **argv);
 int			ft_atoi(t_data data, char *str);
 int			ft_isdigit(int c);
 void		ft_exit_with_error(int  n, t_data data);

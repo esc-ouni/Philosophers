@@ -81,7 +81,7 @@ void	one_philosophe(t_data data, t_params params)
 		{
 			printf("%ld 1 died\n", ft_time());
 			printf("===SUMULATION_ENDS==============\n");
-			exit(0);  
+			exit(0);
 		}
 		printf("%ld 1 is thinking\n", ft_time());
 		usleep(params.t_to_think * 1000);
