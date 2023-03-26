@@ -41,16 +41,6 @@ int	ft_parse(t_data data, t_params *params, int argc, char **argv)
 	return (0);
 }
 
-void	ft_exit(t_data data)
-{
-	if (data.head)
-		ft_lstclear(&data.head);
-	if (data.mutexes)
-		free(data.mutexes);
-	if (data.threads)
-		free(data.threads);
-	exit(0);
-}
 
 void	ft_exit_with_error(int n, t_data data)
 {

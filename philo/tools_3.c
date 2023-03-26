@@ -63,7 +63,7 @@ void	check_death(t_list *node, time_t time)
 	{
 		printf("%ld %d died\n", time, node->philosopher_id);
 		printf("===SUMULATION_ENDS==============\n");
-		exit(0);
+		usleep(1000);
 	}
 	else
 		pthread_mutex_unlock(&node->lock->lock1);
