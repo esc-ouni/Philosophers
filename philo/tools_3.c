@@ -17,13 +17,14 @@ void	sleepp(t_list	*node)
 	printer(node, "is sleeping");
 	usleep(node->time_to_sleep * 1000);
 	node->old_status = THINKING_STATE;
+	usleep(200);
 }
 
 void	eat(t_list	*node)
 {
 	pthread_mutex_lock(node->l_fork);
-	pthread_mutex_lock(node->r_fork);
 	printer(node, "has taken a fork");
+	pthread_mutex_lock(node->r_fork);
 	printer(node, "has taken a fork");
 	printer(node, "is eating");
 	node->eaten_meals++;
@@ -32,9 +33,6 @@ void	eat(t_list	*node)
 	pthread_mutex_unlock(node->r_fork);
 	pthread_mutex_unlock(node->l_fork);
 }
-// void	pickup_forks(t_list	*node)
-// {
-// }
 
 void	*philosopher_state(void *arg)
 {
@@ -51,7 +49,6 @@ void	*philosopher_state(void *arg)
 			printer(node, "is thinking");
 			node->old_status = ALREADY_THINKING;
 		}
-		// pickup_forks(arg);
 		eat(arg);
 		sleepp(arg);
 	}
