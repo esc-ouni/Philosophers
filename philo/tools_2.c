@@ -108,28 +108,28 @@ t_data	join_threads(t_data data, t_params params)
 	return (data);
 }
 
-t_data	init_mutexes(t_data data, t_params params)
+int	init_mutexes(t_data *data, t_params params)
 {
 	int		i;
 	t_list	*n;
 
 	(void)params;
 	i = 0;
-	n = data.head;
+	n = data->head;
 	if (pthread_mutex_init(&n->lock->lock1, NULL))
-		ft_exit_with_error(MUTEXES, data);
+		return (MUTEXES);
 	usleep(100);
 	if (pthread_mutex_init(&n->lock->lock2, NULL))
-		ft_exit_with_error(MUTEXES, data);
+		return (MUTEXES);
 	usleep(100);
 	if (pthread_mutex_init(&n->lock->lock3, NULL))
-		ft_exit_with_error(MUTEXES, data);
+		return (MUTEXES);
 	usleep(100);
 	if (pthread_mutex_init(&n->lock->lock4, NULL))
-		ft_exit_with_error(MUTEXES, data);
+		return (MUTEXES);
 	usleep(100);
 	if (pthread_mutex_init(&n->lock->lock5, NULL))
-		ft_exit_with_error(MUTEXES, data);
+		return (MUTEXES);
 	usleep(100);
-	return (data);
+	return (0);
 }

@@ -95,7 +95,7 @@ typedef struct s_params
 }	t_params;
 
 time_t		ft_time(void);
-t_data		init_mutexes(t_data data, t_params params);
+int			init_mutexes(t_data *data, t_params params);
 int			create_philos(t_params params, t_data *data);
 void		printer(t_list *node, char *s);
 void		check_death(t_list *node, time_t time);

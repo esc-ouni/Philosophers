@@ -23,7 +23,6 @@ int	main(int argc, char *argv[])
 	data.head = NULL;
 	data.mutexes = NULL;
 	data.threads = NULL;
-	data.threads = NULL;
 	params.n_of_philos = 0;
 	if (ft_parse(data, &params, argc, argv))
 	{
@@ -34,10 +33,14 @@ int	main(int argc, char *argv[])
 		return (0);
 	if (create_philos(params, &data))
 	{
-		ft_exit_with_error(ARGS, data);
+		ft_exit_with_error(THREADS, data);
 		return (0);
 	}
-	data = init_mutexes(data, params);
+	if (init_mutexes(&data, params))
+	{
+		ft_exit_with_error(MUTEXES, data);
+		return (0);
+	}
 	data = join_threads(data, params);
 	n = data.head;
 	while (n && i < params.n_of_philos)
