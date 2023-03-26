@@ -12,6 +12,20 @@
 
 #include "philo.h"
 
+void	init_mutexes2(t_data data, t_params params, pthread_mutex_t	*mutexes)
+{
+	int	i;
+
+	i = 0;
+	while (i < params.n_of_philos)
+	{
+		if (pthread_mutex_init(&mutexes[i], NULL))
+			ft_exit_with_error(MUTEXES, data);
+		usleep(200);
+		i++;
+	}
+}
+
 t_info	info_init(t_params params, t_data data, t_info info)
 {
 	info.ph = NULL;
@@ -21,6 +35,7 @@ t_info	info_init(t_params params, t_data data, t_info info)
 	(params.n_of_philos + 1), info.ph);
 	info.mt = h_malloc(data, sizeof(pthread_mutex_t) * \
 	(params.n_of_philos + 1), info.ph);
+	init_mutexes2(data, params, info.mt);
 	data.head = info.n;
 	data.mutexes = info.mt;
 	data.threads = info.ph;
@@ -31,12 +46,14 @@ t_list	node_init(t_params params, int i, t_info info)
 {
 	info.n->philosopher_id = i + 1;
 	info.n->fork = info.mt[i];
+	info.n->l_fork = &info.mt[i];
+	info.n->r_fork = &info.mt[(i + 1) % params.n_of_philos];
 	info.n->time_to_think = params.t_to_think;
 	info.n->time_to_sleep = params.t_to_sleep;
 	info.n->time_to_eat = params.t_to_eat;
 	info.n->num_of_meals = params.n_of_meals;
-	info.n->eaten_meals = 0;	
-	info.n->lock_status = UNLOCKED;
+	info.n->eaten_meals = 0;
+	info.n->lock_status =  UNLOCKED;
 	info.n->old_status =  ALREADY_THINKING;
 	return (*info.n);
 }
@@ -77,8 +94,6 @@ t_data	join_threads(t_data data, t_params params)
 	n = data.head;
 	while (n && i < params.n_of_philos)
 	{
-		n->l_fork = &n->fork;
-		n->r_fork = &n->next->fork;
 		n->time_left = n->time_to_think;
 		if (pthread_create(&n->philosopher, NULL, philosopher_state, n))
 			ft_exit_with_error(THREADS, data);
@@ -97,6 +112,7 @@ t_data	init_mutexes(t_data data, t_params params)
 	int		i;
 	t_list	*n;
 
+	(void)params;
 	i = 0;
 	n = data.head;
 	if (pthread_mutex_init(&n->lock->lock1, NULL))
@@ -114,13 +130,13 @@ t_data	init_mutexes(t_data data, t_params params)
 	if (pthread_mutex_init(&n->lock->lock5, NULL))
 		ft_exit_with_error(MUTEXES, data);
 	usleep(100);
-	while (i < params.n_of_philos)
-	{
-		if (pthread_mutex_init(&n->fork, NULL))
-			ft_exit_with_error(MUTEXES, data);
-		usleep(200);
-		i++;
-		n = n->next;
-	}
+	// while (i < params.n_of_philos)
+	// {
+	// 	if (pthread_mutex_init(&n->fork, NULL))
+	// 		ft_exit_with_error(MUTEXES, data);
+	// 	usleep(200);
+	// 	i++;
+	// 	n = n->next;
+	// }
 	return (data);
 }
