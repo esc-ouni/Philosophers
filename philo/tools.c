@@ -12,19 +12,33 @@
 
 #include "philo.h"
 
-void	ft_parse(t_data data, t_params *params, int argc, char **argv)
+int	ft_parse(t_data data, t_params *params, int argc, char **argv)
 {
 	(void)argv;
+	(void)data;
 	if (argc < 5 || argc > 6)
-		ft_exit_with_error(ARGS, data);
+		return (ARGS);
 	params->n_of_philos = ft_atoi(argv[1]);
+	if (params->n_of_philos == -1)
+		return (ARGS);
 	params->t_to_think = ft_atoi(argv[2]);
+	if (params->t_to_think == -1)
+		return (ARGS);
 	params->t_to_eat = ft_atoi(argv[3]);
+	if (params->t_to_eat == -1)
+		return (ARGS);
 	params->t_to_sleep = ft_atoi(argv[4]);
+	if (params->t_to_sleep == -1)
+		return (ARGS);
 	if (argc == 5)
 		params->n_of_meals = -1;
 	else
+	{
 		params->n_of_meals = ft_atoi(argv[5]);
+		if (params->n_of_meals == -1)
+			return (ARGS);
+	}
+	return (0);
 }
 
 void	ft_exit(t_data data)
@@ -60,7 +74,6 @@ void	ft_exit_with_error(int n, t_data data)
 		printf("ERROR : Mutexe didn't created properly\n\n");
 	else if (n == THREADS)
 		printf("ERROR : Thread didn't created properly\n\n");
-	exit(1);
 }
 
 time_t	ft_time(void)
