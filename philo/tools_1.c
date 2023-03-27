@@ -94,7 +94,7 @@ int	inspector(t_data data, t_list *n, t_params params)
 void	cleaner(t_data data, t_params params)
 {
 	if (data.head)
-		ft_lstclear(&data.head, params);
+		ft_lstclear(&data.head, params.n_of_philos);
 	if (data.mutexes)
 		free(data.mutexes);
 	if (data.threads)

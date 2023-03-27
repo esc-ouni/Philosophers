@@ -111,7 +111,7 @@ int			ft_isdigit(int c);
 void		ft_exit_with_error(int n, t_data data);
 t_list		*ft_lstnew(t_data data);
 t_list		*ft_lstlast(t_list *lst);
-void		ft_lstclear(t_list **lst, t_params params);
+void		ft_lstclear(t_list **lst, int l);
 void		ft_lstadd_back(t_list **lst, t_list *new);
 
 #endif

@@ -44,7 +44,7 @@ int	ft_parse(t_data data, t_params *params, int argc, char **argv)
 void	ft_exit_with_error(int n, t_data data)
 {
 	if (data.head)
-		ft_lstclear(&data.head, data.params);
+		ft_lstclear(&data.head, data.params.n_of_philos);
 	if (data.mutexes)
 		free(data.mutexes);
 	if (data.threads)
