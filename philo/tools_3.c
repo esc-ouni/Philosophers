@@ -47,7 +47,6 @@ void	*philosopher_state(void *arg)
 	node = arg;
 	while (1)
 	{
-		check_death(node, ft_time());
 		if (node->eaten_meals == node->num_of_meals)
 			break ;
 		if (node->think_state == THINKING_STATE)
