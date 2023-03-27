@@ -80,17 +80,6 @@ time_t	ft_time(void)
 	return (t);
 }
 
-void	*h_malloc(t_data data, size_t s, void *p)
-{
-	(void)data;
-	p = malloc(s);
-	if (!p)
-	{
-		ft_exit_with_error(MALLOC, data);
-	}
-	return (p);
-}
-
 int	init_mutexes(t_data *data, t_params params)
 {
 	int		i;

@@ -16,8 +16,9 @@ t_list	*ft_lstnew(t_data data)
 {
 	t_list	*new_node;
 
+	(void)data;
 	new_node = NULL;
-	new_node = (t_list *)h_malloc(data, sizeof(t_list), new_node);
+	new_node = (t_list *)malloc(sizeof(t_list));
 	if (new_node)
 	{
 		new_node->next = NULL;
