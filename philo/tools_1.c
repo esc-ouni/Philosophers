@@ -46,21 +46,33 @@ int	ft_atoi(char *str)
 	return (r);
 }
 
+void	*uno(void *arg)
+{
+	t_params	params;
+
+	params = *(t_params *)arg;
+	printf("===SUMULATION_STARTS============\n");
+	if (params.t_to_think < ft_time())
+	{
+		printf("%ld 1 died\n", ft_time());
+		printf("===SUMULATION_ENDS==============\n");
+	}
+	printf("%ld 1 is thinking\n", ft_time());
+	usleep(params.t_to_think * 1000);
+	printf("%ld 1 died\n", ft_time());
+	printf("===SUMULATION_ENDS==============\n");
+	return (NULL);
+}
+
 int	one_philosophe(t_data data, t_params params)
 {
+	pthread_t	o_p;
+
 	(void)data;
 	if (params.n_of_philos == 1)
 	{
-		printf("===SUMULATION_STARTS============\n");
-		if (params.t_to_think < ft_time())
-		{
-			printf("%ld 1 died\n", ft_time());
-			printf("===SUMULATION_ENDS==============\n");
-		}
-		printf("%ld 1 is thinking\n", ft_time());
-		usleep(params.t_to_think * 1000);
-		printf("%ld 1 died\n", ft_time());
-		printf("===SUMULATION_ENDS==============\n");
+		pthread_create(&o_p, NULL, uno, &params);
+		pthread_join(o_p, NULL);
 		return (1);
 	}
 	return (0);

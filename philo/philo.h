@@ -102,6 +102,7 @@ int			join_threads(t_data *data, t_params params);
 int			one_philosophe(t_data data, t_params params);
 void		*philosopher_state(void *arg);
 int			ft_parse(t_data data, t_params *params, int argc, char **argv);
+void		*uno(void *arg);
 int			ft_atoi(char *str);
 void		ft_exit_with_error(int n, t_data data);
 t_list		*ft_lstnew(t_data data);
