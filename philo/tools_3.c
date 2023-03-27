@@ -38,7 +38,9 @@ void	eat(t_list	*node)
 	printer(node, "is eating");
 	node->eaten_meals++;
 	usleep(node->time_to_eat * 1000);
+	pthread_mutex_lock(&node->lock->lock1);
 	node->time_left += ft_time() + 4;
+	pthread_mutex_unlock(&node->lock->lock1);
 	pthread_mutex_unlock(node->r_fork);
 	pthread_mutex_unlock(node->l_fork);
 }
@@ -60,7 +62,9 @@ void	*philosopher_state(void *arg)
 		eat(arg);
 		sleepp(arg);
 	}
+	pthread_mutex_lock(&node->lock->lock2);
 	node->eat_state = EAT_ENOUGH;
+	pthread_mutex_unlock(&node->lock->lock2);
 	return (NULL);
 }
 
