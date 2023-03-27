@@ -67,22 +67,12 @@ void	ft_lstclear(t_list **lst, t_params params)
 	if (!lst)
 		return ;
 	node = *lst;
-	// while (node && i < params.n_of_philos)
-	// {
-	// 	n_node = node->next;
-	// 	free(node);
-	// 	node = n_node;
-	// 	i++;
-	// }
-	while (node && node->next)
+	while (node && i < params.n_of_philos)
 	{
-		printf("\n\n");
-		printf("%d\n", i);
 		n_node = node->next;
 		free(node);
 		node = n_node;
 		i++;
 	}
-	printf("\n\n");
 	*lst = NULL;
 }
