@@ -72,12 +72,15 @@ int	inspector(t_data data, t_list *n , t_params params)
 	i = 0;
 	while (n && i < params.n_of_philos)
 	{
+		pthread_mutex_lock(&n->lock->lock2);
 		if (n->state == DEAD)
 		{
 			printf("%ld %d died\n", ft_time(), n->philosopher_id);
 			printf("===SUMULATION_ENDS==============\n");
 			return (cleaner(data, params), 0);
 		}
+		else
+			pthread_mutex_unlock(&n->lock->lock2);
 		if (n->eat_state == EAT_ENOUGH)
 		{
 			i++;
