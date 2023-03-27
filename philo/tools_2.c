@@ -76,6 +76,8 @@ int	create_philos(t_params params, t_data *data)
 	while (i < params.n_of_philos)
 	{
 		info.n = ft_lstnew(*data);
+		if (!info.n)
+			return (ft_lstclear(&data->head, i), 1);
 		ft_lstadd_back(&data->head, info.n);
 		usleep(200);
 		*(info.n) = node_init(params, i, info);
@@ -87,7 +89,7 @@ int	create_philos(t_params params, t_data *data)
 			info.n = info.n->next;
 		i++;
 	}
-	// data->head = info.n;
+	data->head = info.n;
 	return (0);
 }
 
