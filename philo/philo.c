@@ -34,5 +34,4 @@ int	main(int argc, char *argv[])
 		return (ft_exit_with_error(THREADS, data), 0);
 	n = data.head;
 	inspector(n , params);
-	return (0);
 }
