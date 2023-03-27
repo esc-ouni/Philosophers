@@ -87,9 +87,7 @@ int	create_philos(t_params params, t_data *data)
 			info.n = info.n->next;
 		i++;
 	}
-	data->head = info.n;
-	// data->mutexes = info.mt;
-	// data->threads = info.ph;
+	// data->head = info.n;
 	return (0);
 }
 

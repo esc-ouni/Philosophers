@@ -35,7 +35,7 @@ void	eat(t_list	*node)
 	printer(node, "is eating");
 	node->eaten_meals++;
 	usleep(node->time_to_eat * 1000);
-	node->time_left += ft_time();
+	node->time_left += ft_time() + 4;
 	pthread_mutex_unlock(node->r_fork);
 	pthread_mutex_unlock(node->l_fork);
 }
