@@ -73,7 +73,7 @@ int	inspector(t_data data, t_list *n, t_params params)
 	i = 0;
 	while (n && i < params.n_of_philos)
 	{
-		if (n->time_left <= ft_time())
+		if (n->time_left < ft_time())
 		{
 			printf("%ld %d died\n", ft_time(), n->philosopher_id);
 			printf("===SUMULATION_ENDS==============\n");

@@ -28,17 +28,17 @@ int	init_mutexes2(t_data data, t_params params, pthread_mutex_t	*mutexes)
 	return (0);
 }
 
-t_info	info_init(t_params params, t_data data, t_info info)
+void	info_init(t_params params, t_data data, t_info *info)
 {
-	info.ph = NULL;
-	info.mt = NULL;
-	info.n = NULL;
-	info.ph = h_malloc(data, sizeof(pthread_t) * \
-	(params.n_of_philos + 1), info.ph);
-	info.mt = h_malloc(data, sizeof(pthread_mutex_t) * \
-	(params.n_of_philos + 1), info.ph);
-	init_mutexes2(data, params, info.mt);
-	return (info);
+	info->ph = NULL;
+	info->mt = NULL;
+	info->n = NULL;
+	info->ph = h_malloc(data, sizeof(pthread_t) * \
+	(params.n_of_philos + 1), info->ph);
+	info->mt = h_malloc(data, sizeof(pthread_mutex_t) * \
+	(params.n_of_philos + 1), info->ph);
+	init_mutexes2(data, params, info->mt);
+	// return (info);
 }
 
 t_list	node_init(t_params params, int i, t_info info)
@@ -63,15 +63,18 @@ int	create_philos(t_params params, t_data *data)
 	static t_locks	lock;
 
 	info.ph = NULL;
-	info = info_init(params, *data, info);
+	// info = 
+	info_init(params, *data, &info);
 	i = 0;
 	while (i < params.n_of_philos)
 	{
 		info.n = ft_lstnew(*data);
+		if (!info.n)
+			return (1);
 		ft_lstadd_back(&data->head, info.n);
+		usleep(200);
 		*(info.n) = node_init(params, i, info);
 		info.n->philosopher = info.ph[i];
-		usleep(200);
 		info.n->lock = &lock;
 		if (i == params.n_of_philos - 1)
 			info.n->next = data->head;
