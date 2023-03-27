@@ -41,7 +41,6 @@ int	ft_parse(t_data data, t_params *params, int argc, char **argv)
 	return (0);
 }
 
-
 void	ft_exit_with_error(int n, t_data data)
 {
 	if (data.head)
@@ -90,4 +89,30 @@ void	*h_malloc(t_data data, size_t s, void *p)
 		ft_exit_with_error(MALLOC, data);
 	}
 	return (p);
+}
+
+int	init_mutexes(t_data *data, t_params params)
+{
+	int		i;
+	t_list	*n;
+
+	(void)params;
+	i = 0;
+	n = data->head;
+	if (pthread_mutex_init(&n->lock->lock1, NULL))
+		return (MUTEXES);
+	usleep(100);
+	if (pthread_mutex_init(&n->lock->lock2, NULL))
+		return (MUTEXES);
+	usleep(100);
+	if (pthread_mutex_init(&n->lock->lock3, NULL))
+		return (MUTEXES);
+	usleep(100);
+	if (pthread_mutex_init(&n->lock->lock4, NULL))
+		return (MUTEXES);
+	usleep(100);
+	if (pthread_mutex_init(&n->lock->lock5, NULL))
+		return (MUTEXES);
+	usleep(100);
+	return (0);
 }

@@ -44,5 +44,5 @@ int	main(int argc, char *argv[])
 	if (join_threads(&data, params))
 		return (ft_exit_with_error(THREADS, data), 0);
 	n = data.head;
-	inspector(data, n , params);
+	inspector(data, n, params);
 }

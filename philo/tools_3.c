@@ -23,7 +23,7 @@ void	sleepp(t_list	*node)
 	}
 	usleep(node->time_to_sleep * 1000);
 	node->think_state = THINKING_STATE;
-	usleep(200);	
+	usleep(200);
 }
 
 void	eat(t_list	*node)

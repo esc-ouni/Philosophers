@@ -94,12 +94,11 @@ typedef struct s_info
 	t_list			*n;
 }	t_info;
 
-
 time_t		ft_time(void);
 void		cleaner(t_data data, t_params params);
 int			init_mutexes(t_data *data, t_params params);
 int			create_philos(t_params params, t_data *data);
-int			inspector(t_data data, t_list *n , t_params params);
+int			inspector(t_data data, t_list *n, t_params params);
 void		printer(t_list *node, char *s);
 void		check_death(t_list *node, time_t time);
 int			join_threads(t_data *data, t_params params);
@@ -109,7 +108,7 @@ void		*h_malloc(t_data data, size_t s, void *p);
 int			ft_parse(t_data data, t_params *params, int argc, char **argv);
 int			ft_atoi(char *str);
 int			ft_isdigit(int c);
-void		ft_exit_with_error(int  n, t_data data);
+void		ft_exit_with_error(int n, t_data data);
 t_list		*ft_lstnew(t_data data);
 t_list		*ft_lstlast(t_list *lst);
 void		ft_lstclear(t_list **lst, t_params params);

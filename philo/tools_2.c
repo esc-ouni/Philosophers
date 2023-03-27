@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-int		init_mutexes2(t_data data, t_params params, pthread_mutex_t	*mutexes)
+int	init_mutexes2(t_data data, t_params params, pthread_mutex_t	*mutexes)
 {
 	int	i;
 
@@ -52,7 +52,7 @@ t_list	node_init(t_params params, int i, t_info info)
 	info.n->num_of_meals = params.n_of_meals;
 	info.n->eaten_meals = 0;
 	info.n->state = ALIVE;
-	info.n->think_state =  ALREADY_THINKING;
+	info.n->think_state = ALREADY_THINKING;
 	return (*info.n);
 }
 
@@ -106,31 +106,5 @@ int	join_threads(t_data *data, t_params params)
 		n = n->next;
 		i++;
 	}
-	return (0);
-}
-
-int	init_mutexes(t_data *data, t_params params)
-{
-	int		i;
-	t_list	*n;
-
-	(void)params;
-	i = 0;
-	n = data->head;
-	if (pthread_mutex_init(&n->lock->lock1, NULL))
-		return (MUTEXES);
-	usleep(100);
-	if (pthread_mutex_init(&n->lock->lock2, NULL))
-		return (MUTEXES);
-	usleep(100);
-	if (pthread_mutex_init(&n->lock->lock3, NULL))
-		return (MUTEXES);
-	usleep(100);
-	if (pthread_mutex_init(&n->lock->lock4, NULL))
-		return (MUTEXES);
-	usleep(100);
-	if (pthread_mutex_init(&n->lock->lock5, NULL))
-		return (MUTEXES);
-	usleep(100);
 	return (0);
 }

@@ -65,7 +65,8 @@ int	one_philosophe(t_data data, t_params params)
 	}
 	return (0);
 }
-int	inspector(t_data data, t_list *n , t_params params)
+
+int	inspector(t_data data, t_list *n, t_params params)
 {
 	int	i;
 

@@ -59,11 +59,12 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 
 void	ft_lstclear(t_list **lst, t_params params)
 {
-	(void)params;
+	int		i;
 	t_list	*node;
 	t_list	*n_node;
 
-	int	i = 0;
+	(void)params;
+	i = 0;
 	if (!lst)
 		return ;
 	node = *lst;
