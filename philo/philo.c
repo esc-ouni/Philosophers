@@ -12,16 +12,6 @@
 
 #include "philo.h"
 
-void	cleaner(t_data data, t_params params)
-{
-	if (data.head)
-		ft_lstclear(&data.head, params);
-	if (data.mutexes)
-		free(data.mutexes);
-	if (data.threads)
-		free(data.threads);
-}
-
 int	main(int argc, char *argv[])
 {
 	t_list		*n;
