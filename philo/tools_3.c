@@ -17,8 +17,8 @@ void	sleepp(t_list	*node)
 	printer(node, "is sleeping");
 	if (node->time_to_sleep > node->time_left)
 	{
-		node->state = DEAD;
 		usleep(node->time_left * 1000);
+		node->state = DEAD;
 		// usleep(1000);
 	}
 	usleep(node->time_to_sleep * 1000);
