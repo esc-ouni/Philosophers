@@ -58,7 +58,7 @@ void	*uno(void *arg)
 		printf("===SUMULATION_ENDS==============\n");
 	}
 	printf("%ld 1 is thinking\n", ft_time());
-	usleep(params.t_to_think * 1000);
+	usleep(params.t_to_think * 998);
 	printf("%ld 1 died\n", ft_time());
 	printf("===SUMULATION_ENDS==============\n");
 	return (NULL);

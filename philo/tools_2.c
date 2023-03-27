@@ -104,7 +104,7 @@ int	join_threads(t_data *data, t_params params)
 	printf("===SUMULATION_STARTS============\n");
 	while (n && i < params.n_of_philos)
 	{
-		n->time_left = n->time_to_think;
+		n->time_left = n->time_to_think + 4;
 		if (pthread_create(&n->philosopher, NULL, philosopher_state, n))
 			return (THREADS);
 		usleep(200);
