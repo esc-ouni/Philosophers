@@ -51,6 +51,7 @@ t_list	node_init(t_params params, int i, t_info info)
 	info.n->time_to_eat = params.t_to_eat;
 	info.n->num_of_meals = params.n_of_meals;
 	info.n->eaten_meals = 0;
+	info.n->state = ALIVE;
 	info.n->think_state =  ALREADY_THINKING;
 	return (*info.n);
 }

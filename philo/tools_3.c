@@ -63,6 +63,7 @@ void	check_death(t_list *node, time_t time)
 	{
 		printf("%ld %d died\n", time, node->philosopher_id);
 		printf("===SUMULATION_ENDS==============\n");
+		node->state = DEAD;
 		usleep(1000);
 	}
 	else
