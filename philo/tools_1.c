@@ -106,13 +106,3 @@ int	inspector(t_data data, t_list *n, t_params params)
 	printf("===ALL_PHILOSOPHES_EAT_ENOUGH===\n");
 	return (0);
 }
-
-void	cleaner(t_data data, t_params params)
-{
-	if (data.head)
-		ft_lstclear(&data.head, params.n_of_philos);
-	if (data.mutexes)
-		free(data.mutexes);
-	if (data.threads)
-		free(data.threads);
-}

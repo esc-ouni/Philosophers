@@ -73,3 +73,13 @@ void	printer(t_list *node, char *s)
 	printf("%ld %d %s\n", ft_time(), node->philosopher_id, s);
 	pthread_mutex_unlock(&node->lock->lock3);
 }
+
+void	cleaner(t_data data, t_params params)
+{
+	if (data.head)
+		ft_lstclear(&data.head, params.n_of_philos);
+	if (data.mutexes)
+		free(data.mutexes);
+	if (data.threads)
+		free(data.threads);
+}
