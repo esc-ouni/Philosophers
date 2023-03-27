@@ -73,7 +73,11 @@ int	inspector(t_data data, t_list *n , t_params params)
 	while (n && i < params.n_of_philos)
 	{
 		if (n->state == DEAD)
+		{
+			printf("%ld %d died\n", ft_time(), n->philosopher_id);
+			printf("===SUMULATION_ENDS==============\n");
 			return (cleaner(data, params), 0);
+		}
 		if (n->eat_state == EAT_ENOUGH)
 		{
 			i++;

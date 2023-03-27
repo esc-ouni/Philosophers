@@ -15,6 +15,11 @@
 void	sleepp(t_list	*node)
 {
 	printer(node, "is sleeping");
+	if (node->time_left < node->time_to_sleep)
+	{
+		usleep(node->time_left * 1000);
+		node->state = DEAD;
+	}
 	usleep(node->time_to_sleep * 1000);
 	node->think_state = THINKING_STATE;
 	usleep(200);
@@ -61,8 +66,6 @@ void	check_death(t_list *node, time_t time)
 	pthread_mutex_lock(&node->lock->lock1);
 	if (node->time_left <= time)
 	{
-		printf("%ld %d died\n", time, node->philosopher_id);
-		printf("===SUMULATION_ENDS==============\n");
 		node->state = DEAD;
 		usleep(1000);
 	}
