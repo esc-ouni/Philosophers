@@ -71,20 +71,6 @@ typedef struct s_list
 	t_locks			*lock;
 }				t_list;
 
-typedef struct s_data
-{
-	t_list			*head;
-	pthread_mutex_t	*mutexes;
-	pthread_t		*threads;
-}	t_data;
-
-typedef struct s_info
-{
-	pthread_t		*ph;
-	pthread_mutex_t	*mt;
-	t_list			*n;
-}	t_info;
-
 typedef struct s_params
 {
 	long long	n_of_philos;
@@ -94,10 +80,27 @@ typedef struct s_params
 	long long	n_of_meals;
 }	t_params;
 
+typedef struct s_data
+{
+	t_list			*head;
+	pthread_mutex_t	*mutexes;
+	pthread_t		*threads;
+	t_params		params;
+}	t_data;
+
+typedef struct s_info
+{
+	pthread_t		*ph;
+	pthread_mutex_t	*mt;
+	t_list			*n;
+}	t_info;
+
+
 time_t		ft_time(void);
+void		cleaner(t_data data, t_params params);
 int			init_mutexes(t_data *data, t_params params);
 int			create_philos(t_params params, t_data *data);
-int			inspector(t_list *n , t_params params);
+int			inspector(t_data data, t_list *n , t_params params);
 void		printer(t_list *node, char *s);
 void		check_death(t_list *node, time_t time);
 int			join_threads(t_data *data, t_params params);
@@ -110,7 +113,7 @@ int			ft_isdigit(int c);
 void		ft_exit_with_error(int  n, t_data data);
 t_list		*ft_lstnew(t_data data);
 t_list		*ft_lstlast(t_list *lst);
-void		ft_lstclear(t_list **lst);
+void		ft_lstclear(t_list **lst, t_params params);
 void		ft_lstadd_back(t_list **lst, t_list *new);
 
 #endif

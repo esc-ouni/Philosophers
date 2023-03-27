@@ -38,9 +38,6 @@ t_info	info_init(t_params params, t_data data, t_info info)
 	info.mt = h_malloc(data, sizeof(pthread_mutex_t) * \
 	(params.n_of_philos + 1), info.ph);
 	init_mutexes2(data, params, info.mt);
-	data.head = info.n;
-	data.mutexes = info.mt;
-	data.threads = info.ph;
 	return (info);
 }
 
@@ -81,6 +78,9 @@ int	create_philos(t_params params, t_data *data)
 			info.n = info.n->next;
 		i++;
 	}
+	data->head = info.n;
+	data->mutexes = info.mt;
+	data->threads = info.ph;
 	return (0);
 }
 

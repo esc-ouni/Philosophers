@@ -12,6 +12,16 @@
 
 #include "philo.h"
 
+void	cleaner(t_data data, t_params params)
+{
+	if (data.head)
+		ft_lstclear(&data.head, params);
+	if (data.mutexes)
+		free(data.mutexes);
+	if (data.threads)
+		free(data.threads);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_list		*n;
@@ -24,6 +34,7 @@ int	main(int argc, char *argv[])
 	params.n_of_philos = 0;
 	if (ft_parse(data, &params, argc, argv))
 		return (ft_exit_with_error(ARGS, data), 0);
+	data.params = params;
 	if (one_philosophe(data, params))
 		return (0);
 	if (create_philos(params, &data))
@@ -33,5 +44,5 @@ int	main(int argc, char *argv[])
 	if (join_threads(&data, params))
 		return (ft_exit_with_error(THREADS, data), 0);
 	n = data.head;
-	inspector(n , params);
+	inspector(data, n , params);
 }
