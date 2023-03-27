@@ -80,8 +80,7 @@ int	inspector(t_data data, t_list *n, t_params params)
 			printf("===SUMULATION_ENDS==============\n");
 			return (cleaner(data, params), 0);
 		}
-		else
-			pthread_mutex_unlock(&n->lock->lock1);
+		pthread_mutex_unlock(&n->lock->lock1);
 		pthread_mutex_lock(&n->lock->lock2);
 		if (n->eat_state == EAT_ENOUGH)
 		{
