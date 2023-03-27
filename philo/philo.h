@@ -59,9 +59,8 @@ typedef struct s_list
 	int				time_to_sleep;
 	int				num_of_meals;
 	int				time_left;
-	int				act_status;
-	int				old_status;
 	int				state;
+	int				think_state;
 	int				eat_state;
 	int				eaten_meals;
 	pthread_t		philosopher;

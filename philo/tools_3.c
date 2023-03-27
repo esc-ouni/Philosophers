@@ -16,7 +16,7 @@ void	sleepp(t_list	*node)
 {
 	printer(node, "is sleeping");
 	usleep(node->time_to_sleep * 1000);
-	node->old_status = THINKING_STATE;
+	node->think_state = THINKING_STATE;
 	usleep(200);
 }
 
@@ -44,10 +44,10 @@ void	*philosopher_state(void *arg)
 		check_death(node, ft_time());
 		if (node->eaten_meals == node->num_of_meals)
 			break ;
-		if (node->old_status == THINKING_STATE)
+		if (node->think_state == THINKING_STATE)
 		{
 			printer(node, "is thinking");
-			node->old_status = ALREADY_THINKING;
+			node->think_state = ALREADY_THINKING;
 		}
 		eat(arg);
 		sleepp(arg);

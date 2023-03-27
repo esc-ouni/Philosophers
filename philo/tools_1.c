@@ -40,7 +40,6 @@ int	ft_atoi(char *str)
 		r = check_l(r);
 		if (r == -1)
 			return (-1);
-		// i++;
 	}
 	if (str[i] && (str[i] < 48 || str[i] > 57))
 		return (-1);
