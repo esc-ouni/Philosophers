@@ -28,12 +28,36 @@ void	sleepp(t_list	*node)
 	usleep(200);
 }
 
+// void	eat(t_list	*node)
+// {
+// 	pthread_mutex_lock(node->l_fork);
+// 	printer(node, "has taken a fork");
+// 	pthread_mutex_lock(node->r_fork);
+// 	printer(node, "has taken a fork");
+// 	printer(node, "is eating");
+// 	node->eaten_meals++;
+// 	usleep(node->time_to_eat * 980);
+// 	pthread_mutex_lock(&node->lock->lock1);
+// 	node->time_left += ft_time() + 5;
+// 	pthread_mutex_unlock(&node->lock->lock1);
+// 	pthread_mutex_unlock(node->r_fork);
+// 	pthread_mutex_unlock(node->l_fork);
+// }
+
 void	eat(t_list	*node)
 {
-	pthread_mutex_lock(node->l_fork);
+	if (node->philosopher_id % 2 == 0)
+		pthread_mutex_lock(node->l_fork);
+	else
+		pthread_mutex_lock(node->r_fork);
 	printer(node, "has taken a fork");
-	pthread_mutex_lock(node->r_fork);
+
+	if (node->philosopher_id % 2 == 0)
+		pthread_mutex_lock(node->r_fork);
+	else
+		pthread_mutex_lock(node->l_fork);
 	printer(node, "has taken a fork");
+
 	printer(node, "is eating");
 	node->eaten_meals++;
 	usleep(node->time_to_eat * 980);
