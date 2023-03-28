@@ -17,31 +17,16 @@ void	sleepp(t_list	*node)
 	printer(node, "is sleeping");
 	if (node->time_left < node->time_to_sleep)
 	{
-		usleep(node->time_left * 980);
+		ft_usleep(node->time_left);
 		node->state = DEAD;
 	}
 	else
 	{
-		usleep(node->time_to_sleep * 980);
+		ft_usleep(node->time_to_sleep);
 		node->think_state = THINKING_STATE;
 	}
 }
 
-// void	eat(t_list	*node)
-// {
-// 	pthread_mutex_lock(node->l_fork);
-// 	printer(node, "has taken a fork");
-// 	pthread_mutex_lock(node->r_fork);
-// 	printer(node, "has taken a fork");
-// 	printer(node, "is eating");
-// 	node->eaten_meals++;
-// 	usleep(node->time_to_eat * 980);
-// 	pthread_mutex_lock(&node->lock->lock1);
-// 	node->time_left += ft_time() + 5;
-// 	pthread_mutex_unlock(&node->lock->lock1);
-// 	pthread_mutex_unlock(node->r_fork);
-// 	pthread_mutex_unlock(node->l_fork);
-// }
 
 void	eat(t_list	*node)
 {
@@ -59,7 +44,7 @@ void	eat(t_list	*node)
 
 	printer(node, "is eating");
 	node->eaten_meals++;
-	usleep(node->time_to_eat * 980);
+	ft_usleep(node->time_to_eat);
 	pthread_mutex_lock(&node->lock->lock1);
 	node->time_left += ft_time() + 5;
 	pthread_mutex_unlock(&node->lock->lock1);
