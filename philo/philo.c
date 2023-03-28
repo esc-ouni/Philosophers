@@ -23,16 +23,16 @@ int	main(int argc, char *argv[])
 	data.threads = NULL;
 	params.n_of_philos = 0;
 	if (ft_parse(data, &params, argc, argv))
-		return (ft_exit_with_error(ARGS, data), 0);
+		return (ft_exit_with_error(ARGS, data), 1);
 	data.params = params;
 	if (one_philosophe(data, params))
 		return (0);
 	if (create_philos(params, &data))
-		return (ft_exit_with_error(MALLOC, data), 0);
+		return (ft_exit_with_error(MALLOC, data), 1);
 	if (init_mutexes(&data, params))
-		return (ft_exit_with_error(MUTEXES, data), 0);
+		return (ft_exit_with_error(MUTEXES, data), 1);
 	if (join_threads(&data, params))
-		return (ft_exit_with_error(THREADS, data), 0);
+		return (ft_exit_with_error(THREADS, data), 1);
 	n = data.head;
 	inspector(data, n, params);
 }
