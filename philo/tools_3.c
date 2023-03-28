@@ -27,7 +27,6 @@ void	sleepp(t_list	*node)
 	}
 }
 
-
 void	eat(t_list	*node)
 {
 	if (node->philosopher_id % 2 == 0)
@@ -35,13 +34,11 @@ void	eat(t_list	*node)
 	else
 		pthread_mutex_lock(node->r_fork);
 	printer(node, "has taken a fork");
-
 	if (node->philosopher_id % 2 == 0)
 		pthread_mutex_lock(node->r_fork);
 	else
 		pthread_mutex_lock(node->l_fork);
 	printer(node, "has taken a fork");
-
 	printer(node, "is eating");
 	node->eaten_meals++;
 	ft_usleep(node->time_to_eat);
@@ -84,7 +81,6 @@ void	ft_usleep(time_t time)
 	gettimeofday(&tp, NULL);
 	ref = (time_t)(tp.tv_sec * 1000) + (time_t)(tp.tv_usec / 1000);
 	d_time = (time_t)(tp.tv_sec * 1000) + (time_t)(tp.tv_usec / 1000) - ref;
-
 	usleep((time - 10) * 1000);
 	while (d_time < time)
 	{
