@@ -46,7 +46,7 @@ void	eat(t_list	*node)
 	node->eaten_meals++;
 	ft_usleep(node->time_to_eat);
 	pthread_mutex_lock(&node->lock->lock1);
-	node->time_left += ft_time() + 5;
+	node->time_left += ft_time();
 	pthread_mutex_unlock(&node->lock->lock1);
 	pthread_mutex_unlock(node->r_fork);
 	pthread_mutex_unlock(node->l_fork);
