@@ -22,7 +22,6 @@ int	init_mutexes2(t_data data, t_params params, pthread_mutex_t	*mutexes)
 	{
 		if (pthread_mutex_init(&mutexes[i], NULL))
 			return (MUTEXES);
-		usleep(200);
 		i++;
 	}
 	return (0);
@@ -79,7 +78,6 @@ int	create_philos(t_params params, t_data *data)
 		if (!info.n)
 			return (ft_lstclear(&data->head, i), 1);
 		ft_lstadd_back(&data->head, info.n);
-		usleep(200);
 		*(info.n) = node_init(params, i, info);
 		info.n->philosopher = info.ph[i];
 		info.n->lock = &lock;
@@ -107,10 +105,8 @@ int	join_threads(t_data *data, t_params params)
 		n->time_left = n->time_to_think + 4;
 		if (pthread_create(&n->philosopher, NULL, philosopher_state, n))
 			return (THREADS);
-		usleep(200);
 		if (pthread_detach(n->philosopher))
 			return (THREADS);
-		usleep(200);
 		n = n->next;
 		i++;
 	}

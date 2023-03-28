@@ -90,12 +90,9 @@ int	init_mutexes(t_data *data, t_params params)
 	n = data->head;
 	if (pthread_mutex_init(&n->lock->lock1, NULL))
 		return (MUTEXES);
-	usleep(100);
 	if (pthread_mutex_init(&n->lock->lock2, NULL))
 		return (MUTEXES);
-	usleep(100);
 	if (pthread_mutex_init(&n->lock->lock3, NULL))
 		return (MUTEXES);
-	usleep(100);
 	return (0);
 }
