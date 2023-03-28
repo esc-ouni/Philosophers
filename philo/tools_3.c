@@ -77,7 +77,7 @@ void	*philosopher_state(void *arg)
 
 void	ft_usleep(time_t time)
 {
-	static time_t	ref;
+	time_t			ref;
 	time_t			d_time;
 	struct timeval	tp;
 
