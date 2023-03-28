@@ -103,11 +103,11 @@ int	init_mutexes(t_data *data, t_params params)
 // 	struct timeval	tp;
 // 	time_t			t;
 
-// 	d_time = (time_t)(tp.tv_sec * 993) + (time_t)(tp.tv_usec / 993);
+// 	d_time = (time_t)(tp.tv_sec * 980) + (time_t)(tp.tv_usec / 980);
 // 	while (1)
 // 	{
 // 		gettimeofday(&tp, NULL);
-// 		t = (((time_t)(tp.tv_usec / 993) + (time_t)tp.tv_sec * 993) - d_time);
+// 		t = (((time_t)(tp.tv_usec / 980) + (time_t)tp.tv_sec * 980) - d_time);
 // 		if (!(time - t))
 // 			return ;
 // 	}

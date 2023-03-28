@@ -17,12 +17,12 @@ void	sleepp(t_list	*node)
 	printer(node, "is sleeping");
 	if (node->time_left < node->time_to_sleep)
 	{
-		usleep(node->time_left * 993);
+		usleep(node->time_left * 980);
 		node->state = DEAD;
 	}
 	else
 	{
-		usleep(node->time_to_sleep * 993);
+		usleep(node->time_to_sleep * 980);
 		node->think_state = THINKING_STATE;
 	}
 }
@@ -35,7 +35,7 @@ void	eat(t_list	*node)
 	printer(node, "has taken a fork");
 	printer(node, "is eating");
 	node->eaten_meals++;
-	usleep(node->time_to_eat * 993);
+	usleep(node->time_to_eat * 980);
 	pthread_mutex_lock(&node->lock->lock1);
 	node->time_left += ft_time() + 5;
 	pthread_mutex_unlock(&node->lock->lock1);
