@@ -86,7 +86,7 @@ int	inspector(t_data data, t_list *n, t_params params)
 	while (n && i < params.n_of_philos)
 	{
 		pthread_mutex_lock(&n->lock->lock1);
-		if (n->time_left < ft_time())
+		if (n->time_left + 2 < ft_time())
 		{
 			printf("%ld %d died\n", ft_time(), n->philosopher_id);
 			printf("===SUMULATION_ENDS==============\n");
