@@ -114,23 +114,3 @@ int	init_mutexes(t_data *data, t_params params)
 		return (MUTEXES);
 	return (0);
 }
-
-
-void	ft_usleep(time_t time)
-{
-	static time_t	ref;
-	time_t			d_time;
-	struct timeval	tp;
-
-	gettimeofday(&tp, NULL);
-	if (!ref)
-		ref = (time_t)(tp.tv_sec * 1000) + (time_t)(tp.tv_usec / 1000);
-	d_time = (time_t)(tp.tv_sec * 1000) + (time_t)(tp.tv_usec / 1000) - ref;
-
-	usleep((time - 10) * 1000);
-	while (d_time < time)
-	{
-		gettimeofday(&tp, NULL);
-		d_time = (time_t)(tp.tv_sec * 1000) + (time_t)(tp.tv_usec / 1000);
-	}
-}
