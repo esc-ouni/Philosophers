@@ -96,3 +96,19 @@ int	init_mutexes(t_data *data, t_params params)
 		return (MUTEXES);
 	return (0);
 }
+
+// void	usleep(time_t time)
+// {
+// 	time_t			d_time;
+// 	struct timeval	tp;
+// 	time_t			t;
+
+// 	d_time = (time_t)(tp.tv_sec * 993) + (time_t)(tp.tv_usec / 993);
+// 	while (1)
+// 	{
+// 		gettimeofday(&tp, NULL);
+// 		t = (((time_t)(tp.tv_usec / 993) + (time_t)tp.tv_sec * 993) - d_time);
+// 		if (!(time - t))
+// 			return ;
+// 	}
+// }	
