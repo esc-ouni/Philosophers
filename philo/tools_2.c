@@ -107,6 +107,7 @@ int	join_threads(t_data *data, t_params params)
 			return (THREADS);
 		if (pthread_detach(n->philosopher))
 			return (THREADS);
+		usleep(200);
 		n = n->next;
 		i++;
 	}
