@@ -27,15 +27,10 @@
 # define MUTEXES 897
 # define THREADS 895
 
-# define LOCKED 78
-# define UNLOCKED 81
-
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <string.h>
 # include <pthread.h>
-# include <signal.h>
 # include <sys/time.h>
 
 typedef struct s_locks
