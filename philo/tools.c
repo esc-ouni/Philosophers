@@ -41,14 +41,32 @@ int	ft_parse(t_data data, t_params *params, int argc, char **argv)
 	return (0);
 }
 
+void	destroy_mutexes(t_data data)
+{
+	t_list	*n;
+	int		i;
+
+	i = 0;
+	n = data.head;
+	while (n && i < data.params.n_of_philos)
+	{
+		pthread_mutex_destroy(&data.mutexes[i]);
+		n = n->next;
+		i++;
+	}
+}
+
 void	ft_exit_with_error(int n, t_data data)
 {
-	if (data.head)
-		ft_lstclear(&data.head, data.params.n_of_philos);
 	if (data.mutexes)
+	{
+		destroy_mutexes(data);
 		free(data.mutexes);
+	}
 	if (data.threads)
 		free(data.threads);
+	if (data.head)
+		ft_lstclear(&data.head, data.params.n_of_philos);
 	printf("\n\x1B[32m");
 	if (n == ARGS)
 	{
