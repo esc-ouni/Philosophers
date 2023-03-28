@@ -97,7 +97,7 @@ int	inspector(t_data data, t_list *n, t_params params)
 		if (n->eat_state == EAT_ENOUGH)
 		{
 			i++;
-			n->eat_state = DEATH;
+			n->eat_state = STOP;
 		}
 		pthread_mutex_unlock(&n->lock->lock2);
 		n = n->next;

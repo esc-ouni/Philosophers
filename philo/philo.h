@@ -17,6 +17,7 @@
 
 # define ALIVE 187
 # define DEAD 190
+# define STOP 4
 
 # define THINKING_STATE 9
 # define ALREADY_THINKING 0
@@ -25,11 +26,6 @@
 # define MALLOC 678
 # define MUTEXES 897
 # define THREADS 895
-
-# define EATING 1
-# define SLEEPING 2
-# define THINKIG 3
-# define DEATH 4
 
 # define LOCKED 78
 # define UNLOCKED 81
