@@ -81,7 +81,7 @@ void	ft_usleep(time_t time)
 	gettimeofday(&tp, NULL);
 	ref = (time_t)(tp.tv_sec * 1000) + (time_t)(tp.tv_usec / 1000);
 	d_time = (time_t)(tp.tv_sec * 1000) + (time_t)(tp.tv_usec / 1000) - ref;
-	usleep((time - 10) * 1000);
+	usleep((time - 20) * 1000);
 	while (d_time < time)
 	{
 		gettimeofday(&tp, NULL);

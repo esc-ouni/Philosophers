@@ -86,10 +86,10 @@ int	inspector(t_data data, t_list *n, t_params params)
 	while (n && i < params.n_of_philos)
 	{
 		pthread_mutex_lock(&n->lock->lock1);
-		if (n->time_left + 2 < ft_time())
+		if (n->time_left + 5 < ft_time())
 		{
 			pthread_mutex_lock(&n->lock->lock3);
-			printf("%ld %d died\n", ft_time(), n->philosopher_id);
+			printf("%ld %d died\n", ft_time() - 5, n->philosopher_id);
 			printf("===SUMULATION_ENDS==============\n");
 			return (cleaner(data, params), 0);
 		}
@@ -105,7 +105,7 @@ int	inspector(t_data data, t_list *n, t_params params)
 		pthread_mutex_unlock(&n->lock->lock2);
 		n = n->next;
 	}
-	// cleaner(data, params);
+	cleaner(data, params);
 	printf("===ALL_PHILOSOPHES_EAT_ENOUGH===\n");
 	return (0);
 }
