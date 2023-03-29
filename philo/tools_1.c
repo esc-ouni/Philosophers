@@ -12,13 +12,6 @@
 
 #include "philo.h"
 
-long long	check_l(long long nb)
-{
-	if (nb > 2147483647)
-		return (-1);
-	return (nb);
-}
-
 int	ft_atoi(char *str)
 {
 	int				i;
@@ -37,8 +30,7 @@ int	ft_atoi(char *str)
 	while (str[i] >= 48 && str[i] <= 57)
 	{
 		r = r * 10 + (str[i++] - 48);
-		r = check_l(r);
-		if (r == -1)
+		if (r > 2147483647)
 			return (-1);
 	}
 	if (str[i] && (str[i] < 48 || str[i] > 57))
