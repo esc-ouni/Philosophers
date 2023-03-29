@@ -19,6 +19,8 @@ int	ft_atoi(char *str)
 
 	r = 0;
 	i = 0;
+	if (!str || !ft_strlen(str))
+		return (-1);
 	while ((str[i] == 45 || str[i] == 43))
 	{
 		if (str[i] == 45)

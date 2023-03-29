@@ -87,6 +87,7 @@ typedef struct s_info
 
 time_t		ft_time(void);
 void		ft_usleep(time_t time);
+int			ft_strlen(char	*str);
 void		cleaner(t_data data, t_params params);
 int			init_mutexes(t_data *data, t_params params);
 int			create_philos(t_params params, t_data *data);

@@ -77,3 +77,13 @@ void	ft_lstclear(t_list **lst, int l)
 	}
 	*lst = NULL;
 }
+
+int	ft_strlen(char	*str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
