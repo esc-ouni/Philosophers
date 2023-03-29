@@ -73,11 +73,11 @@ int	one_philosophe(t_data data, t_params params)
 int	check_death(t_data data, t_list *n, t_params params)
 {
 	pthread_mutex_lock(&n->lock->lock1);
-	if (n->time_left + 5 < ft_time())
+	if (n->time_left < ft_time())
 	{
 		pthread_mutex_lock(&n->lock->lock4);
 		pthread_mutex_lock(&n->lock->lock3);
-		printf("%ld ms\tphilosopher %d died\n", ft_time() - 5, n->philosopher_id);
+		printf("%ld ms\tphilosopher %d died\n", ft_time() , n->philosopher_id);
 		printf("===SUMULATION_ENDS==============\n");
 		return (cleaner(data, params), 1);
 	}
