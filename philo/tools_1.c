@@ -78,6 +78,25 @@ int	one_philosophe(t_data data, t_params params)
 	return (0);
 }
 
+int	check_death(t_data data, t_list *n, t_params params)
+{
+	pthread_mutex_lock(&n->lock->lock1);
+	if (n->time_left + 5 < ft_time())
+	{
+		pthread_mutex_lock(&n->lock->lock4);
+		pthread_mutex_lock(&n->lock->lock3);
+		printf("%ld ms\tphilosopher %d died\n", ft_time() - 5, n->philosopher_id);
+		printf("===SUMULATION_ENDS==============\n");
+		return (cleaner(data, params), 1);
+	}
+	else
+	{
+		pthread_mutex_unlock(&n->lock->lock3);
+		pthread_mutex_unlock(&n->lock->lock4);
+	}
+	return (0);
+}
+
 int	inspector(t_data data, t_list *n, t_params params)
 {
 	int	i;
@@ -85,20 +104,8 @@ int	inspector(t_data data, t_list *n, t_params params)
 	i = 0;
 	while (n && i < params.n_of_philos)
 	{
-		pthread_mutex_lock(&n->lock->lock1);
-		if (n->time_left + 5 < ft_time())
-		{
-			pthread_mutex_lock(&n->lock->lock4);
-			pthread_mutex_lock(&n->lock->lock3);
-			printf("%ld ms\tphilosopher %d died\n", ft_time() - 5, n->philosopher_id);
-			printf("===SUMULATION_ENDS==============\n");
-			return (cleaner(data, params), 0);
-		}
-		else
-		{
-			pthread_mutex_unlock(&n->lock->lock3);
-			pthread_mutex_unlock(&n->lock->lock4);
-		}
+		if (check_death(data, n, params))
+			return (0);
 		pthread_mutex_unlock(&n->lock->lock1);
 		pthread_mutex_lock(&n->lock->lock2);
 		if (n->eat_state == EAT_ENOUGH)
