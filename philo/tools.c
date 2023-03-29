@@ -52,6 +52,7 @@ void	destroy_mutexes(t_data data)
 	pthread_mutex_destroy(&data.lock->lock1);
 	pthread_mutex_destroy(&data.lock->lock2);
 	pthread_mutex_destroy(&data.lock->lock3);
+	pthread_mutex_destroy(&data.lock->lock4);
 	while (n && i < data.params.n_of_philos)
 	{
 		pthread_mutex_destroy(&data.mutexes[i]);
@@ -115,6 +116,8 @@ int	init_mutexes(t_data *data, t_params params)
 	if (pthread_mutex_init(&n->lock->lock2, NULL))
 		return (MUTEXES);
 	if (pthread_mutex_init(&n->lock->lock3, NULL))
+		return (MUTEXES);
+	if (pthread_mutex_init(&n->lock->lock4, NULL))
 		return (MUTEXES);
 	return (0);
 }

@@ -38,6 +38,7 @@ typedef struct s_locks
 	pthread_mutex_t	lock1;
 	pthread_mutex_t	lock2;
 	pthread_mutex_t	lock3;
+	pthread_mutex_t	lock4;
 }	t_locks;
 
 typedef struct s_list
