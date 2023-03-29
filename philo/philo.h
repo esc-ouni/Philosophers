@@ -74,6 +74,7 @@ typedef struct s_data
 	pthread_mutex_t	*mutexes;
 	pthread_t		*threads;
 	t_params		params;
+	t_locks			*lock;
 }	t_data;
 
 typedef struct s_info

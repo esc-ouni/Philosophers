@@ -48,6 +48,10 @@ void	destroy_mutexes(t_data data)
 
 	i = 0;
 	n = data.head;
+
+	pthread_mutex_destroy(&data.lock->lock1);
+	pthread_mutex_destroy(&data.lock->lock2);
+	pthread_mutex_destroy(&data.lock->lock3);
 	while (n && i < data.params.n_of_philos)
 	{
 		pthread_mutex_destroy(&data.mutexes[i]);

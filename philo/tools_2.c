@@ -87,6 +87,7 @@ int	create_philos(t_params params, t_data *data)
 			info.n = info.n->next;
 		i++;
 	}
+	data->lock = &lock;
 	return (0);
 }
 
