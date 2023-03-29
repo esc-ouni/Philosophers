@@ -90,7 +90,7 @@ int	inspector(t_data data, t_list *n, t_params params)
 		{
 			pthread_mutex_lock(&n->lock->lock4);
 			pthread_mutex_lock(&n->lock->lock3);
-			printf("%ld %d died\n", ft_time() - 5, n->philosopher_id);
+			printf("%ld ms\tphilosopher %d died\n", ft_time() - 5, n->philosopher_id);
 			printf("===SUMULATION_ENDS==============\n");
 			return (cleaner(data, params), 0);
 		}
