@@ -77,7 +77,7 @@ int	check_death(t_data data, t_list *n, t_params params)
 	{
 		pthread_mutex_lock(&n->lock->lock4);
 		pthread_mutex_lock(&n->lock->lock3);
-		printf("%ld ms\tphilosopher %d died\n", ft_time() , n->philosopher_id);
+		printf("%ld ms\tphilosopher %d died\n", ft_time(), n->philosopher_id);
 		printf("===SUMULATION_ENDS==============\n");
 		return (cleaner(data, params), 1);
 	}
