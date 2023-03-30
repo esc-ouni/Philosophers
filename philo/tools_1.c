@@ -80,9 +80,7 @@ void	kill_ongoing_threads(t_data data, t_list *n, t_params params)
 	i = 0;
 	while (n && i < params.n_of_philos)
 	{
-		// pthread_mutex_lock(&n->lock->lock4);
 		n->keep_running = 0;
-		// pthread_mutex_unlock(&n->lock->lock4);
 		n = n->next;
 		i++;
 	}

@@ -58,9 +58,7 @@ void	*philosopher_state(void *arg)
 	{
 		pthread_mutex_lock(&node->lock->lock4);
 		if (!node->keep_running)
-		{
 			break ;
-		}
 		pthread_mutex_unlock(&node->lock->lock4);
 		if (node->eaten_meals == node->num_of_meals)
 		{
