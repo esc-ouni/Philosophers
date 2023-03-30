@@ -37,4 +37,3 @@ int	main(int argc, char *argv[])
 	inspector(data, n, params);
 	return (0);
 }
-
