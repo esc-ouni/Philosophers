@@ -80,9 +80,9 @@ void	kill_ongoing_threads(t_data data, t_list *n, t_params params)
 	i = 0;
 	while (n && i < params.n_of_philos)
 	{
-		pthread_mutex_lock(&n->lock->lock4);
+		// pthread_mutex_lock(&n->lock->lock4);
 		n->keep_running = 0;
-		pthread_mutex_unlock(&n->lock->lock4);
+		// pthread_mutex_unlock(&n->lock->lock4);
 		n = n->next;
 		i++;
 	}
@@ -92,6 +92,7 @@ int	check_death(t_data data, t_list *n, t_params params)
 {
 	pthread_mutex_lock(&n->lock->lock1);
 	pthread_mutex_lock(&n->lock->lock3);
+	pthread_mutex_lock(&n->lock->lock4);
 	if (n->time_left < ft_time())
 	{
 		printf("%ld ms\tphilosopher %d died\n", ft_time(), n->philosopher_id);
@@ -103,6 +104,7 @@ int	check_death(t_data data, t_list *n, t_params params)
 	{
 		pthread_mutex_unlock(&n->lock->lock1);
 		pthread_mutex_unlock(&n->lock->lock3);
+		pthread_mutex_unlock(&n->lock->lock4);
 	}
 	return (0);
 }
