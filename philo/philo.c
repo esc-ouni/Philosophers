@@ -37,9 +37,3 @@ int	main(int argc, char *argv[])
 	inspector(data, n, params);
 }
 
-void	printer(t_list *node, char *s)
-{
-	pthread_mutex_lock(&node->lock->lock3);
-	printf("%ld ms\tphilosopher %d %s\n", ft_time(), node->philosopher_id, s);
-	pthread_mutex_unlock(&node->lock->lock3);
-}

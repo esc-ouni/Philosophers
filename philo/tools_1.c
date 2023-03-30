@@ -106,29 +106,3 @@ int	check_death(t_data data, t_list *n, t_params params)
 	}
 	return (0);
 }
-
-int	inspector(t_data data, t_list *n, t_params params)
-{
-	int	i;
-
-	i = 0;
-	while (n && i < params.n_of_philos)
-	{
-		if (check_death(data, n, params))
-		{
-			cleaner(data, params);
-			return (0);
-		}
-		pthread_mutex_lock(&n->lock->lock2);
-		if (n->eat_state == EAT_ENOUGH)
-		{
-			i++;
-			n->eat_state = STOP;
-		}
-		pthread_mutex_unlock(&n->lock->lock2);
-		n = n->next;
-	}
-	cleaner(data, params);
-	printf("===ALL_PHILOSOPHES_EAT_ENOUGH===\n");
-	return (0);
-}
