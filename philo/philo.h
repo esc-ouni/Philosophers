@@ -53,6 +53,7 @@ typedef struct s_list
 	int				think_state;
 	int				eat_state;
 	int				eaten_meals;
+	int				keep_running;
 	pthread_t		philosopher;
 	struct s_list	*next;
 	pthread_mutex_t	*l_fork;
@@ -98,8 +99,10 @@ int			one_philosophe(t_data data, t_params params);
 void		*philosopher_state(void *arg);
 int			ft_parse(t_data data, t_params *params, int argc, char **argv);
 int			check_death(t_data data, t_list *n, t_params params);
+void		kill_ongoing_threads(t_data data, t_list *n, t_params params);
 void		*uno(void *arg);
 int			ft_atoi(char *str);
+void		destroy_mutexes(t_data data);
 void		ft_exit_with_error(int n, t_data data);
 t_list		*ft_lstnew(t_data data);
 t_list		*ft_lstlast(t_list *lst);

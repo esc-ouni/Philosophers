@@ -57,9 +57,16 @@ void	*philosopher_state(void *arg)
 	while (1)
 	{
 		pthread_mutex_lock(&node->lock->lock4);
+		if (!node->keep_running)
+			break ;
 		pthread_mutex_unlock(&node->lock->lock4);
 		if (node->eaten_meals == node->num_of_meals)
+		{
+			pthread_mutex_lock(&node->lock->lock2);
+			node->eat_state = EAT_ENOUGH;
+			pthread_mutex_unlock(&node->lock->lock2);
 			break ;
+		}
 		if (node->think_state == THINKING_STATE)
 		{
 			printer(node, "is thinking");
@@ -68,9 +75,6 @@ void	*philosopher_state(void *arg)
 		eat(arg);
 		sleepp(arg);
 	}
-	pthread_mutex_lock(&node->lock->lock2);
-	node->eat_state = EAT_ENOUGH;
-	pthread_mutex_unlock(&node->lock->lock2);
 	return (NULL);
 }
 
@@ -92,10 +96,13 @@ void	ft_usleep(time_t time)
 
 void	cleaner(t_data data, t_params params)
 {
-	if (data.head)
-		ft_lstclear(&data.head, params.n_of_philos);
 	if (data.mutexes)
+	{
+		destroy_mutexes(data);
 		free(data.mutexes);
+	}
 	if (data.threads)
 		free(data.threads);
+	if (data.head)
+		ft_lstclear(&data.head, params.n_of_philos);
 }
