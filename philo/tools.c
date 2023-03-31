@@ -19,7 +19,7 @@ int	ft_parse(t_data data, t_params *params, int argc, char **argv)
 	if (argc < 5 || argc > 6)
 		return (ARGS);
 	params->n_of_philos = ft_atoi(argv[1]);
-	if (params->n_of_philos == -1)
+	if (params->n_of_philos == -1 || params->n_of_philos == 0)
 		return (ARGS);
 	params->t_to_think = ft_atoi(argv[2]);
 	if (params->t_to_think == -1)
