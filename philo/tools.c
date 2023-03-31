@@ -74,7 +74,7 @@ void	ft_exit_with_error(int n, t_data data)
 	printf("\n\x1B[32m");
 	if (n == ARGS)
 	{
-		printf("===HINT=========================\n");
+		printf("===ERROR========================\n");
 		printf("Program need at least 4 arguments specefied like this:\n");
 		printf("Number_of_philos Time_to_die time_to_eat Time_to_sleep ");
 		printf("Number_of_meals(opptional)\n\n");
