@@ -46,13 +46,13 @@ void	*uno(void *arg)
 
 	params = *(t_params *)arg;
 	printf("===SUMULATION_STARTS============\n");
-	if (params.t_to_think < ft_time())
+	if (params.t_to_think <= ft_time())
 	{
 		printf("%ld 1 died\n", ft_time());
 		printf("===SUMULATION_ENDS==============\n");
 	}
 	printf("%ld 1 is thinking\n", ft_time());
-	ft_usleep(params.t_to_think);
+	usleep(params.t_to_think * 998);
 	printf("%ld 1 died\n", ft_time());
 	printf("===SUMULATION_ENDS==============\n");
 	return (NULL);
